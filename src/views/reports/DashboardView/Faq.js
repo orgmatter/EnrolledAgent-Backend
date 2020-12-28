@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TotalCustomers = ({ className, ...rest }) => {
+const Faq = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -52,13 +52,13 @@ const TotalCustomers = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TOTAL CUSTOMERS
+              FAQ
             </Typography>
             <Typography
               color="textPrimary"
               variant="h3"
             >
-              1,600
+              100
             </Typography>
           </Grid>
           <Grid item>
@@ -91,8 +91,8 @@ const TotalCustomers = ({ className, ...rest }) => {
   );
 };
 
-TotalCustomers.propTypes = {
+Faq.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalCustomers;
+export default Faq;

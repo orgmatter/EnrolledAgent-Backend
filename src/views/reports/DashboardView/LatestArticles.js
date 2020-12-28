@@ -32,24 +32,7 @@ const data = [
     imageUrl: '/static/images/products/product_2.png',
     updatedAt: moment().subtract(2, 'hours')
   },
-  {
-    id: uuid(),
-    name: 'Slack',
-    imageUrl: '/static/images/products/product_3.png',
-    updatedAt: moment().subtract(3, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Lyft',
-    imageUrl: '/static/images/products/product_4.png',
-    updatedAt: moment().subtract(5, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
-    updatedAt: moment().subtract(9, 'hours')
-  }
+  
 ];
 
 const useStyles = makeStyles(({
@@ -62,7 +45,7 @@ const useStyles = makeStyles(({
   }
 }));
 
-const LatestProducts = ({ className, ...rest }) => {
+const LatestArticles = ({ className, ...rest }) => {
   const classes = useStyles();
   const [products] = useState(data);
 
@@ -73,7 +56,7 @@ const LatestProducts = ({ className, ...rest }) => {
     >
       <CardHeader
         subtitle={`${products.length} in total`}
-        title="Latest Products"
+        title="Latest Articles"
       />
       <Divider />
       <List>
@@ -121,8 +104,8 @@ const LatestProducts = ({ className, ...rest }) => {
   );
 };
 
-LatestProducts.propTypes = {
+LatestArticles.propTypes = {
   className: PropTypes.string
 };
 
-export default LatestProducts;
+export default LatestArticles;

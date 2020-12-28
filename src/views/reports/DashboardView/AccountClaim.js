@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
@@ -42,46 +43,6 @@ const data = [
     },
     createdAt: 1555016400000,
     status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1047',
-    amount: 10.99,
-    customer: {
-      name: 'Alexa Richardson'
-    },
-    createdAt: 1554930000000,
-    status: 'refunded'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1046',
-    amount: 96.43,
-    customer: {
-      name: 'Anje Keizer'
-    },
-    createdAt: 1554757200000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1045',
-    amount: 32.54,
-    customer: {
-      name: 'Clarke Gillebert'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
-    customer: {
-      name: 'Adam Denisov'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
   }
 ];
 
@@ -92,16 +53,16 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const LatestOrders = ({ className, ...rest }) => {
+const AccountClaim = ({ className, ...rest }) => {
   const classes = useStyles();
-  const [orders] = useState(data);
+  const [claims] = useState(data);
 
   return (
     <Card
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <CardHeader title="Latest Orders" />
+      <CardHeader title="Account Claims" />
       <Divider />
       <PerfectScrollbar>
         <Box minWidth={800}>
@@ -130,30 +91,46 @@ const LatestOrders = ({ className, ...rest }) => {
                 <TableCell>
                   Status
                 </TableCell>
+                <TableCell>
+                  Action
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {orders.map((order) => (
+              {claims.map((claim) => (
                 <TableRow
                   hover
-                  key={order.id}
+                  key={claim.id}
                 >
                   <TableCell>
-                    {order.ref}
+                    {claim.ref}
                   </TableCell>
                   <TableCell>
-                    {order.customer.name}
+                    {claim.customer.name}
                   </TableCell>
                   <TableCell>
-                    {moment(order.createdAt).format('DD/MM/YYYY')}
+                    {moment(claim.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
                   <TableCell>
                     <Chip
-                      color="primary"
-                      label={order.status}
+                      color="secondary"
+                      label={claim.status}
                       size="small"
                     />
                   </TableCell>
+                  <TableCell>
+                    <Link to="/">
+                      <Button>
+                        View
+                      </Button>
+                    </Link>
+                    <Link to="/">
+                      <Button color="secondary">
+                        Cancel
+                      </Button>
+                    </Link>
+                  </TableCell>
+               
                 </TableRow>
               ))}
             </TableBody>
@@ -173,13 +150,14 @@ const LatestOrders = ({ className, ...rest }) => {
         >
           View all
         </Button>
+        
       </Box>
     </Card>
   );
 };
 
-LatestOrders.propTypes = {
+AccountClaim.propTypes = {
   className: PropTypes.string
 };
 
-export default LatestOrders;
+export default AccountClaim;
