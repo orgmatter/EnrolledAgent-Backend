@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = ({ className, agents, ...rest }) => {
   const classes = useStyles();
-  const [selectedAgetnIds, setSelectedAgentIds] = useState([]);
+  const [selectedAgentIds, setSelectedAgentIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
