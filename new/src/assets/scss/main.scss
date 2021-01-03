@@ -1,0 +1,66 @@
+
+
+// Core
+
+@import "main/custom/functions";
+@import "main/custom/variables";
+@import "main/custom/mixins";
+
+// bootstrap (4.3.1) components
+
+@import "main/bootstrap/root";
+@import "main/bootstrap/reboot";
+@import "main/bootstrap/type";
+@import "main/bootstrap/images";
+@import "main/bootstrap/code";
+@import "main/bootstrap/grid";
+@import "main/bootstrap/tables";
+@import "main/bootstrap/forms";
+@import "main/bootstrap/buttons";
+@import "main/bootstrap/transitions";
+@import "main/bootstrap/dropdown";
+@import "main/bootstrap/button-group";
+@import "main/bootstrap/input-group";
+@import "main/bootstrap/custom-forms";
+@import "main/bootstrap/nav";
+@import "main/bootstrap/navbar";
+@import "main/bootstrap/card";
+@import "main/bootstrap/breadcrumb";
+@import "main/bootstrap/pagination";
+@import "main/bootstrap/badge";
+@import "main/bootstrap/jumbotron";
+@import "main/bootstrap/alert";
+@import "main/bootstrap/progress";
+@import "main/bootstrap/media";
+@import "main/bootstrap/list-group";
+@import "main/bootstrap/close";
+@import "main/bootstrap/modal";
+@import "main/bootstrap/tooltip";
+@import "main/bootstrap/popover";
+@import "main/bootstrap/carousel";
+@import "main/bootstrap/utilities";
+@import "main/bootstrap/print";
+
+// Argon utilities and components
+
+@import "main/custom/reboot";
+@import "main/custom/utilities";
+@import "main/custom/components";
+
+// Vendor (Plugins)
+
+@import "main/custom/vendors";
+
+// Docs components
+
+@import "main/docs/variables";
+@import "main/docs/nav";
+@import "main/docs/clipboard-js";
+@import "main/docs/component-examples";
+@import "main/docs/prism";
+@import "main/docs/content";
+@import "main/docs/sidebar";
+@import "main/docs/footer";
+
+// React Differences
+@import "react/react-differences";
