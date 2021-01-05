@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
-import { addArticleCategory } from '../../../redux/_actions/articles/category/index';
+import { sponsorAdd } from '../../redux/_actions/sponsors/index';
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   Divider,
@@ -19,12 +20,14 @@ import {
 
 const useStyles = makeStyles(() => ({
   root: {}
+  
 }));
 
-export class addCategory extends Component {
+export class addSponsor extends Component {
   state = {
+    link: '',
     name: '',
-    description: '',
+    avatar: '',
     errors: {}
   };
 
@@ -35,31 +38,36 @@ export class addCategory extends Component {
   handleSubmit = (e) =>{
     e.preventDefault();
     
-    const { name, description } = this.state;
+    const { link, name, avatar } = this.state;
 
     //Check for errors
-    if(name === ''){
-      this.setState({ errors: { name: 'name is required'}});
+    if(link === ''){
+      this.setState({ errors: { link: 'Link is required'}});
       return;
     }
-    if(description === ''){
-      this.setState({ errors: { description: 'description is required'}});
+    if(name === ''){
+      this.setState({ errors: { name: 'Name is required'}});
       return;
+    }
+    if (avatar === '') {
+      this.setState({ errors: { avatar: 'Avatar Image is required'}})
     }
     const newPropertyCategory = {
+      link,
       name,
-      description
+      avatar
     }
    
     
     //Submit Category
-    this.props.addArticleCategory(newPropertyCategory)
-    NotificationManager.success('Article category added!', 'Successful!', 2000);
+    this.props.addSponsor(newPropertyCategory)
+    NotificationManager.success('Sponsor added!', 'Successful!', 2000);
     
      //Clear state
      this.setState({
+      link: '',
       name: '',
-      description: '',
+      avatar: '',
       errors: {}
     })
     this.props.history.push('/admin/index');
@@ -68,7 +76,7 @@ export class addCategory extends Component {
   
   render() {
   const classes = useStyles();
-  const { description, name, errors } = this.state;
+  const { link, name, avatar, errors } = this.state;
 
   return (
     <form
@@ -80,8 +88,8 @@ export class addCategory extends Component {
     >
       <Card>
         <CardHeader
-          subheader="Create Category"
-          title="Article Category"
+          subheader="Create Sponsor"
+          title="Sponsor add"
         />
         <Divider />
         <CardContent>
@@ -96,12 +104,12 @@ export class addCategory extends Component {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the category name"
-                label="Category name"
-                value={name}
+                helperText="Please specify the link "
+                label="Link"
+                value={link}
                 onChange = {this.onChangeInput}
-                name="name"
-                error={errors.name}
+                name="link"
+                error={errors.link}
                 variant="outlined"
               />
             </Grid>
@@ -112,12 +120,12 @@ export class addCategory extends Component {
             >
               <TextField
                 fullWidth
-                label="Category description"
-                name="description"
-                value={description}
+                label="Sponsor name"
+                name="name"
+                value={name}
                 onChange = {this.onChangeInput}
-                name="description"
-                error={errors.description}
+                name="name"
+                error={errors.name}
                 variant="outlined"
               />
             </Grid>
@@ -125,6 +133,20 @@ export class addCategory extends Component {
           </Grid>
         </CardContent>
         <Divider />
+
+        <CardActions>
+        <Button
+          color="primary"
+          fullWidth
+          value={avatar}
+          name="avatar"
+          error={errors.avatar}
+          variant="text"
+        >
+          Upload picture
+        </Button>
+      </CardActions>
+
         <Box
           display="flex"
           justifyContent="flex-end"
@@ -144,4 +166,4 @@ export class addCategory extends Component {
   }
 }
 
-export default connect(null, {addArticleCategory})(addCategory);
+export default connect(null, {sponsorAdd})(addSponsor);
