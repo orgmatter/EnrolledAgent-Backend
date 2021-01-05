@@ -12,13 +12,13 @@ export const getArticleCategories = () => async dispatch =>{
     }); 
 }
 
-// export const addBlogCategory = (category) => async dispatch => {
-//     const res = await axios.post('/blog-category', category);
-//     dispatch ({
-//         type: 'ADD_category',
-//         payload: res.data
-//     });
-// } 
+export const addArticleCategory = (category) => async dispatch => {
+    const res = await axios.post('/category/article', category);
+    dispatch ({
+        type: 'ADD_category',
+        payload: res.data
+    });
+} 
 
 // export const deleteBlogCategory = (id) => dispatch => {
 //     axios.delete(`/blog-category/${id}`)
