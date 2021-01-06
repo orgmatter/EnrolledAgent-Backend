@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://projects.bamyxitsolutions.com/#issues"
   },
-  "homepage": "https://enrolledagent.org",
+  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
