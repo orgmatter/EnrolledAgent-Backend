@@ -10,6 +10,7 @@ import ListSponsors from "./views/sponsors/index";
 import CreateSponsor from "./views/sponsors/addSponsor";
 import CreateResource from "./views/resources/resource/addResource";
 import addCategory from "./views/articles/category/addCategory";
+import ListResource from "./views/resources/resource/index";
 
 var routes = [
   {
@@ -54,6 +55,13 @@ var routes = [
     component: CreateResource,
     layout: "/admin"
   },
+  {
+    path: "/resources",
+    name: "List Resource",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListResource,
+    layout: "/admin"
+  },
   // {
   //   path: "/icons",
   //   name: "Icons",
@@ -68,13 +76,13 @@ var routes = [
   //   component: Maps,
   //   layout: "/admin"
   // },
-  // {
-  //   path: "/user-profile",
-  //   name: "User Profile",
-  //   icon: "ni ni-single-02 text-yellow",
-  //   component: Profile,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/user-profile",
+    name: "User Profile",
+    icon: "ni ni-single-02 text-yellow",
+    component: Profile,
+    layout: "/admin"
+  },
   // {
   //   path: "/tables",
   //   name: "Tables",
