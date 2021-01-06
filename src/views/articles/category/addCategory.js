@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addArticleCategory } from '../../../redux/_actions/articles/category/index';
+
+// React Notification
+import { NotificationManager } from 'react-notifications';
 import {
   Box,
   Button,
@@ -17,24 +21,60 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const addCategory = ({ className, ...rest }) => {
-  const classes = useStyles();
-  const [values, setValues] = useState({
+export class addCategory extends Component {
+  state = {
     name: '',
     description: '',
-  });
-
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+    errors: {}
   };
+
+  onChangeInput = (e) => this.setState({
+    [e.target.name] : e.target.value
+  })
+
+  handleSubmit = (e) =>{
+    e.preventDefault();
+    
+    const { name, description } = this.state;
+
+    //Check for errors
+    if(name === ''){
+      this.setState({ errors: { name: 'name is required'}});
+      return;
+    }
+    if(description === ''){
+      this.setState({ errors: { description: 'description is required'}});
+      return;
+    }
+    const newPropertyCategory = {
+      name,
+      description
+    }
+   
+    
+    //Submit Category
+    this.props.addArticleCategory(newPropertyCategory)
+    NotificationManager.success('Article category added!', 'Successful!', 2000);
+    
+     //Clear state
+     this.setState({
+      name: '',
+      description: '',
+      errors: {}
+    })
+    this.props.history.push('/admin/index');
+    
+  }
+  
+  render() {
+  const classes = useStyles();
+  const { description, name, errors } = this.state;
 
   return (
     <form
       autoComplete="off"
       noValidate
+      onSubmit={this.handleSubmit}
       className={clsx(classes.root, className)}
       {...rest}
     >
@@ -58,10 +98,10 @@ const addCategory = ({ className, ...rest }) => {
                 fullWidth
                 helperText="Please specify the category name"
                 label="Category name"
+                value={name}
+                onChange = {this.onChangeInput}
                 name="name"
-                onChange={handleChange}
-                required
-                value={values.name}
+                error={errors.name}
                 variant="outlined"
               />
             </Grid>
@@ -74,9 +114,10 @@ const addCategory = ({ className, ...rest }) => {
                 fullWidth
                 label="Category description"
                 name="description"
-                onChange={handleChange}
-                required
-                value={values.description}
+                value={description}
+                onChange = {this.onChangeInput}
+                name="description"
+                error={errors.description}
                 variant="outlined"
               />
             </Grid>
@@ -92,17 +133,15 @@ const addCategory = ({ className, ...rest }) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={this.handleSubmit}
           >
             Save details
           </Button>
         </Box>
       </Card>
     </form>
-  );
-};
+    )
+  }
+}
 
-addCategory.propTypes = {
-  className: PropTypes.string
-};
-
-export default addCategory;
+export default connect(null, {addArticleCategory})(addCategory);

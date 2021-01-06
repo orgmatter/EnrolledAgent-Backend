@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import {getArticleCategories} from '../../../redux/_actions/articles/category/'
+import {getAllSponsors} from '../../redux/_actions/sponsors/index'
 // reactstrap components
 import {
     Badge,
@@ -9,7 +9,7 @@ import {
     CardFooter,
     DropdownMenu,
     DropdownItem,
-    UncontrolledDropdown,
+    UncontrolledDropdown,   
     DropdownToggle,
     Media,
     Pagination,
@@ -24,12 +24,12 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListCategories = () => {
+const ListSponsors = () => {
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.data)
+    const sponsors = useSelector((state) => state.data)
   
   useEffect(() => {
-    dispatch(getArticleCategories());
+    dispatch(getAllSponsors());
   }, [dispatch]);
     return (
         <>
@@ -40,28 +40,33 @@ const ListCategories = () => {
           <Row>
             <div className="col">
               <Card className="shadow">
-                <CardHeader className="border-0">
-                  <h3 className="mb-0">Article Categories</h3>
+              <CardHeader className="border-0">
+                  <a className="mb-0" href="/admin/sponsor/create">Create New Sponsor</a>
                 </CardHeader>
+                <CardHeader className="border-0">
+                  <h3 className="mb-0">List of Sponsors</h3>
+                  
+                </CardHeader>
+               
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Link</th>
                       <th scope="col">Name</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Slug</th>
+                      <th scope="col">Avatar</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
                       {
-                        categories.data.map((category, index)=>(
+                        sponsors.data.map((sponsor, index)=>(
                         <tr key={index}>
-                        <td>{category.name}</td>
-                        <td>{category.description}</td>
-                        <td>{category.slug}</td>
-                      
-                          
-                      <td className="text-right">
+                          <td>{sponsor.id}</td>
+                          <td>{sponsor.link}</td>
+                          <td>{sponsor.name}</td>
+                          <td>{sponsor.avatar}</td>
+                          <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
                             className="btn-icon-only text-light"
@@ -162,4 +167,4 @@ const ListCategories = () => {
     )
 }
 
-export default ListCategories;
+export default ListSponsors;

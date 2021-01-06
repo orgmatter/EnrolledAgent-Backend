@@ -29,7 +29,7 @@ const Login = (props) => {
     setError("");
     setLoading(true);
     axios
-      .post("https://api.enrolledagent.org/login", { email: email.value, password: password.value })
+      .post("login", { email: email.value, password: password.value })
       .then((response) => {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
@@ -38,7 +38,7 @@ const Login = (props) => {
       .catch((error) => {
         console.log(error)
         setLoading(false);
-        if (error.response.status === 401) {
+        if (error.response === 401) {
           setError(() => "Invalid login details");
         } else setError("Something went wrong. Please try again later.");
       });
