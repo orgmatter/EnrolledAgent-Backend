@@ -1,169 +1,122 @@
-import React, { Component } from 'react';
-import clsx from 'clsx';
+import React, {Component} from 'react'
 import { connect } from 'react-redux';
-import { sponsorAdd } from '../../redux/_actions/sponsors/index';
+import {sponsorAdd} from '../../redux/_actions/sponsors/index'
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
+
+// reactstrap components
 import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  TextField,
-  makeStyles
-} from '@material-ui/core';
+    FormGroup,
+    Card,
+    CardHeader,
+    Form,
+    Label,
+    Input,
+    Button,
+    Container,
+    Row,
+    Col
+  } from "reactstrap";
+  // core components
+  import Header from "components/Headers/Header.js";
 
-const useStyles = makeStyles(() => ({
-  root: {}
-  
-}));
-
-export class addSponsor extends Component {
-  state = {
-    link: '',
-    name: '',
-    avatar: '',
-    errors: {}
-  };
-
-  onChangeInput = (e) => this.setState({
-    [e.target.name] : e.target.value
-  })
-
-  handleSubmit = (e) =>{
-    e.preventDefault();
-    
-    const { link, name, avatar } = this.state;
-
-    //Check for errors
-    if(link === ''){
-      this.setState({ errors: { link: 'Link is required'}});
-      return;
-    }
-    if(name === ''){
-      this.setState({ errors: { name: 'Name is required'}});
-      return;
-    }
-    if (avatar === '') {
-      this.setState({ errors: { avatar: 'Avatar Image is required'}})
-    }
-    const newPropertyCategory = {
-      link,
-      name,
-      avatar
-    }
-   
-    
-    //Submit Category
-    this.props.addSponsor(newPropertyCategory)
-    NotificationManager.success('Sponsor added!', 'Successful!', 2000);
-    
-     //Clear state
-     this.setState({
+  export class CreateSponsor extends Component {
+    state = {
       link: '',
       name: '',
       avatar: '',
       errors: {}
+    };
+
+    onChangeInput = (e) => this.setState({
+      [e.target.name] : e.target.value
     })
-    this.props.history.push('/admin/index');
-    
-  }
   
-  render() {
-  const classes = useStyles();
-  const { link, name, avatar, errors } = this.state;
+    handleSubmit = (e) =>{
+      e.preventDefault();
+      
+      const { link, name, avatar } = this.state;
+  
+      //Check for errors
+      if(link === ''){
+        this.setState({ errors: { name: 'link is required'}});
+        return;
+      }
+      if(name === ''){
+        this.setState({ errors: { url: 'name is required'}});
+        return;
+      }
+      if (avatar === '') {
+        this.setState({ errors: { avatar: 'avatar image is required'} });
+      }
+      const newPropertySponsor = {
+        link,
+        name,
+        avatar
+      }
+     
+      
+      //Submit Category
+      this.props.sponsorAdd(newPropertySponsor)
+      NotificationManager.success('Blog category added!', 'Successful!', 2000);
+      
+       //Clear state
+       this.setState({
+        link: '',
+        name: '',
+        avatar: '',
+        errors: {}
+      })
+      this.props.history.push('/admin/sponsors');
+      
+    }
 
-  return (
-    <form
-      autoComplete="off"
-      noValidate
-      onSubmit={this.handleSubmit}
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
-      <Card>
-        <CardHeader
-          subheader="Create Sponsor"
-          title="Sponsor add"
-        />
-        <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                helperText="Please specify the link "
-                label="Link"
-                value={link}
-                onChange = {this.onChangeInput}
-                name="link"
-                error={errors.link}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={12}
-              xs={6}
-            >
-              <TextField
-                fullWidth
-                label="Sponsor name"
-                name="name"
-                value={name}
-                onChange = {this.onChangeInput}
-                name="name"
-                error={errors.name}
-                variant="outlined"
-              />
-            </Grid>
-            
-          </Grid>
-        </CardContent>
-        <Divider />
+    render() {
+      const { link, name, avatar, errors } = this.state;
 
-        <CardActions>
-        <Button
-          color="primary"
-          fullWidth
-          value={avatar}
-          name="avatar"
-          error={errors.avatar}
-          variant="text"
-        >
-          Upload picture
-        </Button>
-      </CardActions>
+    return (
+        <>
+        <Header />
+        {/* Page content */}
+        <Container className="mt--7" fluid>
+          {/* Table */}
+          <Row>
+            <div className="col">
+              <Card className="shadow">
+              <CardHeader className="border-0">
+                <h3 className="mb-0">Create Sponsor</h3>
+                </CardHeader>
+                <Form onSubmit={this.handleSubmit} >
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Label for="link">Link</Label>
+                      <Input type="url" name="link" value={link} error={errors.link} onChange={this.onChangeInput} id="link" />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Label for="Name">Name</Label>
+                      <Input type="text" value={name} onChange = {this.onChangeInput} name="name" error={errors.name} id="Name" />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Label for="avatar">Upload Avatar</Label>
+                      <Input type="file" value={avatar} onChange={this.onChangeInput} error={errors.avatar} name="avatar" id="avatar" />
+                    </Col>
+                  </FormGroup>
+                  
+                  <Button onClick={this.handleSubmit} className="btn btn-primary mr-2">Submit</Button>
+                </Form>
+              </Card>
+            </div>
+          </Row>
+         
+        </Container>
+      </>
+        )
+      }
+    }
+ export default connect(null, {sponsorAdd})(CreateSponsor);
 
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          p={2}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={this.handleSubmit}
-          >
-            Save details
-          </Button>
-        </Box>
-      </Card>
-    </form>
-    )
-  }
-}
-
-export default connect(null, {sponsorAdd})(addSponsor);
