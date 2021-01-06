@@ -1,147 +1,109 @@
-import React, { Component } from 'react';
-import clsx from 'clsx';
+import React, {Component} from 'react'
 import { connect } from 'react-redux';
-import { addArticleCategory } from '../../../redux/_actions/articles/category/index';
+import {addArticleCategory} from '../../../redux/_actions/articles/category/index'
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
+
+// reactstrap components
 import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  TextField,
-  makeStyles
-} from '@material-ui/core';
+    FormGroup,
+    Card,
+    CardHeader,
+    Form,
+    Label,
+    Input,
+    Button,
+    Container,
+    Row,
+    Col
+  } from "reactstrap";
+  // core components
+  import Header from "components/Headers/Header.js";
 
-const useStyles = makeStyles(() => ({
-  root: {}
-}));
-
-export class addCategory extends Component {
-  state = {
-    name: '',
-    description: '',
-    errors: {}
-  };
-
-  onChangeInput = (e) => this.setState({
-    [e.target.name] : e.target.value
-  })
-
-  handleSubmit = (e) =>{
-    e.preventDefault();
-    
-    const { name, description } = this.state;
-
-    //Check for errors
-    if(name === ''){
-      this.setState({ errors: { name: 'name is required'}});
-      return;
-    }
-    if(description === ''){
-      this.setState({ errors: { description: 'description is required'}});
-      return;
-    }
-    const newPropertyCategory = {
-      name,
-      description
-    }
-   
-    
-    //Submit Category
-    this.props.addArticleCategory(newPropertyCategory)
-    NotificationManager.success('Article category added!', 'Successful!', 2000);
-    
-     //Clear state
-     this.setState({
+  export class addCategory extends Component {
+    state = {
       name: '',
       description: '',
       errors: {}
+    };
+
+    onChangeInput = (e) => this.setState({
+      [e.target.name] : e.target.value
     })
-    this.props.history.push('/admin/index');
-    
-  }
   
-  render() {
-  const classes = useStyles();
-  const { description, name, errors } = this.state;
+    handleSubmit = (e) =>{
+      e.preventDefault();
+      
+      const { name, description } = this.state;
+  
+      //Check for errors
+      if(name === ''){
+        this.setState({ errors: { name: 'link is required'}});
+        return;
+      }
+      if (description === '') {
+        this.setState({ errors: { description: 'description image is required'} });
+      }
+      const newPropertySponsor = {
+        name,
+        description
+      }
+     
+      
+      //Submit Category
+      this.props.addArticleCategory(newPropertySponsor)
+      NotificationManager.success('Blog category added!', 'Successful!', 2000);
+      
+       //Clear state
+       this.setState({
+        name: '',
+        description: '',
+        errors: {}
+      })
+      this.props.history.push('/admin/article/categories');
+      
+    }
 
-  return (
-    <form
-      autoComplete="off"
-      noValidate
-      onSubmit={this.handleSubmit}
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
-      <Card>
-        <CardHeader
-          subheader="Create Category"
-          title="Article Category"
-        />
-        <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                helperText="Please specify the category name"
-                label="Category name"
-                value={name}
-                onChange = {this.onChangeInput}
-                name="name"
-                error={errors.name}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={12}
-              xs={6}
-            >
-              <TextField
-                fullWidth
-                label="Category description"
-                name="description"
-                value={description}
-                onChange = {this.onChangeInput}
-                name="description"
-                error={errors.description}
-                variant="outlined"
-              />
-            </Grid>
-            
-          </Grid>
-        </CardContent>
-        <Divider />
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          p={2}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={this.handleSubmit}
-          >
-            Save details
-          </Button>
-        </Box>
-      </Card>
-    </form>
-    )
-  }
-}
+    render() {
+      const { name, description, errors } = this.state;
 
-export default connect(null, {addArticleCategory})(addCategory);
+    return (
+        <>
+        <Header />
+        {/* Page content */}
+        <Container className="mt--7" fluid>
+          {/* Table */}
+          <Row>
+            <div className="col">
+              <Card className="shadow">
+              <CardHeader className="border-0">
+                <h3 className="mb-0">Create Article Category</h3>
+                </CardHeader>
+                <Form onSubmit={this.handleSubmit} >
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Label for="Name">Name</Label>
+                      <Input type="text" value={name} onChange = {this.onChangeInput} name="name" error={errors.name} id="Name" />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Label for="description">description</Label>
+                      <Input type="text" value={description} onChange={this.onChangeInput} error={errors.description} name="description" id="description" />
+                    </Col>
+                  </FormGroup>
+                  
+                  <Button onClick={this.handleSubmit} className="btn btn-primary mr-2">Submit</Button>
+                </Form>
+              </Card>
+            </div>
+          </Row>
+         
+        </Container>
+      </>
+        )
+      }
+    }
+ export default connect(null, {addArticleCategory})(addCategory);
+
