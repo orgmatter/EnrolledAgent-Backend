@@ -54,19 +54,13 @@ const ListCategories = () => {
                   </thead>
                   <tbody>
                       {
-                          categories.map((category)=>(
-                            <td>{category.name}</td>
-                          ))
-                      };
-                      {
-                          console.log(categories)
-                      }
-                    <tr>
-                   
-                      <td>Name</td>
-                      <td>Desc</td>
-                      <td>Slug</td>
-                    
+                        categories.data.map((category, index)=>(
+                        <tr key={index}>
+                        <td>{category.name}</td>
+                        <td>{category.description}</td>
+                        <td>{category.slug}</td>
+                      
+                          
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -101,7 +95,9 @@ const ListCategories = () => {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
-                     </tr>
+                      </tr>
+                        ))
+                      }
                     
                   </tbody>
                 </Table>

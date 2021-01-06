@@ -1,11 +1,14 @@
-import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
-import Maps from "views/examples/Maps.js";
-import Register from "views/examples/Register.js";
-import Login from "views/auth/Login.js";
-import Tables from "views/examples/Tables.js";
-import Icons from "views/examples/Icons.js";
-import ListCategories from "views/articles/category";
+import Index from "./views/Index.js";
+import Profile from "./views/examples/Profile.js";
+import Maps from "./views/examples/Maps.js";
+import Register from "./views/examples/Register.js";
+import Login from "./views/auth/Login.js";
+import Tables from "./views/examples/Tables.js";
+import Icons from "./views/examples/Icons.js";
+import ListCategories from "./views/articles/category";
+import ListSponsors from "./views/sponsors/index";
+import CreateSponsor from "./views/sponsors/addSponsor";
+import CreateResource from "./views/resources/resource/addResource";
 
 var routes = [
   {
@@ -18,8 +21,29 @@ var routes = [
   {
     path: "/article/categories",
     name: "Article Categories",
+    icon: "ni ni-tv-2 text-primary", 
+    component: ListCategories,
+    layout: "/admin"
+  },
+  {
+    path: "/sponsors",
+    name: "Sponsors",
     icon: "ni ni-tv-2 text-primary",
-    component: ListCategories ,
+    component: ListSponsors,
+    layout: "/admin"
+  },
+  {
+    path: "/sponsor/create",
+    name: "Create Sponsor",
+    icon: "ni ni-tv-2 text-primary",
+    component: CreateSponsor,
+    layout: "/admin"
+  },
+  {
+    path: "/resource/create",
+    name: "Create Resource",
+    icon: "ni ni-tv-2 text-primary",
+    component: CreateResource,
     layout: "/admin"
   },
   {
