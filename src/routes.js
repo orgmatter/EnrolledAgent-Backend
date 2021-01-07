@@ -11,6 +11,10 @@ import CreateSponsor from "./views/sponsors/addSponsor";
 import CreateResource from "./views/resources/resource/addResource";
 import addCategory from "./views/articles/category/addCategory";
 import ListResource from "./views/resources/resource/index";
+import addCategoryResource from "./views/resources/category/addCategoryResource";
+import ListResourceCategories from "./views/resources/category/index";
+import ListAgent from "./views/agents/index";
+import uploadAgent from "./views/agents/uploadAgent";
 
 var routes = [
   {
@@ -56,10 +60,38 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/resource/category/create",
+    name: "Create Resource Category",
+    icon: "ni ni-tv-2 text-primary", 
+    component: addCategoryResource,
+    layout: "/admin"
+  },
+  {
+    path: "/resource/categories",
+    name: "Resource Categories",
+    icon: "ni ni-tv-2 text-primary", 
+    component: ListResourceCategories,
+    layout: "/admin"
+  },
+  {
     path: "/resources",
     name: "List Resource",
     icon: "ni ni-tv-2 text-primary",
     component: ListResource,
+    layout: "/admin"
+  },
+  {
+    path: "/agents",
+    name: "List Agents",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListAgent,
+    layout: "/admin"
+  },
+  {
+    path: "/agent/upload",
+    name: "Upload Agents",
+    icon: "ni ni-tv-2 text-primary",
+    component: uploadAgent,
     layout: "/admin"
   },
   // {

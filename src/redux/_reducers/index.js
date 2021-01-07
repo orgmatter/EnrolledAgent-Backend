@@ -7,7 +7,13 @@ import {CategoryArticle} from './articles/category/CategoryArticle';
 import {Sponsor} from './sponsors/Sponsor';
 
 //Resource
-import {Resource} from "./resources/Resource"
+import {Resource} from "./resources/Resource";
+
+//Resource Category
+import {CategoryResource} from "./resources/category/CategoryResource"
+
+//Agent
+import {Agent} from "./agents/Agent";
 
 
 export default combineReducers({
@@ -15,6 +21,8 @@ export default combineReducers({
     //Property
     data : CategoryArticle,
     data: Sponsor,
-    data: Resource
+    data: Resource,
+    data: CategoryResource,
+    data: Agent
    
 })

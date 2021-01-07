@@ -40,7 +40,7 @@ const ListResource = () => {
           <Row>
             <div className="col">
               <Card className="shadow">
-              <CardHeader className="border-0">
+                <CardHeader className="border-0">
                   <a className="mb-0" href="/admin/resource/create">Create New Resource</a>
                 </CardHeader>
                 <CardHeader className="border-0">
