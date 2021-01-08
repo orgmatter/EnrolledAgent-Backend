@@ -1,21 +1,22 @@
-import axios from '../../axios/index'
+import axios from '../../../axios'
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
-export const getResources = () => async dispatch =>{
+export const getResourcesCategories = () => async dispatch =>{
 
-    const res = await axios.get('resource');
-    dispatch ({ 
-        type : 'GET_ALL_RESOURCE',
-        payload : res.data
-    }); 
+  const res = await axios.get('category/resource');
+  dispatch ({ 
+      type : 'GET_RESOURCE_CATEGORIES',
+      payload : res.data
+  }); 
 }
 
-export const ResourceAdd = (resource) => async dispatch => {
-    const res = await axios.post('/resource', resource);
+
+export const addResourceCategory = (category) => async dispatch => {
+    const res = await axios.post('/category/resource', category);
     dispatch ({
-        type: 'ADD_resource',
+        type: 'ADD_category',
         payload: res.data
     });
 } 

@@ -26,12 +26,12 @@ export const Sponsor = (state = initState, action) => {
       case 'DELETE_sponsor' :
           return{
               ...state,
-              categories: state.categories.filter(sponsor => sponsor.id !==action.payload)
+              sponsors: state.sponsors.filter(sponsor => sponsor.id !==action.payload)
           }
       case 'UPDATE_sponsor':
         return {
           ...state,
-          categories : state.categories.map(sponsor => sponsor.id === action.payload.id ? (sponsor = action.payload) : sponsor )
+          sponsors : state.sponsors.map(sponsor => sponsor.id === action.payload.id ? (sponsor = action.payload) : sponsor )
         }
       default : {
           return state

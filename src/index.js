@@ -10,7 +10,6 @@ import "./assets/scss/main.scss";
 import AdminLayout from "./layouts/Admin.js";
 import AuthLayout from "./layouts/Auth.js";
 
-// const Login = lazy(() => import('views/auth/Login'));
 import Login from "./views/auth/Login"
 import PublicRoute from "./Utils/PublicRoute";
 

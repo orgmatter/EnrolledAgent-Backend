@@ -3,39 +3,47 @@ import axios from '../../axios/index'
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
-export const getResources = () => async dispatch =>{
+export const getAgents = () => async dispatch =>{
 
-    const res = await axios.get('resource');
+    const res = await axios.get('/agent');
     dispatch ({ 
-        type : 'GET_ALL_RESOURCE',
+        type : 'GET_ALL_AGENTS',
         payload : res.data
     }); 
 }
 
-export const ResourceAdd = (resource) => async dispatch => {
-    const res = await axios.post('/resource', resource);
-    dispatch ({
-        type: 'ADD_resource',
-        payload: res.data
-    });
-} 
+export const agentUpload = (agent) => async dispatch => {
+  const res = await axios.post('/agent/upload', agent);
+  dispatch ({
+      type: 'ADD_agent',
+      payload: res.data
+  });
+}
 
-// export const deleteBlogCategory = (id) => dispatch => {
-//     axios.delete(`/blog-category/${id}`)
+// export const agentAdd = (agent) => async dispatch => {
+//     const res = await axios.post('/agent', agent);
+//     dispatch ({
+//         type: 'ADD_agent',
+//         payload: res.data
+//     });
+// } 
+
+// export const deleteagent = (id) => dispatch => {
+//     axios.delete(`/agent/${id}`)
 //     .then(res => {
 //         dispatch({
-//             type : 'DELETE_category',
+//             type : 'DELETE_agent',
 //             payload : id 
 //          })
-//          NotificationManager.success('Blog category deleted successfully!', 'Success!', 2000);
+//          NotificationManager.success('agent deleted successfully!', 'Success!', 2000);
 //      })
 //      .catch(err => {
 //          console.log(err)
-//          NotificationManager.error('Unable to delete Blog category!', 'Error!', 2000);
+//          NotificationManager.error('Unable to delete agent!', 'Error!', 2000);
 //      })
 // }
 
-// export const getBlogCategory = (id) => async dispatch =>{
+// export const getagent = (id) => async dispatch =>{
 
 //     try {
 
@@ -50,7 +58,7 @@ export const ResourceAdd = (resource) => async dispatch => {
     
 // }
 
-// export const updateBlogCategory = (category) =>async dispatch => {
+// export const updateagent = (category) =>async dispatch => {
 
 //     try {
 //         const res = await axios.put(`/blog-category/${category.id}`, category);
