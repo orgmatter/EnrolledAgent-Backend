@@ -49,6 +49,7 @@ import {
       
       //Submit Category
       if(this.props.agentUpload(newPropertyAgentUpload) == true){
+        console.log('successful')
         NotificationManager.success('Agent Uploaded!', 'Successful!', 2000);
           //Clear state
         this.setState({
@@ -57,6 +58,7 @@ import {
         })
         this.props.history.push('/admin/agents');
       }else{
+        console.log('Something went wrong')
         NotificationManager.error('Something went wrong!', 'Erro!', 2000);
       }
       
@@ -97,12 +99,12 @@ import {
                               Click me to upload a file!
                               {isDragReject && "File type not accepted, sorry!"}
                             </div>
-                          )}
+                          )}  
                         </Dropzone>
                     </Col>
                   </FormGroup>
                   
-                  <Button onClick={this.handleSubmit} className="btn btn-primary mr-2">Submit</Button>
+                  <Button onClick={() => {if(window.confirm('Are you sure?'));}} className="btn btn-primary mr-2">Submit</Button>
                 </Form>
               </Card>
             </div>
