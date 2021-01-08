@@ -1,16 +1,25 @@
+import {
+    GET_ARTICLE_CATEGORIES
+} from '../../../_actions/types';
+
 const initState = {
+    token: localStorage.getItem('token'),
     error: null,
-    data:  [],
-    category : {}
-    
+    categories:  [],
+    category : {},
+    isAuthenticated: false,
+    loading: true
 }; 
 
-export const CategoryArticle = (state = initState, action) => {
-    switch (action.type) {
-        case 'GET_ARTICLE_CATEGORIES' :
+export default function(state = initState, action){
+    const {type, payload} = action;
+    switch (type) {
+        case GET_ARTICLE_CATEGORIES :
             return{
             ...state, 
-            data: action.payload,     
+            categories: payload,
+            isAuthenticated: true,
+            loading: false,    
         }
         case 'GET_category':
           return {

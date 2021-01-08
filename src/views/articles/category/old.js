@@ -27,7 +27,7 @@ import {
 const ListCategories = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.data)
-    console.log(categories);
+  
   useEffect(() => {
     dispatch(getArticleCategories());
   }, [dispatch]);
@@ -54,8 +54,8 @@ const ListCategories = () => {
                   </thead>
                   <tbody>
                       {
-                        categories.map((category)=>(
-                        <tr key={category.id}>
+                        categories.map((category, index)=>(
+                        <tr key={index}>
                         <td>{category.name}</td>
                         <td>{category.description}</td>
                         <td>{category.slug}</td>

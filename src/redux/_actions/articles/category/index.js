@@ -1,14 +1,22 @@
-import axios from '../../../axios'
-
+import axios from 'axios';
+import {
+    GET_ARTICLE_CATEGORIES
+} from '../../../_actions/types';
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
 export const getArticleCategories = () => async dispatch =>{
-
-  const res = await axios.get('category/article');
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb'
+        }
+    };
+  const res = await axios.get('https://api.enrolledagent.org/category/article',config);
   dispatch ({ 
-      type : 'GET_ARTICLE_CATEGORIES',
-      payload : res.data
+      type : GET_ARTICLE_CATEGORIES,
+      payload : res.data,
+      
   }); 
 }
 
