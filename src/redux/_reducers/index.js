@@ -6,5 +6,5 @@ export default combineReducers({
 
     //alert,
     auth,
-    CategoryArticle,
+    data : CategoryArticle,
 });

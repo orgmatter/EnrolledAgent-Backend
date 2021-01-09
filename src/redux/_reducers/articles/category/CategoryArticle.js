@@ -5,7 +5,8 @@ import {
 const initState = {
     token: localStorage.getItem('token'),
     error: null,
-    categories:  [],
+    // categories:  [],
+    data:  [],
     category : {},
     isAuthenticated: false,
     loading: true
@@ -15,11 +16,13 @@ export default function(state = initState, action){
     const {type, payload} = action;
     switch (type) {
         case GET_ARTICLE_CATEGORIES :
+          localStorage.setItem('token', payload.token);
             return{
             ...state, 
-            categories: payload,
+            data: action.payload,
             isAuthenticated: true,
-            loading: false,    
+            loading: false,
+                
         }
         case 'GET_category':
           return {
