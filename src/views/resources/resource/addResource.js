@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ResourceAdd } from '../../../redux/_actions/resources/index';
 import { Editor } from '@tinymce/tinymce-react';
+import Select from 'react-select';
+import {availableSponsors} from '../../api'
 
 // React Notification
 import { NotificationManager } from 'react-notifications';

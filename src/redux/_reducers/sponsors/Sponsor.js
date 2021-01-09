@@ -1,11 +1,14 @@
 const initState = {
+  token: localStorage.getItem('token'),
   error: null,
   data:  [],
-  sponsor : {}
+  sponsor : {},
+  isAuthenticated: false,
+  loading: true
   
 }; 
 
-export const Sponsor = (state = initState, action) => {
+export default function(state = initState, action){
   switch (action.type) {
       case 'GET_ALL_SPONSORS' :
           return{
@@ -20,7 +23,7 @@ export const Sponsor = (state = initState, action) => {
       case 'ADD_sponsor' :
           return {
               ...state,
-              sponsors: [action.payload, ...state.sponsors]
+              data: [action.payload, ...state.data]
           } 
 
       case 'DELETE_sponsor' :

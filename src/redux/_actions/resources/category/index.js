@@ -8,7 +8,7 @@ export const getResourcesCategories = () => async dispatch =>{
   const res = await axios.get('category/resource');
   dispatch ({ 
       type : 'GET_RESOURCE_CATEGORIES',
-      payload : res.data
+      payload : res.data.data
   }); 
 }
 
