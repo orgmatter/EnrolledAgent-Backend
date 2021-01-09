@@ -24,11 +24,11 @@ export const getArticleCategories = () => async dispatch =>{
 
 export const addArticleCategory = (category) => async dispatch => {
     const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
+        headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
     };
     const res = await axios.post('/category/article', category, config);
     dispatch ({
