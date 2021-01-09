@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../../axios';
 import {
     GET_ARTICLE_CATEGORIES
 } from '../../../_actions/types';
@@ -12,7 +12,7 @@ export const getArticleCategories = () => async dispatch =>{
             'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb'
         }
     };
-  const res = await axios.get('https://api.enrolledagent.org/category/article',config);
+  const res = await axios.get('/category/article',config);
   dispatch ({ 
       type : GET_ARTICLE_CATEGORIES,
       payload : res.data,
