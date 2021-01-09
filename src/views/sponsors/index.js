@@ -59,6 +59,7 @@ const ListSponsors = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    {console.log(sponsors.data)}
                       {
                         sponsors.data.map((sponsor, index)=>(
                         <tr key={index}>

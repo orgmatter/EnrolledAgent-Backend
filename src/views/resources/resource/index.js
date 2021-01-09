@@ -62,7 +62,7 @@ const ListResource = () => {
                   </thead>
                   <tbody>
                       {
-                        resources.data.map((resource, index)=>(
+                        resources.map((resource, index)=>(
                         <tr key={index}>
                           <td>{resource.id}</td>
                           <td>{resource.sponsor}</td>

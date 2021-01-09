@@ -27,7 +27,7 @@ import {
 const ListCategories = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.data)
-    console.log(categories);
+  
   useEffect(() => {
     dispatch(getArticleCategories());
   }, [dispatch]);
@@ -40,6 +40,9 @@ const ListCategories = () => {
           <Row>
             <div className="col">
               <Card className="shadow">
+              <CardHeader className="border-0">
+                  <a href="/admin/article/category/create" className="mb-0">Add Category</a>
+                </CardHeader>
                 <CardHeader className="border-0">
                   <h3 className="mb-0">Article Categories</h3>
                 </CardHeader>
@@ -53,9 +56,10 @@ const ListCategories = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    {console.log(categories.data)}
                       {
-                        categories.map((category)=>(
-                        <tr key={category.id}>
+                        categories.data.map((category, index)=>(
+                        <tr key={index}>
                         <td>{category.name}</td>
                         <td>{category.description}</td>
                         <td>{category.slug}</td>
