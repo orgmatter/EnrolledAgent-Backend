@@ -5,7 +5,7 @@ import {
 const initState = {
     token: localStorage.getItem('token'),
     error: null,
-    // categories:  [],
+    //categories:  [],
     data:  [],
     category : {},
     isAuthenticated: false,
@@ -31,7 +31,7 @@ export default function(state = initState, action){
         case 'ADD_category' :
             return {
                 ...state,
-                categories: [action.payload, ...state.categories]
+                categories: [action.payload, ...state.data]
             } 
 
         case 'DELETE_category' :
