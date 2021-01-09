@@ -9,8 +9,8 @@ export const getArticleCategories = () => async dispatch =>{
     const config = {
         headers: {
             'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb'
-            
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
   const res = await axios.get('/category/article',config);
@@ -23,17 +23,7 @@ export const getArticleCategories = () => async dispatch =>{
 
 
 export const addArticleCategory = (category) => async dispatch => {
-  let token = '';
-  const config = {
-    
-    headers: {
-        'Content-Type': 'application/json',
-        'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-        'Authorization': `Bearer ${token}`
-        
-    }
-};
-    const res = await axios.post('https://api.enrolledagent.org/category/article', category, config);
+    const res = await axios.post('/category/article', category);
     dispatch ({
         type: 'ADD_category',
         payload: res.data

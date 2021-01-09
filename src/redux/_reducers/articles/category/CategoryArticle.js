@@ -16,7 +16,6 @@ export default function(state = initState, action){
     const {type, payload} = action;
     switch (type) {
         case GET_ARTICLE_CATEGORIES :
-          localStorage.setItem('token', payload.token);
             return{
             ...state, 
             data: action.payload,
