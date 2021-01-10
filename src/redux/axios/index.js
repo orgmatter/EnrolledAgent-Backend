@@ -9,5 +9,4 @@ export default axios.create({
     'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
     "Authorization": `Bearer ${localStorage.getItem("token")}`
 }
-
 });

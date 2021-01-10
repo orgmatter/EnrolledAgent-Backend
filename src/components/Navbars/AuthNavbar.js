@@ -53,7 +53,7 @@ class AdminNavbar extends React.Component {
               </div>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink className="nav-link-icon" to="https://enrolledagent.org" tag={Link}>
+                  <NavLink className="nav-link-icon" href="https://enrolledagent.org">
                     <i className="ni ni-planet" />
                     <span className="nav-link-inner--text">Main Website</span>
                   </NavLink>
@@ -65,7 +65,7 @@ class AdminNavbar extends React.Component {
                     tag={Link}
                   >
                     <i className="ni ni-app" />
-                    <span className="nav-link-inner--text">Mobile App</span>
+                    <span className="nav-link-inner--text">Download Mobile App</span>
                   </NavLink>
                 </NavItem>
            
