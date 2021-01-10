@@ -52,9 +52,9 @@ const ListSponsors = () => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">ID</th>
-                      <th scope="col">Link</th>
                       <th scope="col">Name</th>
-                      <th scope="col">Avatar</th>
+                      <th scope="col">Link</th>
+
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -63,10 +63,9 @@ const ListSponsors = () => {
                       {
                         sponsors.data.map((sponsor, index)=>(
                         <tr key={index}>
-                          <td>{sponsor.id}</td>
-                          <td>{sponsor.link}</td>
+                          <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
-                          <td>{sponsor.avatar}</td>
+                          <td>{sponsor.link}</td>
                           <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle

@@ -1,7 +1,10 @@
 const initState = {
+  token: localStorage.getItem('token'),
   error: null,
   data:  [],
-  category : {}
+  category : {},
+  isAuthenticated: false,
+  loading: true
   
 }; 
 

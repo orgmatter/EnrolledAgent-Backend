@@ -12,7 +12,7 @@ const initState = {
     loading: true
 }; 
 
-export default function(state = initState, action){
+export const CategoryArticle = (state = initState, action) => {
     const {type, payload} = action;
     switch (type) {
         case GET_ARTICLE_CATEGORIES :
@@ -31,7 +31,11 @@ export default function(state = initState, action){
         case 'ADD_category' :
             return {
                 ...state,
+<<<<<<< HEAD
                 categories: [action.payload, ...state.data]
+=======
+                data: [action.payload, ...state.data]
+>>>>>>> ad5f4803af66c0c71dda61abee0ba7a0fbf02863
             } 
 
         case 'DELETE_category' :
