@@ -39,6 +39,9 @@
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.12.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@reach/dialog": "^0.12.1",
     "@tinymce/tinymce-react": "^3.8.4",
     "axios": "^0.21.1",

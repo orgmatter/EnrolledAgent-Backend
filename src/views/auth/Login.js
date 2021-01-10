@@ -20,14 +20,19 @@ import {
     InputGroupText,
     InputGroup,
     Row,
-    Col
+    Col,
+    Button
   } from "reactstrap";
-  
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
+
 const Login = ({login, isAuthenticated}) => {
       const [formData, setFormData] = useState({
-        email: '',
+        email: '', 
         password: ''
       });
+      const [passwordShown, setPasswordShown] = useState(false);
       const {email, password} = formData;
       const onChange = e => 
       setFormData({
@@ -38,6 +43,9 @@ const Login = ({login, isAuthenticated}) => {
           e.preventDefault();
           login(email,password);
       }
+      const togglePasswordVisiblity = () => {
+        setPasswordShown(passwordShown ? false : true);
+      };
       if(isAuthenticated){
         return <Redirect to="/admin/index" />
       }
@@ -62,6 +70,7 @@ const Login = ({login, isAuthenticated}) => {
                     name="email" 
                     value={email}
                     onChange={e => onChange(e)}
+                    required
                     />
                    
                   </InputGroup>
@@ -73,11 +82,23 @@ const Login = ({login, isAuthenticated}) => {
                         <i className="ni ni-lock-circle-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" type="password" 
+                    <Input placeholder="Password"
                     name="password"
                     value={password}
                     onChange={e => onChange(e)}
+                    type={passwordShown ? "text" : "password"}
+                    required
                     />
+                    <i 
+                    style={{
+                      position: 'absolute',
+                      top: '25%',
+                      right: '10%',
+                      cursor: 'pointer'
+                    }} 
+                    onClick={togglePasswordVisiblity}>
+                      {eye}
+                      </i>
                   </InputGroup>
                 </FormGroup>
                 <div className="custom-control custom-control-alternative custom-checkbox">
@@ -94,7 +115,7 @@ const Login = ({login, isAuthenticated}) => {
                   </label>
                 </div>
                 <div className="text-center">
-                  <Input className="my-4" value="submit" color="primary" type="submit"/>
+                  <Button className="my-4" color="primary" type="submit">Submit</Button>
                    
                 </div>
               </Form>
@@ -104,7 +125,7 @@ const Login = ({login, isAuthenticated}) => {
             <Col xs="6">
               <a
                 className="text-light"
-                href="#pablo"
+                href="#!"
                 onClick={e => e.preventDefault()}
               >
                 <small>Forgot password?</small>
