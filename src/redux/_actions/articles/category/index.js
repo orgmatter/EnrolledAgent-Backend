@@ -24,14 +24,6 @@ export const getArticleCategories = () => async dispatch =>{
 
 export const addArticleCategory = (category) => async dispatch => {
     const config = {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 5bd73007... Worked on the private routes and logout func
-=======
-
->>>>>>> 5bd73007ffc74183c8907b813e589d61d0cbabd2
         headers: {
             'Content-Type': 'application/json',
             'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',

@@ -24,12 +24,9 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props,{logout}) => {
-<<<<<<< HEAD
   const logoutUser = () => {
     logout();
   }
-=======
->>>>>>> 5bd73007ffc74183c8907b813e589d61d0cbabd2
   return (
     <>
     <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -90,11 +87,7 @@ const AdminNavbar = (props,{logout}) => {
                 <span>Support</span>
               </DropdownItem>
               <DropdownItem divider />
-<<<<<<< HEAD
               <DropdownItem onClick={logoutUser}href="#!">
-=======
-              <DropdownItem onClick={logout} href="#!">
->>>>>>> 5bd73007ffc74183c8907b813e589d61d0cbabd2
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
               </DropdownItem>
