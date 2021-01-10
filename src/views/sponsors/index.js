@@ -28,7 +28,7 @@ import {
 
 const ListSponsors = (props) => {
     const dispatch = useDispatch();
-    const sponsors = useSelector((state) => state.data)
+    const sponsors = useSelector((state) => state.sponsors.sponsors)
   
   useEffect(() => {
     dispatch(getAllSponsors(), deleteSponsor());
@@ -67,11 +67,11 @@ const ListSponsors = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(sponsors.data)}
+                    {console.log(sponsors)}
                       {
-                        sponsors.data.map((sponsor, index)=>(
+                        sponsors.map((sponsor, index)=>(
                         <tr key={index}>
-                          <td>{sponsor._id}</td>
+                          <td>{sponsor.id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
                           <td> {moment(sponsor.updated_at).format('MMM-DD-YYYY')} </td>

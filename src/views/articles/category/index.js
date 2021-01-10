@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import {getArticleCategories} from '../../../redux/_actions/articles/category/'
 
-import { connect } from 'react-redux';
 // reactstrap components
 import {
     Badge,

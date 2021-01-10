@@ -5,14 +5,21 @@ import Register from "./views/examples/Register.js";
 import Login from "./views/auth/Login.js";
 import Tables from "./views/examples/Tables.js";
 import Icons from "./views/examples/Icons.js";
+
 import ListCategories from "./views/articles/category";
+import addCategory from "./views/articles/category/addCategory";
+
+import ListArticles from "./views/articles/article";
+
 import ListSponsors from "./views/sponsors/index";
 import CreateSponsor from "./views/sponsors/addSponsor";
+
 import CreateResource from "./views/resources/resource/addResource";
-import addCategory from "./views/articles/category/addCategory";
 import ListResource from "./views/resources/resource/index";
+
 import addCategoryResource from "./views/resources/category/addCategoryResource";
 import ListResourceCategories from "./views/resources/category/index";
+
 import ListAgent from "./views/agents/index";
 import uploadAgent from "./views/agents/uploadAgent";
 
@@ -36,6 +43,13 @@ var routes = [
     name: "Article Categories",
     icon: "ni ni-tv-2 text-primary", 
     component: ListCategories,
+    layout: "/admin"
+  },
+  {
+    path: "/articles",
+    name: "News & Articles",
+    icon: "ni ni-tv-2 text-primary", 
+    component: ListArticles,
     layout: "/admin"
   },
   {
@@ -94,13 +108,13 @@ var routes = [
     component: uploadAgent,
     layout: "/admin"
   },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   icon: "ni ni-planet text-blue",
-  //   component: Icons,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/icons",
+    name: "Icons",
+    icon: "ni ni-planet text-blue",
+    component: Icons,
+    layout: "/admin"
+  },
   // {
   //   path: "/maps",
   //   name: "Maps",

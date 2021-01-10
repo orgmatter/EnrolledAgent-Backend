@@ -10,3 +10,9 @@ export const LOGOUT = 'LOGOUT';
 
 //Article Categories
 export const GET_ARTICLE_CATEGORIES = 'GET_ARTICLE_CATEGORIES';
+
+//Articles
+export const GET_ARTICLES = 'GET_ARTICLES';
+
+//Sponsors
+export const GET_ALL_SPONSORS = 'GET_ALL_SPONSORS';
