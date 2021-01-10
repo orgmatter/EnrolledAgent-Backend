@@ -26,18 +26,20 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListSponsors = () => {
+const ListSponsors = (props) => {
     const dispatch = useDispatch();
     const sponsors = useSelector((state) => state.data)
   
   useEffect(() => {
-    dispatch(getAllSponsors());
+    dispatch(getAllSponsors(), deleteSponsor());
   }, [dispatch]);
 
-  
+  const onDeleteClick = id => { 
+    props.deleteSponsor(id)
+    
+  }
   
     return (
-      
         <>
         <Header />
         {/* Page content */}
@@ -75,7 +77,7 @@ const ListSponsors = () => {
                           <td> {moment(sponsor.updated_at).format('MMM-DD-YYYY')} </td>
                           <td>
                           <Button color="primary">Edit</Button>{' '}
-                          <Button color="danger">Delete</Button>{' '}
+                          <Button onClick={onDeleteClick.bind(sponsor.id)} color="danger">Delete</Button>{' '}
                           </td>
                       </tr>
                         ))
