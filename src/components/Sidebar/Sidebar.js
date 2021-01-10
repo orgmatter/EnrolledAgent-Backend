@@ -35,7 +35,7 @@ import {
   Row,
   Col
 } from "reactstrap";
-
+import smallLogo from '../../assets/img/SmallLogo.png'
 var ps;
 
 class Sidebar extends React.Component {
@@ -115,7 +115,7 @@ class Sidebar extends React.Component {
               <img
                 alt={logo.imgAlt}
                 className="navbar-brand-img"
-                src={logo.imgSrc}
+                src={smallLogo}
               />
             </NavbarBrand>
           ) : null}
@@ -222,13 +222,54 @@ class Sidebar extends React.Component {
               </InputGroup>
             </Form>
             {/* Navigation */}
-            <Nav navbar>{this.createLinks(routes)}</Nav>
-            {/* Divider */}
-            <hr className="my-3" />
-            {/* Heading */}
+            <Nav navbar>
+              <li className="nav-item">
+              <Link aria-current="page" class="nav-link active" to="/admin/index">
+              <i className="ni ni-chart-bar-32 text-primary"></i>Dashboard</Link>
+              </li>
+              <li className="nav-item">
+              <Link className="nav-link" to="/admin/articles/">
+                <i className="ni ni-book-bookmark text-primary"></i>Articles</Link>
+                </li>
+                <li className="nav-item">
+              <Link className="nav-link" to="/admin/resources">
+                <i className="ni ni-books text-primary"></i>Resources</Link>
+                </li>
+                <li className="nav-item">
+              <Link className="nav-link" to="/admin/sponsors">
+                <i className="ni ni-building text-primary"></i>Sponsors</Link>
+                </li>
+                <li className="nav-item">
+              <Link className="nav-link" to="/admin/agents">
+                <i className="ni ni-single-02 text-primary"></i>Agents</Link>
+                </li>
+                <li className="nav-item">
+              <Link className="nav-link" to="/admin/users">
+                <i className="ni ni-circle-08 text-primary"></i>Users</Link>
+                </li>
+                <li className="nav-item">
+              <Link className="nav-link" to="/admin/account-claims">
+                <i className="ni ni-check-bold text-primary"></i>Account Claims</Link>
+                </li>
+                  
+                {/* {this.createLinks(routes)} */}
+        
+            </Nav>
            
+            {/* Heading */}
+               {/* Divider */}
+               <hr className="my-3" />
             {/* Navigation */}
-            
+            <Nav navbar>
+            <li className="nav-item">
+              <Link className="nav-link" to="/admin/config">
+                <i className="ni ni-settings text-primary"></i>Config</Link>
+                </li>
+                <li className="nav-item">
+              <Link className="nav-link" to="#!">
+                <i className="ni ni-button-power text-primary"></i>Logout</Link>
+                </li>
+            </Nav>
             
           </Collapse>
         </Container>

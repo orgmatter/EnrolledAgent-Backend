@@ -1,13 +1,22 @@
-import axios from '../../axios/index'
-
+import axios from '../../axios'
+import {
+    GET_ALL_SPONSORS
+} from '../types'
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
 export const getAllSponsors = () => async dispatch =>{
 
-    const res = await axios.get('/sponsor');
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    };
+    const res = await axios.get('/sponsor', config);
     dispatch ({ 
-        type : 'GET_ALL_SPONSORS',
+        type : GET_ALL_SPONSORS,
         payload : res.data.data
     }); 
 }
