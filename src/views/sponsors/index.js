@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
+import moment from "moment"
 import { useSelector, useDispatch } from "react-redux";
-import {getAllSponsors} from '../../redux/_actions/sponsors/index'
+import {getAllSponsors, deleteSponsor} from '../../redux/_actions/sponsors/index'
 // reactstrap components
 import {
     Badge,
     Card,
     CardHeader,
     CardFooter,
+    Button,
     DropdownMenu,
     DropdownItem,
     UncontrolledDropdown,   
@@ -24,13 +26,19 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListSponsors = () => {
+const ListSponsors = (props) => {
     const dispatch = useDispatch();
     const sponsors = useSelector((state) => state.data)
   
   useEffect(() => {
-    dispatch(getAllSponsors());
+    dispatch(getAllSponsors(), deleteSponsor());
   }, [dispatch]);
+
+  const onDeleteClick = id => { 
+    props.deleteSponsor(id)
+    
+  }
+  
     return (
         <>
         <Header />
@@ -52,54 +60,25 @@ const ListSponsors = () => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">ID</th>
-                      <th scope="col">Link</th>
                       <th scope="col">Name</th>
-                      <th scope="col">Avatar</th>
-                      <th scope="col" />
+                      <th scope="col">Link</th>
+                      <th scope="col"> Date Updated </th>
+                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {console.log(sponsors.data)}
                       {
                         sponsors.data.map((sponsor, index)=>(
                         <tr key={index}>
-                          <td>{sponsor.id}</td>
-                          <td>{sponsor.link}</td>
+                          <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
-                          <td>{sponsor.avatar}</td>
-                          <td className="text-right">
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#pablo"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={e => e.preventDefault()}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Action
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Another action
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Something else here
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                      </td>
+                          <td>{sponsor.link}</td>
+                          <td> {moment(sponsor.updated_at).format('MMM-DD-YYYY')} </td>
+                          <td>
+                          <Button color="primary">Edit</Button>{' '}
+                          <Button onClick={onDeleteClick.bind(sponsor.id)} color="danger">Delete</Button>{' '}
+                          </td>
                       </tr>
                         ))
                       }

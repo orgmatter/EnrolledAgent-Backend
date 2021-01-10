@@ -1,7 +1,14 @@
 import React,{useState} from 'react'
-import { useForm } from "react-hook-form";
-import axios from "../../redux/axios";
-import { setUserSession } from "../../Utils/Common";
+import { connect } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  useLocation, 
+  Redirect
+} from "react-router-dom";
+import PropTypes from 'prop-types';
+import {login} from '../../redux/_actions/auth';
+
 // reactstrap components
 import {
     Card,
@@ -16,33 +23,24 @@ import {
     Col
   } from "reactstrap";
   
-const Login = (props) => {
-  const { register, errors } = useForm();
-  
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const email = useFormInput('');
-  const password = useFormInput('');
-  // handle button click of login form
-  const handleLogin = (data) => {
-    setError("");
-    setLoading(true);
-    axios
-      .post("login", { email: email.value, password: password.value })
-      .then((response) => {
-        setLoading(false);
-        setUserSession(response.data.token, response.data.user);
-        props.history.push("/admin/index");
-      })
-      .catch((error) => {
-        console.log(error)
-        setLoading(false);
-        if (error.response === 401) {
-          setError(() => "Invalid login details");
-        } else setError("Something went wrong. Please try again later.");
+const Login = ({login, isAuthenticated}) => {
+      const [formData, setFormData] = useState({
+        email: '',
+        password: ''
       });
-  };
+      const {email, password} = formData;
+      const onChange = e => 
+      setFormData({
+          ...formData,
+          [e.target.name]: e.target.value
+      });
+      const onSubmit = async e => {
+          e.preventDefault();
+          login(email,password);
+      }
+      if(isAuthenticated){
+        return <Redirect to="/admin/index" />
+      }
     return (
         <>
         <Col lg="5" md="7">
@@ -52,7 +50,7 @@ const Login = (props) => {
               <div className="text-center text-muted mb-4">
                 <small>Sign in with credentials</small>
               </div>
-              <Form role="form">
+              <Form role="form" onSubmit={e => onSubmit(e)}>
                 <FormGroup className="mb-3">
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
@@ -60,16 +58,12 @@ const Login = (props) => {
                         <i className="ni ni-email-83" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" {...email} type="email" autoComplete="new-email"
+                    <Input placeholder="Email" type="email"
                     name="email" 
-                    ref={register({ required: true })}
-                    autoComplete="new-password"
+                    value={email}
+                    onChange={e => onChange(e)}
                     />
-                    <br />
-                    {errors.email && (
-                      <small style={{ color: "red" }}>E-mail is required</small>
-                    )}
-                    <br />
+                   
                   </InputGroup>
                 </FormGroup>
                 <FormGroup>
@@ -79,23 +73,11 @@ const Login = (props) => {
                         <i className="ni ni-lock-circle-open" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" {...password} type="password" autoComplete="new-password"
+                    <Input placeholder="Password" type="password" 
                     name="password"
-                    ref={register({ required: true })}
-                    autoComplete="new-password"
+                    value={password}
+                    onChange={e => onChange(e)}
                     />
-                    <br />
-                    {errors.password && (
-                      <small style={{ color: "red" }}>Password is required</small>
-                    )}
-                    <br />   
-                    {error && (
-                      <>
-                        <small style={{ color: "red" }}>{error}</small>
-                        <br />
-                      </>
-                    )}
-                    <br />
                   </InputGroup>
                 </FormGroup>
                 <div className="custom-control custom-control-alternative custom-checkbox">
@@ -112,7 +94,7 @@ const Login = (props) => {
                   </label>
                 </div>
                 <div className="text-center">
-                  <Input className="my-4" color="primary" type="submit" value={loading ? "Loading..." : "Login"}value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} />
+                  <Input className="my-4" value="submit" color="primary" type="submit"/>
                    
                 </div>
               </Form>
@@ -135,16 +117,14 @@ const Login = (props) => {
     )
 }
 
-const useFormInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
- 
-  const handleChange = e => {
-    setValue(e.target.value);
-  }
-  return {
-    value,
-    onChange: handleChange
-  }
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 }
 
-export default Login
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+
+});
+
+export default connect(mapStateToProps, {login})(Login);

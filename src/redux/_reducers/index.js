@@ -1,16 +1,18 @@
-import { combineReducers } from 'redux'
-
-//Article
+import { combineReducers } from 'redux';
+import alert from './alerts/alert';
+import auth from './auth/auth';
 import {CategoryArticle} from './articles/category/CategoryArticle';
+import Sponsor from './sponsors/Sponsor';
+import {CategoryResource} from './resources/category/CategoryResource';
 
-//Sponsor
-import {Sponsor} from './sponsors/Sponsor';
-
+import {Resource} from "./resources/Resource";
 
 export default combineReducers({
 
-    //Property
-    data : CategoryArticle,
-    data: Sponsor
-   
-})
+    //alert,
+    auth,
+    // data: CategoryArticle,
+    data: Sponsor,
+    // data: CategoryResource,
+    // data: Resource
+});

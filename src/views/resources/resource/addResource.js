@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ResourceAdd } from '../../../redux/_actions/resources/index';
 import { Editor } from '@tinymce/tinymce-react';
+import axios from '../../../redux/axios/index';
+import Select from 'react-select';
+
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -24,8 +27,8 @@ import {
 
 export class addResource extends Component {
   state = {
-    sponsor: '',
-    category: '',
+    sponsor: [],
+    category: [],
     title: '',
     body: '',
     actionLink: '',
@@ -43,14 +46,7 @@ export class addResource extends Component {
     const { sponsor, category, title, body, actionLink, actionText } = this.state;
 
     //Check for errors
-    if(sponsor === ''){
-      this.setState({ errors: { sponsor: 'Sponsor is required'}});
-      return;
-    }
-    if(category === ''){
-      this.setState({ errors: { category: 'Category is required'}});
-      return;
-    }
+    
     if(title === ''){
       this.setState({ errors: { title: 'Title is required'}});
       return;
@@ -67,19 +63,20 @@ export class addResource extends Component {
       this.setState({ errors: { actionText: 'Action Text is required'}});
       return;
     }
-    const newPropertyCategory = {
+
+    const newResource = {
       sponsor, category, title, body, actionLink, actionText
     }
    
     
     //Submit Category
-    this.props.ResourceAdd(newPropertyCategory)
+    this.props.ResourceAdd(newResource)
     NotificationManager.success('Resource added!', 'Successful!', 2000);
     
      //Clear state
      this.setState({
-      sponsor: '',
-      category: '',
+      sponsor: [],
+      category: [],
       title: '',
       body: '',
       actionLink: '',
@@ -89,9 +86,40 @@ export class addResource extends Component {
     this.props.history.push('/admin/index');
     
   }
+
+  handleEditorChange = (content, editor) => {
+    console.log('Content was updated:', content);
+  }
+
+  async getSponsors(){
+    const res = await axios.get('/sponsor')
+    const data = res.data.data
+
+    const options = data.map(d => ({
+      "value" : d.id,
+      "label" : d.name
+    }))
+    this.setState({sponsor: options})
+  }
+
+  async getCategories(){
+    const res = await axios.get('/category/resource')
+    const data = res.data.data
+
+    const options = data.map(d => ({
+      "value" : d.id,
+      "label" : d.name
+    }))
+    this.setState({category: options})
+  }
+
+  componentDidMount(){
+    this.getSponsors();
+    this.getCategories();
+  }
   
   render() {
-  const { sponsor, category, title, body, actionLink, actionText, errors } = this.state;
+  const { title, body, actionLink, actionText, errors } = this.state;
 
   return (
     <>
@@ -109,25 +137,13 @@ export class addResource extends Component {
                   <FormGroup>
                   <Col sm={12}>
                     <Label for="exampleSelect" sm={2}>Select Sponsor</Label>
-                    <Input type="select" error={errors.sponsor} onChange={this.onChangeInput} value={sponsor} name="sponsor" id="exampleSelect">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </Input>
+                    <Select options={this.state.sponsor} />
                   </Col>
                   </FormGroup>
                   <FormGroup>
                     <Col sm={12}>
                       <Label for="exampleSelect" sm={2}>Select Category</Label>
-                      <Input type="select" error={errors.category} onChange={this.onChangeInput} value={category} name="category" id="exampleSelect">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </Input>
+                      <Select options={this.state.category} />
                     </Col>
                   </FormGroup>
                   <FormGroup> 

@@ -7,7 +7,7 @@ import { Container } from "reactstrap";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-
+import Private from '../Utils/Private';
 import routes from "routes.js";
 
 class Admin extends React.Component {
@@ -18,9 +18,9 @@ class Admin extends React.Component {
   }
   getRoutes = routes => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/admin") { 
         return (
-          <Route
+          <Private
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}
@@ -50,7 +50,7 @@ class Admin extends React.Component {
           {...this.props}
           routes={routes}
           logo={{
-            innerLink: "/admin/index",
+            innerLink: "/admin/dashboard",
             imgSrc: require("assets/img/brand/argon-react.png"),
             imgAlt: "..."
           }}

@@ -10,13 +10,14 @@ import "./assets/scss/main.scss";
 import AdminLayout from "./layouts/Admin.js";
 import AuthLayout from "./layouts/Auth.js";
 
-// const Login = lazy(() => import('views/auth/Login'));
 import Login from "./views/auth/Login"
-import PublicRoute from "./Utils/PublicRoute";
+
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import PrivateRoute from "./Utils/PrivateRoute";
+
+import Private from '../src/Utils/Private';
+
 
 ReactDOM.render(
   <Provider store={store}>
@@ -24,8 +25,8 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/auth" render={props => <AuthLayout {...props} />} />
-      <PublicRoute exact path="/authlogin" component={Login} />
-      <Redirect from="/" to="/admin/index" />
+      <Route exact path="/auth/login" component={Login} />
+      <Redirect from="/" to="/admin/dashboard" />
     </Switch>
   </BrowserRouter>
   </Provider>,

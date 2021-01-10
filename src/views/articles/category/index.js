@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import {getArticleCategories} from '../../../redux/_actions/articles/category/'
+
+import { connect } from 'react-redux';
 // reactstrap components
 import {
     Badge,
@@ -11,15 +13,12 @@ import {
     DropdownItem,
     UncontrolledDropdown,
     DropdownToggle,
-    Media,
     Pagination,
     PaginationItem,
     PaginationLink,
-    Progress,
     Table,
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -27,7 +26,7 @@ import {
 const ListCategories = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.data)
-  
+    // console.log(categories);
   useEffect(() => {
     dispatch(getArticleCategories());
   }, [dispatch]);
@@ -40,12 +39,16 @@ const ListCategories = () => {
           <Row>
             <div className="col">
               <Card className="shadow">
+              <CardHeader className="border-0">
+                  <a href="/admin/article/category/create" className="mb-0">Add Category</a>
+                </CardHeader>
                 <CardHeader className="border-0">
                   <h3 className="mb-0">Article Categories</h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
+                      <th scope="col">#</th>
                       <th scope="col">Name</th>
                       <th scope="col">Description</th>
                       <th scope="col">Slug</th>
@@ -53,9 +56,11 @@ const ListCategories = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    {console.log(categories.data.id)}
                       {
-                        categories.data.map((category, index)=>(
-                        <tr key={index}>
+                        categories.data.map((category)=>(
+                        <tr key={category._id}>
+                        <td>{category.id}</td>
                         <td>{category.name}</td>
                         <td>{category.description}</td>
                         <td>{category.slug}</td>

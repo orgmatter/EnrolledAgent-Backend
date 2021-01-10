@@ -10,6 +10,11 @@ import ListSponsors from "./views/sponsors/index";
 import CreateSponsor from "./views/sponsors/addSponsor";
 import CreateResource from "./views/resources/resource/addResource";
 import addCategory from "./views/articles/category/addCategory";
+import ListResource from "./views/resources/resource/index";
+import addCategoryResource from "./views/resources/category/addCategoryResource";
+import ListResourceCategories from "./views/resources/category/index";
+import ListAgent from "./views/agents/index";
+import uploadAgent from "./views/agents/uploadAgent";
 
 var routes = [
   {
@@ -54,6 +59,41 @@ var routes = [
     component: CreateResource,
     layout: "/admin"
   },
+  {
+    path: "/resource/category/create",
+    name: "Create Resource Category",
+    icon: "ni ni-tv-2 text-primary", 
+    component: addCategoryResource,
+    layout: "/admin"
+  },
+  {
+    path: "/resource/categories",
+    name: "Resource Categories",
+    icon: "ni ni-tv-2 text-primary", 
+    component: ListResourceCategories,
+    layout: "/admin"
+  },
+  {
+    path: "/resources",
+    name: "List Resource",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListResource,
+    layout: "/admin"
+  },
+  {
+    path: "/agents",
+    name: "List Agents",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListAgent,
+    layout: "/admin"
+  },
+  {
+    path: "/agent/upload",
+    name: "Upload Agents",
+    icon: "ni ni-tv-2 text-primary",
+    component: uploadAgent,
+    layout: "/admin"
+  },
   // {
   //   path: "/icons",
   //   name: "Icons",
@@ -68,13 +108,13 @@ var routes = [
   //   component: Maps,
   //   layout: "/admin"
   // },
-  // {
-  //   path: "/user-profile",
-  //   name: "User Profile",
-  //   icon: "ni ni-single-02 text-yellow",
-  //   component: Profile,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/user-profile",
+    name: "User Profile",
+    icon: "ni ni-single-02 text-yellow",
+    component: Profile,
+    layout: "/admin"
+  },
   // {
   //   path: "/tables",
   //   name: "Tables",
@@ -82,13 +122,13 @@ var routes = [
   //   component: Tables,
   //   layout: "/admin"
   // },
-  // {
-  //   path: "/login",
-  //   name: "Login",
-  //   icon: "ni ni-key-25 text-info",
-  //   component: Login,
-  //   layout: "/auth"
-  // },
+  {
+    path: "/login",
+    name: "Login",
+    icon: "ni ni-key-25 text-info",
+    component: Login,
+    layout: "/auth"
+  },
   // {
   //   path: "/register",
   //   name: "Register",

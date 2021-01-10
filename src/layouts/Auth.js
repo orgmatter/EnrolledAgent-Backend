@@ -74,7 +74,7 @@ class Auth extends React.Component {
                 {this.getRoutes(routes)}
                 <Redirect from="*" to="/auth/login" />
               </Switch>
-            </Row>
+            </Row> 
           </Container>
         </div>
         <AuthFooter />
