@@ -1,7 +1,10 @@
 const initState = {
   error: null,
-  data:  [],
-  agent : {}
+  data:  [], 
+  agent : {},
+  token: localStorage.getItem('token'),
+  isAuthenticated: false,
+  loading: true
   
 }; 
 
@@ -10,7 +13,9 @@ export const Agent = (state = initState, action) => {
       case 'GET_ALL_AGENTS' :
           return{
           ...state, 
-          data: action.payload,     
+          data: action.payload.data,
+          isAuthenticated: true,
+          loading: false,     
       }
       case 'GET_agent':
         return {

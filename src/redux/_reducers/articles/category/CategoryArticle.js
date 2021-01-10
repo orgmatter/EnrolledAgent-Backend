@@ -6,7 +6,7 @@ const initState = {
     token: localStorage.getItem('token'),
     error: null,
     //categories:  [],
-    data:  [],
+    data:  [], 
     category : {},
     isAuthenticated: false,
     loading: true

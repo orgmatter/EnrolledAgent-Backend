@@ -52,24 +52,25 @@ const ListAgent = () => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">ID</th>
-                      <th scope="col">Sponsor</th>
-                      <th scope="col">Category</th>
-                      <th scope="col">Title</th>
-                      <th scope="col">Action Link</th>
-                      <th scope="col">Action Text</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Country</th>
+                      <th scope="col">Zip code</th>
+                      <th scope="col">Status</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
+                    {console.log(agents.data)}
                       {
                         agents.data.map((agent, index)=>(
                         <tr key={index}>
                           <td>{agent.id}</td>
-                          <td>{agent.sponsor}</td>
-                          <td>{agent.category}</td>
-                          <td>{agent.title}</td>
-                          <td>{agent.actionLink}</td>
-                          <td>{agent.actionText}</td>
+                          <td>{agent.firstName}</td>
+                          <td>{agent.lastName}</td>
+                          <td>{agent.country}</td>
+                          <td>{agent.zipcode}</td>
+                          <td>{agent.isClaimed}</td>
                           <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
