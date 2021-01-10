@@ -31,7 +31,8 @@ export const CategoryArticle = (state = initState, action) => {
         case 'ADD_category' :
             return {
                 ...state,
-                categories: [action.payload, ...state.data]
+                data: [action.payload, ...state.data]
+
             } 
 
         case 'DELETE_category' :

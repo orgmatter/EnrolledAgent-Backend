@@ -16,7 +16,7 @@ import Login from "./views/auth/Login"
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-import PrivateRoute from '../src/Utils/PrivateRoute';
+import Private from '../src/Utils/Private';
 
 
 ReactDOM.render(
