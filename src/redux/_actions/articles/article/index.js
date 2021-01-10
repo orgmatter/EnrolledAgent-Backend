@@ -1,6 +1,7 @@
 import axios from '../../../axios';
 import {
-    GET_ARTICLES
+    GET_ARTICLES,
+    DELETE_ARTICLE
 } from '../../types';
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -37,7 +38,21 @@ export const addArticleCategory = (category) => async dispatch => {
     });
 } 
 
-// export const deleteBlogCategory = (id) => dispatch => {
+export const deleteArticle = (id) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    };
+    const res = await axios.delete(`/article/${id}`, config);
+    dispatch({
+        type: DELETE_ARTICLE,
+        payload: id
+    })
+}
+// export const deleteArticle = (id) => dispatch => {
 //     axios.delete(`/blog-category/${id}`)
 //     .then(res => {
 //         dispatch({

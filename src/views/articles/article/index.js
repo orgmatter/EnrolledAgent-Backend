@@ -1,6 +1,8 @@
 import React,{useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import {getArticles} from '../../../redux/_actions/articles/article/';
+import {getArticles, deleteArticle} from '../../../redux/_actions/articles/article/';
+import moment from "moment";
 
 // reactstrap components
 import {
@@ -17,18 +19,24 @@ import {
     PaginationLink,
     Table,
     Container,
-    Row
+    Row,
+    Button
   } from "reactstrap";
 
   // core components
 import Header from "components/Headers/Header.js";
-const ListArticles = () => {
+const ListArticles = (props) => {
     const dispatch = useDispatch();
     const articles = useSelector((state) => state.articles.articles)
     // console.log(articles);
   useEffect(() => {
     dispatch(getArticles());
   }, [dispatch]);
+
+  const handleDelete = id => {
+    deleteArticle(id);
+    console.log(id)
+  }
     return (
         <>
         <Header />
@@ -39,18 +47,28 @@ const ListArticles = () => {
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                  <a href="/admin/article/create" className="mb-0">Add Article</a>
+                  <Link to="/admin/article/create">
+                  <Button color="info">
+                    Add New Article +
+                  </Button>
+                  </Link>
+                  <Link style={{float: 'right'}} to="/admin/article/categories">
+                  <Button >
+                    Article Categories
+                  </Button>
+                  </Link>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">Article articles</h3>
+                  <h3 className="mb-0">News &amp; Articles</h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">#</th>
+                
                       <th scope="col">Title</th>
                       <th scope="col">Author</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -59,10 +77,10 @@ const ListArticles = () => {
                       {
                         articles.map((article, index)=>(
                         <tr key={index}>
-                        <td>{article.id}</td>
                         <td>{article.title}</td>
                         <td>{article.author}</td>
                         <td>{article.status}</td>
+                        <td>{moment(article.createdAt).format('MMM-DD-YYYY')}</td>
                       
                           
                       <td className="text-right">
@@ -82,19 +100,19 @@ const ListArticles = () => {
                               href="#pablo"
                               onClick={e => e.preventDefault()}
                             >
-                              Action
+                              Approve/Disapprove
                             </DropdownItem>
                             <DropdownItem
                               href="#pablo"
                               onClick={e => e.preventDefault()}
                             >
-                              Another action
+                              Edit
                             </DropdownItem>
                             <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
+                              href="#!"
+                              onClick={() => handleDelete(article.id)}
                             >
-                              Something else here
+                              Delete
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>

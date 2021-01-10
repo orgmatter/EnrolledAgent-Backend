@@ -1,5 +1,6 @@
 import {
-    GET_ARTICLES
+    GET_ARTICLES,
+    DELETE_ARTICLE
 } from '../../../_actions/types';
 
 const initState = {
@@ -29,11 +30,12 @@ export default function (state = initState, action){
 
         //     } 
 
-        // case DELETE_ARTICLE :
-        //     return{
-        //         ...state,
-        //         articles: state.articles.filter(article => article.id !==action.payload)
-        //     }
+        case DELETE_ARTICLE :
+            return{
+                ...state,
+                articles: state.articles.filter(article => article.id !==action.payload)
+            }
+            
         // case UPDATE_ARTICLE:
         //   return {
         //     ...state,

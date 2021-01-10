@@ -232,23 +232,23 @@ class Sidebar extends React.Component {
                 <i className="ni ni-book-bookmark text-primary"></i>Articles</Link>
                 </li>
                 <li className="nav-item">
-              <Link className="nav-link" to="/admin/article/category/create">
+              <Link className="nav-link" to="/admin/resources">
                 <i className="ni ni-books text-primary"></i>Resources</Link>
                 </li>
                 <li className="nav-item">
-              <Link className="nav-link" to="/admin/article/category/create">
+              <Link className="nav-link" to="/admin/sponsors">
                 <i className="ni ni-building text-primary"></i>Sponsors</Link>
                 </li>
                 <li className="nav-item">
-              <Link className="nav-link" to="/admin/article/category/create">
+              <Link className="nav-link" to="/admin/agents">
                 <i className="ni ni-single-02 text-primary"></i>Agents</Link>
                 </li>
                 <li className="nav-item">
-              <Link className="nav-link" to="/admin/article/category/create">
+              <Link className="nav-link" to="/admin/users">
                 <i className="ni ni-circle-08 text-primary"></i>Users</Link>
                 </li>
                 <li className="nav-item">
-              <Link className="nav-link" to="/admin/article/category/create">
+              <Link className="nav-link" to="/admin/account-claims">
                 <i className="ni ni-check-bold text-primary"></i>Account Claims</Link>
                 </li>
                   
@@ -262,11 +262,11 @@ class Sidebar extends React.Component {
             {/* Navigation */}
             <Nav navbar>
             <li className="nav-item">
-              <Link className="nav-link" to="/admin/article/category/create">
-                <i className="ni ni-settings-gear-65 text-primary"></i>Settings</Link>
+              <Link className="nav-link" to="/admin/config">
+                <i className="ni ni-settings text-primary"></i>Config</Link>
                 </li>
                 <li className="nav-item">
-              <Link className="nav-link" to="/admin/article/category/create">
+              <Link className="nav-link" to="#!">
                 <i className="ni ni-button-power text-primary"></i>Logout</Link>
                 </li>
             </Nav>

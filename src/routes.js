@@ -10,6 +10,7 @@ import ListCategories from "./views/articles/category";
 import addCategory from "./views/articles/category/addCategory";
 
 import ListArticles from "./views/articles/article";
+import addArticle from "./views/articles/article/addArticle";
 
 import ListSponsors from "./views/sponsors/index";
 import CreateSponsor from "./views/sponsors/addSponsor";
@@ -53,6 +54,13 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/article/create",
+    name: "Create New Article",
+    icon: "ni ni-tv-2 text-primary", 
+    component: addArticle,
+    layout: "/admin"
+  },
+  {
     path: "/sponsors",
     name: "Sponsors",
     icon: "ni ni-tv-2 text-primary",
@@ -90,7 +98,7 @@ var routes = [
   {
     path: "/resources",
     name: "List Resource",
-    icon: "ni ni-tv-2 text-primary",
+    icon: "ni ni-tv-2 text-primary", 
     component: ListResource,
     layout: "/admin"
   },
@@ -108,14 +116,14 @@ var routes = [
     component: uploadAgent,
     layout: "/admin"
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin"
-  },
   // {
+  //   path: "/icons",
+  //   name: "Icons",
+  //   icon: "ni ni-planet text-blue",
+  //   component: Icons,
+  //   layout: "/admin"
+  // },
+  // { 
   //   path: "/maps",
   //   name: "Maps",
   //   icon: "ni ni-pin-3 text-orange",

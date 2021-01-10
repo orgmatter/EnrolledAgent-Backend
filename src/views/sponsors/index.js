@@ -74,7 +74,7 @@ const ListSponsors = (props) => {
                           <td>{sponsor.id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
-                          <td> {moment(sponsor.updated_at).format('MMM-DD-YYYY')} </td>
+                          <td> {moment(sponsor.createdAt).format('MMM-DD-YYYY')} </td>
                           <td>
                           <Button color="primary">Edit</Button>{' '}
                           <Button onClick={onDeleteClick.bind(sponsor.id)} color="danger">Delete</Button>{' '}
