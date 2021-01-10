@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
-  useLocation,
+  useLocation, 
   Redirect
 } from "react-router-dom";
 import PropTypes from 'prop-types';
 import {login} from '../../redux/_actions/auth';
+
 // reactstrap components
 import {
     Card,
@@ -38,7 +39,7 @@ const Login = ({login, isAuthenticated}) => {
           login(email,password);
       }
       if(isAuthenticated){
-        return <Redirect to="/admin/article/categories" />
+        return <Redirect to="/admin/index" />
       }
     return (
         <>
