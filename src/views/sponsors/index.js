@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
+import moment from "moment"
 import { useSelector, useDispatch } from "react-redux";
-import {getAllSponsors} from '../../redux/_actions/sponsors/index'
+import {getAllSponsors, deleteSponsor} from '../../redux/_actions/sponsors/index'
 // reactstrap components
 import {
     Badge,
     Card,
     CardHeader,
     CardFooter,
+    Button,
     DropdownMenu,
     DropdownItem,
     UncontrolledDropdown,   
@@ -31,7 +33,11 @@ const ListSponsors = () => {
   useEffect(() => {
     dispatch(getAllSponsors());
   }, [dispatch]);
+
+  
+  
     return (
+      
         <>
         <Header />
         {/* Page content */}
@@ -54,8 +60,8 @@ const ListSponsors = () => {
                       <th scope="col">ID</th>
                       <th scope="col">Name</th>
                       <th scope="col">Link</th>
-
-                      <th scope="col" />
+                      <th scope="col"> Date Updated </th>
+                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -66,40 +72,11 @@ const ListSponsors = () => {
                           <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
-                          <td className="text-right">
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#pablo"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={e => e.preventDefault()}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Action
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Another action
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Something else here
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                      </td>
+                          <td> {moment(sponsor.updated_at).format('MMM-DD-YYYY')} </td>
+                          <td>
+                          <Button color="primary">Edit</Button>{' '}
+                          <Button color="danger">Delete</Button>{' '}
+                          </td>
                       </tr>
                         ))
                       }

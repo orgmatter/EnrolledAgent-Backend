@@ -4,12 +4,15 @@ import auth from './auth/auth';
 import {CategoryArticle} from './articles/category/CategoryArticle';
 import Sponsor from './sponsors/Sponsor';
 import {CategoryResource} from './resources/category/CategoryResource';
+
+import {Resource} from "./resources/Resource";
+
 export default combineReducers({
 
     //alert,
     auth,
-    data: CategoryArticle,
+    // data: CategoryArticle,
     data: Sponsor,
-    data: CategoryResource
-
+    // data: CategoryResource,
+    // data: Resource
 });
