@@ -1,6 +1,6 @@
 import axios from '../../axios'
 import {
-    GET_ALL_SPONSORS
+    GET_ALL_SPONSORS, DELETE_SPONSOR
 } from '../types'
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -29,12 +29,12 @@ export const sponsorAdd = (sponsor) => async dispatch => {
     });
 } 
 
-export const deleteSponsor = (id) => dispatch => {
-    axios.delete(`/sponsor/${id}`)
+export const deleteSponsor = (_id) => dispatch => {
+    axios.delete(`/sponsor/${_id}`)
     .then(res => {
         dispatch({
-            type : 'DELETE_sponsor',
-            payload : id 
+            type : DELETE_SPONSOR,
+            payload : _id 
          })
          NotificationManager.success('Sponsor deleted successfully!', 'Success!', 2000);
      })

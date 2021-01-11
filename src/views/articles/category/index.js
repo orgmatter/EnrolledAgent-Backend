@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import {getArticleCategories} from '../../../redux/_actions/articles/category/'
 
 // reactstrap components
 import {
-    Badge,
+    Button,
     Card,
     CardHeader,
     CardFooter,
@@ -24,8 +25,9 @@ import {
 
 const ListCategories = () => {
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.data)
+    const categories = useSelector((state) => state.categories.categories)
     // console.log(categories);
+    
   useEffect(() => {
     dispatch(getArticleCategories());
   }, [dispatch]);
@@ -39,10 +41,14 @@ const ListCategories = () => {
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                  <a href="/admin/article/category/create" className="mb-0">Add Category</a>
+                  <Link to="/admin/article/category/create">
+                    <Button color="info">
+                      Add New Category +
+                    </Button>
+                  </Link>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">Article Categories</h3>
+                  <h3 className="mb-0">Aricle &amp; Categories</h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
@@ -55,11 +61,11 @@ const ListCategories = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(categories.data.id)}
+                    {console.log(categories)}
                       {
-                        categories.data.map((category)=>(
+                        categories.map((category)=>(
                         <tr key={category._id}>
-                        <td>{category.id}</td>
+                        <td>{category._id}</td>
                         <td>{category.name}</td>
                         <td>{category.description}</td>
                         <td>{category.slug}</td>

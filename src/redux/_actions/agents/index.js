@@ -1,5 +1,7 @@
 import axios from '../../axios/'
-
+import {
+    GET_ALL_AGENTS
+} from '../types'
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
@@ -13,8 +15,8 @@ export const getAgents = () => async dispatch =>{
     };
     const res = await axios.get('/agent', config);
     dispatch ({ 
-        type : 'GET_ALL_AGENTS',
-        payload : res.data
+        type : GET_ALL_AGENTS,
+        payload : res.data.data
     });   
 }
  

@@ -1,13 +1,22 @@
-import axios from '../../../axios'
+import axios from '../../../axios';
+import { GET_RESOURCE_CATEGORIES, CREATE_RESOURCE } from '../../types';
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
 export const getResourcesCategories = () => async dispatch =>{
 
-  const res = await axios.get('category/resource');
+  const config = {
+    headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+  };
+
+  const res = await axios.get('/category/resource', config);
   dispatch ({ 
-      type : 'GET_RESOURCE_CATEGORIES',
+      type : GET_RESOURCE_CATEGORIES,
       payload : res.data.data
   }); 
 }

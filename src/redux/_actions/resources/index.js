@@ -1,13 +1,22 @@
-import axios from '../../axios/index'
+import axios from '../../axios/index';
+import { GET_RESOURCES, CREATE_RESOURCE } from '../types';
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
 export const getResources = () => async dispatch =>{
 
-    const res = await axios.get('resource');
+    const config = {
+      headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    };
+
+    const res = await axios.get('/resource', config);
     dispatch ({ 
-        type : 'GET_ALL_RESOURCES',
+        type : GET_RESOURCES,
         payload : res.data.data
     }); 
 }
@@ -15,7 +24,7 @@ export const getResources = () => async dispatch =>{
 export const ResourceAdd = (resource) => async dispatch => {
     const res = await axios.post('/resource', resource);
     dispatch ({
-        type: 'ADD_resource',
+        type: CREATE_RESOURCE,
         payload: res.data
     });
 } 

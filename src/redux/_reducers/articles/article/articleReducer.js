@@ -33,7 +33,7 @@ export default function (state = initState, action){
         case DELETE_ARTICLE :
             return{
                 ...state,
-                articles: state.articles.filter(article => article.id !==action.payload)
+                articles: state.articles.filter(article => article.id !== action.payload)
             }
             
         // case UPDATE_ARTICLE:

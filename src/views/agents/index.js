@@ -26,7 +26,7 @@ import {
 
 const ListAgent = () => {
     const dispatch = useDispatch();
-    const agents = useSelector((state) => state.data)
+    const agents = useSelector((state) => state.agents.agents)
   
   useEffect(() => {
     dispatch(getAgents());
@@ -61,9 +61,9 @@ const ListAgent = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(agents.data)}
+                    {console.log(agents)}
                       {
-                        agents.data.map((agent, index)=>(
+                        agents.map((agent, index)=>(
                         <tr key={index}>
                           <td>{agent.id}</td>
                           <td>{agent.firstName}</td>

@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import moment from "moment"
 import { useSelector, useDispatch } from "react-redux";
 import {getAllSponsors, deleteSponsor} from '../../redux/_actions/sponsors/index'
@@ -8,12 +9,11 @@ import {
     Card,
     CardHeader,
     CardFooter,
-    Button,
     DropdownMenu,
     DropdownItem,
     UncontrolledDropdown,   
     DropdownToggle,
-    Media,
+    Button,
     Pagination,
     PaginationItem,
     PaginationLink,
@@ -31,12 +31,12 @@ const ListSponsors = (props) => {
     const sponsors = useSelector((state) => state.sponsors.sponsors)
   
   useEffect(() => {
-    dispatch(getAllSponsors(), deleteSponsor());
+    dispatch(getAllSponsors());
   }, [dispatch]);
 
-  const onDeleteClick = id => { 
-    props.deleteSponsor(id)
-    
+  const handleDelete = _id => {
+    deleteSponsor(_id);
+    console.log(_id)
   }
   
     return (
@@ -49,11 +49,15 @@ const ListSponsors = (props) => {
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                  <a className="mb-0" href="/admin/sponsor/create">Create New Sponsor</a>
+                  <Link to="/admin/sponsor/create">
+                    <Button color="info">
+                      Add New Sponsor +
+                    </Button>
+                  </Link>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">List of Sponsors</h3>
-                  
+                  <h3 className="mb-0">News &amp; Sponsors</h3>
+                
                 </CardHeader>
                
                 <Table className="align-items-center table-flush" responsive>
@@ -63,7 +67,7 @@ const ListSponsors = (props) => {
                       <th scope="col">Name</th>
                       <th scope="col">Link</th>
                       <th scope="col"> Date Updated </th>
-                      <th scope="col">Action</th>
+                      <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
@@ -71,13 +75,46 @@ const ListSponsors = (props) => {
                       {
                         sponsors.map((sponsor, index)=>(
                         <tr key={index}>
-                          <td>{sponsor.id}</td>
+                          <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
                           <td> {moment(sponsor.createdAt).format('MMM-DD-YYYY')} </td>
+                          <td className="text-right">
+                            <UncontrolledDropdown>
+                              <DropdownToggle
+                                className="btn-icon-only text-light"
+                                href="#pablo"
+                                role="button"
+                                size="sm"
+                                color=""
+                                onClick={e => e.preventDefault()}
+                              >
+                                <i className="fas fa-ellipsis-v" />
+                              </DropdownToggle>
+                              <DropdownMenu className="dropdown-menu-arrow" right>
+                                <DropdownItem
+                                  href="#pablo"
+                                  onClick={e => e.preventDefault()}
+                                >
+                                  Approve/Disapprove
+                                </DropdownItem>
+                                <DropdownItem
+                                  href="#pablo"
+                                  onClick={e => e.preventDefault()}
+                                >
+                                  Edit
+                                </DropdownItem>
+                                <DropdownItem
+                                  href="#!"
+                                  onClick={() => handleDelete(sponsor._id)}
+                                >
+                                  Delete
+                                </DropdownItem>
+                              </DropdownMenu>
+                            </UncontrolledDropdown>
+                          </td>
                           <td>
-                          <Button color="primary">Edit</Button>{' '}
-                          <Button onClick={onDeleteClick.bind(sponsor.id)} color="danger">Delete</Button>{' '}
+                          
                           </td>
                       </tr>
                         ))

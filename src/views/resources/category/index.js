@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import {getResourcesCategories} from '../../../redux/_actions/resources/category/index'
 // reactstrap components
@@ -17,13 +18,14 @@ import {
     Table,
     Container,
     Row,
+    Button,
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
 
 const ListResourceCategories = () => {
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.data)
+    const categories = useSelector((state) => state.categories.categories)
   
   useEffect(() => {
     dispatch(getResourcesCategories());
@@ -38,10 +40,15 @@ const ListResourceCategories = () => {
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                  <a className="mb-0" href="/admin/resource/category/create">Create New Resource Category</a>
+                  <Link to="/admin/resource/category/create">
+                    <Button color="info">
+                      Add New Category +
+                    </Button>
+                  </Link>
+                 
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">Resource Categories</h3>
+                <h3 className="mb-0">News &amp; Resource Categories</h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
@@ -54,7 +61,7 @@ const ListResourceCategories = () => {
                   </thead>
                   <tbody>
                       {
-                        categories.data.map((category, index)=>(
+                        categories.map((category, index)=>(
                         <tr key={index}>
                         <td>{category.name}</td>
                         <td>{category.description}</td>

@@ -24,6 +24,13 @@ import ListResourceCategories from "./views/resources/category/index";
 import ListAgent from "./views/agents/index";
 import uploadAgent from "./views/agents/uploadAgent";
 
+import ListUsers from "./views/users/index";
+
+import ListQuestions from "./views/questions/index";
+import ListQuestionCategories from "./views/questions/category/index";
+import addCategoryQuestion from "./views/questions/category/addCategory";
+
+
 var routes = [
   {
     path: "/index",
@@ -109,11 +116,40 @@ var routes = [
     component: ListAgent,
     layout: "/admin"
   },
+
+  {
+    path: "/users",
+    name: "List Users",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListUsers,
+    layout: "/admin"
+  },
+  {
+    path: "/questions",
+    name: "List Questions",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListQuestions,
+    layout: "/admin"
+  },
   {
     path: "/agent/upload",
     name: "Upload Agents",
     icon: "ni ni-tv-2 text-primary",
     component: uploadAgent,
+    layout: "/admin"
+  },
+  {
+    path: "/question/categories",
+    name: "Question Categories",
+    icon: "ni ni-tv-2 text-primary", 
+    component: ListQuestionCategories,
+    layout: "/admin"
+  },
+  {
+    path: "/question/category/create",
+    name: "Create Queestion Category",
+    icon: "ni ni-tv-2 text-primary", 
+    component: addCategoryQuestion,
     layout: "/admin"
   },
   // {

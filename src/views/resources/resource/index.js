@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect,} from 'react';
+import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import {getResources} from '../../../redux/_actions/resources/index';
+import { getResources } from '../../../redux/_actions/resources/index';
 // reactstrap components
 import {
     Badge,
@@ -11,11 +12,10 @@ import {
     DropdownItem,
     UncontrolledDropdown,   
     DropdownToggle,
-    Media,
+    Button,
     Pagination,
     PaginationItem,
     PaginationLink,
-    Progress,
     Table,
     Container,
     Row,
@@ -26,11 +26,11 @@ import {
 
 const ListResource = () => {
     const dispatch = useDispatch();
-    const resources = useSelector((state) => state.data)
+    const resources = useSelector((state) => state.resources.resources)
   
-  useEffect(() => {
-    dispatch(getResources());
-  }, [dispatch]);
+    useEffect(() => {
+      dispatch(getResources());
+    }, [dispatch]);
     return (
         <>
         <Header />
@@ -41,10 +41,20 @@ const ListResource = () => {
             <div className="col">
               <Card className="shadow">
                 <CardHeader className="border-0">
-                  <a className="mb-0" href="/admin/resource/create">Create New Resource</a>
+                  <Link to="/admin/resource/create">
+                    <Button color="info">
+                      Add New Resource +
+                    </Button>
+                    </Link>
+                    <Link style={{float: 'right'}} to="/admin/resource/categories">
+                    <Button >
+                      Resource Categories
+                    </Button>
+                  </Link>
+                  
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">List of Resources</h3>
+                  <h3 className="mb-0">News &amp; Resources</h3>
                   
                 </CardHeader>
                
@@ -61,8 +71,10 @@ const ListResource = () => {
                     </tr>
                   </thead>
                   <tbody>
-                      {
-                        resources.data.map((resource, index)=>(
+                    {console.log(resources)}
+                      
+                    {
+                        resources.map((resource, index)=>(
                         <tr key={index}>
                           <td>{resource.id}</td>
                           <td>{resource.sponsor}</td>
@@ -107,7 +119,6 @@ const ListResource = () => {
                       </tr>
                         ))
                       }
-                    
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
