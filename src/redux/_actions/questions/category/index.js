@@ -1,10 +1,10 @@
 import axios from '../../../axios';
-import { GET_RESOURCE_CATEGORIES, CREATE_RESOURCE } from '../../types';
+import { GET_ALL_QUESTION_CATEGORIES, CREATE_QUESTION_CATEGORY } from '../../types';
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
-export const getResourcesCategories = () => async dispatch =>{
+export const getQuestionsCategories = () => async dispatch =>{
 
   const config = {
     headers: {
@@ -14,16 +14,16 @@ export const getResourcesCategories = () => async dispatch =>{
     }
   };
 
-  const res = await axios.get('category/resource', config);
+  const res = await axios.get('/category/question', config);
   dispatch ({ 
-      type : GET_RESOURCE_CATEGORIES,
+      type : GET_question_CATEGORIES,
       payload : res.data.data
   }); 
 }
 
 
-export const addResourceCategory = (category) => async dispatch => {
-    const res = await axios.post('/category/resource', category);
+export const addQuestionCategory = (category) => async dispatch => {
+    const res = await axios.post('/category/question', category);
     dispatch ({
         type: 'ADD_category',
         payload: res.data

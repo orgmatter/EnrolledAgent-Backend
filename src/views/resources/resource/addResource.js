@@ -43,7 +43,7 @@ export class addResource extends Component {
   handleSubmit = (e) =>{
     e.preventDefault();
     
-    const { sponsor, category, title, body, actionLink, actionText } = this.state;
+    const { sponsor, category, title, body } = this.state;
 
     //Check for errors
     
@@ -55,35 +55,25 @@ export class addResource extends Component {
       this.setState({ errors: { body: 'Body is required'}});
       return;
     }
-    if(actionLink === ''){
-      this.setState({ errors: { actionLink: 'Action Link is required'}});
-      return;
-    }
-    if(actionText === ''){
-      this.setState({ errors: { actionText: 'Action Text is required'}});
-      return;
-    }
 
-    const newResource = {
-      sponsor, category, title, body, actionLink, actionText
-    }
-   
-    
-    //Submit Category
+    //Submit Resource
     this.props.ResourceAdd(newResource)
     NotificationManager.success('Resource added!', 'Successful!', 2000);
     
+
+    const newResource = {
+      sponsor, category, title, body
+    }
+   
      //Clear state
      this.setState({
       sponsor: [],
       category: [],
       title: '',
       body: '',
-      actionLink: '',
-      actionText: '',
       errors: {}
     })
-    this.props.history.push('/admin/index');
+    this.props.history.push('/admin/resources');
     
   }
 
@@ -119,7 +109,7 @@ export class addResource extends Component {
   }
   
   render() {
-  const { title, body, actionLink, actionText, errors } = this.state;
+  const { title, body, errors } = this.state;
 
   return (
     <>
@@ -137,13 +127,13 @@ export class addResource extends Component {
                   <FormGroup>
                   <Col sm={12}>
                     <Label for="exampleSelect" sm={2}>Select Sponsor</Label>
-                    <Select options={this.state.sponsor} />
+                    <Select name="sponsor" options={this.state.sponsor} />
                   </Col>
                   </FormGroup>
                   <FormGroup>
                     <Col sm={12}>
                       <Label for="exampleSelect" sm={2}>Select Category</Label>
-                      <Select options={this.state.category} />
+                      <Select name="category" options={this.state.category} />
                     </Col>
                   </FormGroup>
                   <FormGroup> 
@@ -172,27 +162,13 @@ export class addResource extends Component {
                                 alignleft aligncenter alignright alignjustify | \
                                 bullist numlist outdent indent | removeformat | help'
                             }}
-                            onEditorChange={this.handleEditorChange}
+                           
                             name="body"
                             value={body}
                             error={errors.body} 
                             
                           />
                         </div>
-                    </Col>
-                  </FormGroup>
-
-                  <FormGroup> 
-                    <Col sm={12}>
-                      <Label for="actionLink" sm={2}>Action Link</Label>
-                      <Input type="url" value={actionLink} name="actionLink" id="actionLink" />
-                    </Col>
-                  </FormGroup>
-
-                  <FormGroup> 
-                    <Col sm={12}>
-                      <Label for="actionText" sm={2}>Action Text</Label>
-                      <Input type="text" value={actionText} name="actionText" id="actionText" />
                     </Col>
                   </FormGroup>
                   

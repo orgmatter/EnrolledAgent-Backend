@@ -1,7 +1,7 @@
-import React, {useEffect,} from 'react';
+import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import { getResources } from '../../../redux/_actions/resources/index';
+import {getQuestionsCategories} from '../../../redux/_actions/questions/category/index'
 // reactstrap components
 import {
     Badge,
@@ -10,27 +10,26 @@ import {
     CardFooter,
     DropdownMenu,
     DropdownItem,
-    UncontrolledDropdown,   
+    UncontrolledDropdown,
     DropdownToggle,
-    Button,
     Pagination,
     PaginationItem,
     PaginationLink,
     Table,
     Container,
     Row,
-    UncontrolledTooltip
+    Button,
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListResource = () => {
+const ListQuestionCategories = () => {
     const dispatch = useDispatch();
-    const resources = useSelector((state) => state.resources.resources)
+    const categories = useSelector((state) => state.categories.categories)
   
-    useEffect(() => {
-      dispatch(getResources());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getResourcesCategories());
+  }, [dispatch]);
     return (
         <>
         <Header />
@@ -40,39 +39,72 @@ const ListResource = () => {
           <Row>
             <div className="col">
               <Card className="shadow">
-                <CardHeader className="border-0">
-                  <Link to="/admin/resource/create">
+              <CardHeader className="border-0">
+                  <Link to="/admin/resource/category/create">
                     <Button color="info">
-                      Add New Resource +
-                    </Button>
-                    </Link>
-                    <Link style={{float: 'right'}} to="/admin/resource/categories">
-                    <Button >
-                      Resource Categories
+                      Add New Category +
                     </Button>
                   </Link>
-                  
+                 
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">News &amp; Resources</h3>
-                  
+                <h3 className="mb-0">News &amp; Resource Categories</h3>
                 </CardHeader>
-               
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Sponsor</th>
-                      <th scope="col">Category</th>
-                      <th scope="col">Title</th>
-                      <th scope="col">Action Link</th>
-                      <th scope="col">Action Text</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Slug</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(resources)}
+                      {
+                        categories.map((category, index)=>(
+                        <tr key={index}>
+                        <td>{category.name}</td>
+                        <td>{category.description}</td>
+                        <td>{category.slug}</td>
                       
+                          
+                      <td className="text-right">
+                        <UncontrolledDropdown>
+                          <DropdownToggle
+                            className="btn-icon-only text-light"
+                            href="#pablo"
+                            role="button"
+                            size="sm"
+                            color=""
+                            onClick={e => e.preventDefault()}
+                          >
+                            <i className="fas fa-ellipsis-v" />
+                          </DropdownToggle>
+                          <DropdownMenu className="dropdown-menu-arrow" right>
+                            <DropdownItem
+                              href="#pablo"
+                              onClick={e => e.preventDefault()}
+                            >
+                              Action
+                            </DropdownItem>
+                            <DropdownItem
+                              href="#pablo"
+                              onClick={e => e.preventDefault()}
+                            >
+                              Another action
+                            </DropdownItem>
+                            <DropdownItem
+                              href="#pablo"
+                              onClick={e => e.preventDefault()}
+                            >
+                              Something else here
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      </td>
+                      </tr>
+                        ))
+                      }
                     
                   </tbody>
                 </Table>
@@ -137,4 +169,4 @@ const ListResource = () => {
     )
 }
 
-export default ListResource;
+export default ListQuestionCategories;

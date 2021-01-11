@@ -1,12 +1,12 @@
 import {
-  GET_ALL_SPONSORS
+  GET_ALL_SPONSORS, DELETE_SPONSOR
 } from '../../_actions/types'
 
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
-  sponsors:  [],
-  singleSponsor : {},
+  sponsors:  [ ],
+  sponsor : {},
   
 }; 
 
@@ -28,10 +28,10 @@ export default function(state = initState, action) {
               data: [action.payload, ...state.data]
           } 
 
-      case 'DELETE_sponsor' :
+      case DELETE_SPONSOR :
           return{
               ...state,
-              sponsors: state.sponsors.filter(sponsor => sponsor.id !==action.payload)
+              sponsors: state.sponsors.filter(sponsor => sponsor._id !==action.payload)
           }
       case 'UPDATE_sponsor':
         return {

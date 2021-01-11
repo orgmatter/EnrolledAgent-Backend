@@ -1,26 +1,28 @@
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
-  data:  [],
+  resources:  [ ],
   resource : {},
   isAuthenticated: false,
   loading: true
   
 }; 
 
-export const Resource = (state = initState, action) => {
+export default function (state = initState, action) {
   switch (action.type) {
       case 'GET_ALL_RESOURCES' :
           return{
           ...state, 
-          data: action.payload,     
+          resources: action.payload,
+          isAuthenticated: true,
+          loading: false,     
       }
       case 'GET_resource':
         return {
           ...state,
           resource : action.payload
         }
-      case 'ADD_resource' :
+      case 'CREATE_RESOURCE' :
           return {
               ...state,
               resources: [action.payload, ...state.resources]

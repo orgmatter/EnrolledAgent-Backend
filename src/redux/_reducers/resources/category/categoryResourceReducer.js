@@ -1,19 +1,20 @@
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
-  data:  [],
-  category : {},
+  categories : [ ],
   isAuthenticated: false,
   loading: true
   
 }; 
 
-export const CategoryResource = (state = initState, action) => {
+export default function (state = initState, action) {
   switch (action.type) {
       case 'GET_RESOURCE_CATEGORIES' :
           return{
           ...state, 
-          data: action.payload,     
+          categories: action.payload, 
+          isAuthenticated: true,
+          loading: false,    
       }
       case 'GET_category':
         return {
