@@ -1,15 +1,23 @@
+import {
+  CREATE_QUESTION_CATEGORY,
+  GET_ALL_QUESTION_CATEGORIES,
+} from '../../../_actions/types';
+
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
   categories : [ ],
+  category : {},
+  token: localStorage.getItem('token'),
   isAuthenticated: false,
   loading: true
   
-}; 
+};
+
 
 export default function (state = initState, action) {
   switch (action.type) {
-      case 'GET_ALL_QUESTION_CATEGORIES' :
+      case GET_ALL_QUESTION_CATEGORIES :
           return{
           ...state, 
           categories: action.payload, 
@@ -21,7 +29,7 @@ export default function (state = initState, action) {
           ...state,
           category : action.payload
         }
-      case 'ADD_category' :
+      case CREATE_QUESTION_CATEGORY :
           return {
               ...state,
               categories: [action.payload, ...state.categories]

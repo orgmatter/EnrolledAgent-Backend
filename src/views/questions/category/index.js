@@ -28,7 +28,7 @@ const ListQuestionCategories = () => {
     const categories = useSelector((state) => state.categories.categories)
   
   useEffect(() => {
-    dispatch(getResourcesCategories());
+    dispatch(getQuestionsCategories());
   }, [dispatch]);
     return (
         <>
@@ -40,7 +40,7 @@ const ListQuestionCategories = () => {
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                  <Link to="/admin/resource/category/create">
+                  <Link to="/admin/question/category/create">
                     <Button color="info">
                       Add New Category +
                     </Button>
@@ -48,14 +48,14 @@ const ListQuestionCategories = () => {
                  
                 </CardHeader>
                 <CardHeader className="border-0">
-                <h3 className="mb-0">News &amp; Resource Categories</h3>
+                <h3 className="mb-0">Question Categories</h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
+                      <th scope="col">#</th>
                       <th scope="col">Name</th>
                       <th scope="col">Description</th>
-                      <th scope="col">Slug</th>
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -63,10 +63,10 @@ const ListQuestionCategories = () => {
                       {
                         categories.map((category, index)=>(
                         <tr key={index}>
+                        <td>{category._id}</td>
                         <td>{category.name}</td>
                         <td>{category.description}</td>
-                        <td>{category.slug}</td>
-                      
+                        
                           
                       <td className="text-right">
                         <UncontrolledDropdown>

@@ -25,7 +25,7 @@ export const getQuestionsCategories = () => async dispatch =>{
 export const addQuestionCategory = (category) => async dispatch => {
     const res = await axios.post('/category/question', category);
     dispatch ({
-        type: 'ADD_category',
+        type: CREATE_QUESTION_CATEGORY,
         payload: res.data
     });
 } 

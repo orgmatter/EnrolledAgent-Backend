@@ -27,6 +27,8 @@ import uploadAgent from "./views/agents/uploadAgent";
 import ListUsers from "./views/users/index";
 
 import ListQuestions from "./views/questions/index";
+import ListQuestionCategories from "./views/questions/category/index";
+import addCategoryQuestion from "./views/questions/category/addCategory";
 
 
 var routes = [
@@ -134,6 +136,20 @@ var routes = [
     name: "Upload Agents",
     icon: "ni ni-tv-2 text-primary",
     component: uploadAgent,
+    layout: "/admin"
+  },
+  {
+    path: "/question/categories",
+    name: "Question Categories",
+    icon: "ni ni-tv-2 text-primary", 
+    component: ListQuestionCategories,
+    layout: "/admin"
+  },
+  {
+    path: "/question/category/create",
+    name: "Create Queestion Category",
+    icon: "ni ni-tv-2 text-primary", 
+    component: addCategoryQuestion,
     layout: "/admin"
   },
   // {

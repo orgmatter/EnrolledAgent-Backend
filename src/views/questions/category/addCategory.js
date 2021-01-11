@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
-import {addArticleCategory} from '../../../redux/_actions/articles/category/index'
+import {addQuestionCategory} from '../../../redux/_actions/questions/category/index'
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -39,21 +39,21 @@ import {
   
       //Check for errors
       if(name === ''){
-        this.setState({ errors: { name: 'link is required'}});
+        this.setState({ errors: { name: 'name is required'}});
         return;
       }
       if (description === '') {
         this.setState({ errors: { description: 'description image is required'} });
       }
-      const newPropertySponsor = {
+      const newQuestionCategory = {
         name,
         description
       }
      
       
       //Submit Category
-      this.props.addArticleCategory(newPropertySponsor)
-      NotificationManager.success('Blog category added!', 'Successful!', 2000);
+      this.props.addQuestionCategory(newQuestionCategory)
+      NotificationManager.success('Question category added!', 'Successful!', 2000);
       
        //Clear state
        this.setState({
@@ -61,7 +61,7 @@ import {
         description: '',
         errors: {}
       })
-      this.props.history.push('/admin/article/categories');
+      this.props.history.push('/admin/question/categories');
       
     }
 
@@ -78,7 +78,7 @@ import {
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Create Article Category</h3>
+                <h3 className="mb-0">Create Question Category</h3>
                 </CardHeader>
                 <Form onSubmit={this.handleSubmit} >
                   <FormGroup>
@@ -105,5 +105,5 @@ import {
         )
       }
     }
- export default connect(null, {addArticleCategory})(addCategory);
+ export default connect(null, {addQuestionCategory})(addCategory);
 

@@ -9,6 +9,7 @@ import resourceReducer from './resources/resourceReducer';
 import categoryResourceReducer from './resources/category/categoryResourceReducer';
 import categoryArticleReducer from './articles/category/categoryArticleReducer';
 import questionReducer from './questions/questionReducer';
+import categoryQuestionReducer from './questions/category/categoryQuestionReducer';
 
 
 
@@ -23,6 +24,7 @@ export default combineReducers({
     resources: resourceReducer,
     categories: categoryResourceReducer,
     categories: categoryArticleReducer,
-    questions: questionReducer
+    questions: questionReducer,
+    categories: categoryQuestionReducer
 
 });
