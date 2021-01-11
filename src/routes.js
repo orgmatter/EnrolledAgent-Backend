@@ -26,6 +26,8 @@ import uploadAgent from "./views/agents/uploadAgent";
 
 import ListUsers from "./views/users/index";
 
+import ListQuestions from "./views/questions/index";
+
 
 var routes = [
   {
@@ -118,6 +120,13 @@ var routes = [
     name: "List Users",
     icon: "ni ni-tv-2 text-primary",
     component: ListUsers,
+    layout: "/admin"
+  },
+  {
+    path: "/questions",
+    name: "List Questions",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListQuestions,
     layout: "/admin"
   },
   {

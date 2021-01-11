@@ -39,20 +39,20 @@ import {
   
       //Check for errors
       if(name === ''){
-        this.setState({ errors: { name: 'link is required'}});
+        this.setState({ errors: { name: 'name is required'}});
         return;
       }
       if (description === '') {
         this.setState({ errors: { description: 'description image is required'} });
       }
-      const newPropertySponsor = {
+      const newArticleCategory = {
         name,
         description
       }
      
       
       //Submit Category
-      this.props.addArticleCategory(newPropertySponsor)
+      this.props.addArticleCategory(newArticleCategory)
       NotificationManager.success('Blog category added!', 'Successful!', 2000);
       
        //Clear state

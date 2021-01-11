@@ -1,26 +1,24 @@
 import {
-    GET_ARTICLE_CATEGORIES
+    GET_ARTICLE_CATEGORIES, CREATE_ARTICLE_CATEGORY
 } from '../../../_actions/types';
 
 const initState = {
     token: localStorage.getItem('token'),
     error: null,
     //categories:  [],
-    data:  [], 
+    categories:  [ ], 
     category : {},
     isAuthenticated: false,
     loading: true
 }; 
 
-export const CategoryArticle = (state = initState, action) => {
+export default function (state = initState, action){
     const {type, payload} = action;
     switch (type) {
         case GET_ARTICLE_CATEGORIES :
             return{
             ...state, 
-            data: action.payload,
-            isAuthenticated: true,
-            loading: false,
+            categories: action.payload
                 
         }
         case 'GET_category':
@@ -28,10 +26,10 @@ export const CategoryArticle = (state = initState, action) => {
             ...state,
             category : action.payload
           }
-        case 'ADD_category' :
+        case CREATE_ARTICLE_CATEGORY :
             return {
                 ...state,
-                data: [action.payload, ...state.data]
+                categories: [action.payload, ...state.categories]
 
             } 
 

@@ -14,7 +14,7 @@ export const getResourcesCategories = () => async dispatch =>{
     }
   };
 
-  const res = await axios.get('category/resource', config);
+  const res = await axios.get('/category/resource', config);
   dispatch ({ 
       type : GET_RESOURCE_CATEGORIES,
       payload : res.data.data

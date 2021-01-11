@@ -7,6 +7,8 @@ import agentReducer from './agents/agentReducer';
 import userReducer from './users/userReducer';
 import resourceReducer from './resources/resourceReducer';
 import categoryResourceReducer from './resources/category/categoryResourceReducer';
+import categoryArticleReducer from './articles/category/categoryArticleReducer';
+import questionReducer from './questions/questionReducer';
 
 
 
@@ -19,6 +21,8 @@ export default combineReducers({
     agents : agentReducer,
     users : userReducer,
     resources: resourceReducer,
-    categories: categoryResourceReducer
+    categories: categoryResourceReducer,
+    categories: categoryArticleReducer,
+    questions: questionReducer
 
 });

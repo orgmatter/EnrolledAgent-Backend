@@ -1,6 +1,6 @@
 import axios from '../../../axios';
 import {
-    GET_ARTICLE_CATEGORIES
+    GET_ARTICLE_CATEGORIES, CREATE_ARTICLE_CATEGORY
 } from '../../../_actions/types';
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -32,7 +32,7 @@ export const addArticleCategory = (category) => async dispatch => {
     };
     const res = await axios.post('/category/article', category, config);
     dispatch ({
-        type: 'ADD_category',
+        type: CREATE_ARTICLE_CATEGORY,
         payload: res.data
     });
 } 

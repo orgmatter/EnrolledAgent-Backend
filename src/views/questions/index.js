@@ -1,11 +1,12 @@
-import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import React,{useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import {getArticleCategories} from '../../../redux/_actions/articles/category/'
+import { getQuestions } from '../../redux/_actions/questions/index';
+import moment from "moment";
 
 // reactstrap components
 import {
-    Button,
+    Badge,
     Card,
     CardHeader,
     CardFooter,
@@ -18,57 +19,56 @@ import {
     PaginationLink,
     Table,
     Container,
-    Row
+    Row,
+    Button
   } from "reactstrap";
-  // core components
-  import Header from "components/Headers/Header.js";
 
-const ListCategories = () => {
+  // core components
+import Header from "components/Headers/Header.js";
+const ListQuestions = (props) => {
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.categories.categories)
-    // console.log(categories);
-    
+    const questions = useSelector((state) => state.questions.questions)
+    // console.log(questions);
   useEffect(() => {
-    dispatch(getArticleCategories());
+    dispatch(getQuestions());
   }, [dispatch]);
+
+  
     return (
         <>
         <Header />
-        {/* Page content */}
+            {/* Page content */}
         <Container className="mt--7" fluid>
           {/* Table */}
           <Row>
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                  <Link to="/admin/article/category/create">
-                    <Button color="info">
-                      Add New Category +
+                  <Link style={{float: 'right'}} to="/admin/question/categories">
+                    <Button >
+                      Question Categories
                     </Button>
                   </Link>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">Aricle &amp; Categories</h3>
+                  <h3 className="mb-0">Questions</h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
+                
                       <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Slug</th>
+                      <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(categories)}
+                    {console.log(questions)}
                       {
-                        categories.map((category)=>(
-                        <tr key={category._id}>
-                        <td>{category._id}</td>
-                        <td>{category.name}</td>
-                        <td>{category.description}</td>
-                        <td>{category.slug}</td>
+                        questions.map((question, index)=>(
+                        <tr key={index}>
+                        <td>{question._id}</td>
+                        <td>{moment(question.createdAt).format('MMM-DD-YYYY')}</td>
                       
                           
                       <td className="text-right">
@@ -88,19 +88,19 @@ const ListCategories = () => {
                               href="#pablo"
                               onClick={e => e.preventDefault()}
                             >
-                              Action
+                              Approve/Disapprove
                             </DropdownItem>
                             <DropdownItem
                               href="#pablo"
                               onClick={e => e.preventDefault()}
                             >
-                              Another action
+                              Edit
                             </DropdownItem>
                             <DropdownItem
-                              href="#pablo"
+                              href="#!"
                               onClick={e => e.preventDefault()}
                             >
-                              Something else here
+                              Delete
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>
@@ -168,8 +168,8 @@ const ListCategories = () => {
           </Row>
          
         </Container>
-      </>
+        </>
     )
 }
 
-export default ListCategories;
+export default ListQuestions;

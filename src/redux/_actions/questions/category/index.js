@@ -16,7 +16,7 @@ export const getQuestionsCategories = () => async dispatch =>{
 
   const res = await axios.get('/category/question', config);
   dispatch ({ 
-      type : GET_question_CATEGORIES,
+      type : GET_ALL_QUESTION_CATEGORIES,
       payload : res.data.data
   }); 
 }

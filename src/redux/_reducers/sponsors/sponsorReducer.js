@@ -25,7 +25,7 @@ export default function(state = initState, action) {
       case 'ADD_sponsor' :
           return {
               ...state,
-              data: [action.payload, ...state.data]
+              sponsors: [action.payload, ...state.sponsors]
           } 
 
       case DELETE_SPONSOR :
