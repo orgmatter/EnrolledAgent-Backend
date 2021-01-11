@@ -8,7 +8,7 @@ const initState = {
   
 }; 
 
-export const Agent = (state = initState, action) => {
+export default  Agent = (state = initState, action) => {
   switch (action.type) {
       case 'GET_ALL_AGENTS' :
           return{
