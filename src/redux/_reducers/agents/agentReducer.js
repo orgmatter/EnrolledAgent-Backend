@@ -1,6 +1,6 @@
 const initState = {
   error: null,
-  data:  [], 
+  agents:  [], 
   agent : {},
   token: localStorage.getItem('token'),
   isAuthenticated: false,
@@ -8,12 +8,12 @@ const initState = {
   
 }; 
 
-export default  Agent = (state = initState, action) => {
+export default function (state = initState, action) {
   switch (action.type) {
       case 'GET_ALL_AGENTS' :
           return{
           ...state, 
-          data: action.payload.data,
+          agents: action.payload,
           isAuthenticated: true,
           loading: false,     
       }

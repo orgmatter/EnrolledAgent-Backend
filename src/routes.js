@@ -24,6 +24,9 @@ import ListResourceCategories from "./views/resources/category/index";
 import ListAgent from "./views/agents/index";
 import uploadAgent from "./views/agents/uploadAgent";
 
+import ListUsers from "./views/users/index";
+
+
 var routes = [
   {
     path: "/index",
@@ -107,6 +110,14 @@ var routes = [
     name: "List Agents",
     icon: "ni ni-tv-2 text-primary",
     component: ListAgent,
+    layout: "/admin"
+  },
+
+  {
+    path: "/users",
+    name: "List Users",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListUsers,
     layout: "/admin"
   },
   {
