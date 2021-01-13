@@ -18,8 +18,7 @@ import {
     PaginationLink,
     Table,
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";

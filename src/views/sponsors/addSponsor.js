@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {sponsorAdd} from '../../redux/_actions/sponsors/index'
 
 // React Notification
-import { NotificationManager } from 'react-notifications';
+import {NotificationManager} from 'react-notifications';
 
 // reactstrap components
 import {
@@ -25,7 +25,6 @@ import {
     state = {
       link: '',
       name: '',
-      avatar: '',
       errors: {}
     };
 
@@ -36,7 +35,7 @@ import {
     handleSubmit = (e) =>{
       e.preventDefault();
       
-      const { link, name, avatar } = this.state;
+      const { link, name } = this.state;
   
       //Check for errors
       if(link === ''){
@@ -47,33 +46,29 @@ import {
         this.setState({ errors: { url: 'name is required'}});
         return;
       }
-      if (avatar === '') {
-        this.setState({ errors: { avatar: 'avatar image is required'} });
-      }
       const newPropertySponsor = {
         link,
         name,
-        avatar
       }
      
       
       //Submit Category
       this.props.sponsorAdd(newPropertySponsor)
-      NotificationManager.success('Blog category added!', 'Successful!', 2000);
+      
       
        //Clear state
        this.setState({
         link: '',
         name: '',
-        avatar: '',
         errors: {}
       })
       this.props.history.push('/admin/sponsors');
+      NotificationManager.success('Sponsor added!', 'Successful!', 2000);
       
     }
 
     render() {
-      const { link, name, avatar, errors } = this.state;
+      const { link, name, errors } = this.state;
 
     return (
         <>
@@ -100,12 +95,6 @@ import {
                       <Input type="text" value={name} onChange = {this.onChangeInput} name="name" error={errors.name} id="Name" />
                     </Col>
                   </FormGroup>
-                  <FormGroup>
-                    <Col sm={12}>
-                      <Label for="avatar">Upload Avatar</Label>
-                      <Input type="file" value={avatar} onChange={this.onChangeInput} error={errors.avatar} name="avatar" id="avatar" />
-                    </Col>
-                  </FormGroup>
                   
                   <Button onClick={this.handleSubmit} className="btn btn-primary mr-2">Submit</Button>
                 </Form>
@@ -114,6 +103,7 @@ import {
           </Row>
          
         </Container>
+        
       </>
         )
       }

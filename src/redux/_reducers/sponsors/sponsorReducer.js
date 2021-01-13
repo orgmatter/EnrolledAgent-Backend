@@ -32,6 +32,7 @@ export default function(state = initState, action) {
           return{
               ...state,
               sponsors: state.sponsors.filter(sponsor => sponsor._id !==action.payload)
+              
           }
       case 'UPDATE_sponsor':
         return {

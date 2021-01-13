@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import axios from '../../redux/axios/index'
 import moment from "moment"
 import { useSelector, useDispatch } from "react-redux";
 import {getAllSponsors, deleteSponsor} from '../../redux/_actions/sponsors/index'
@@ -26,18 +27,27 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListSponsors = (props) => {
+const ListSponsors = () => {
     const dispatch = useDispatch();
     const sponsors = useSelector((state) => state.sponsors.sponsors)
+
+    const [count, setCount] = useState(0);
   
   useEffect(() => {
     dispatch(getAllSponsors());
-  }, [dispatch]);
+  }, [dispatch, count]);
 
   const handleDelete = _id => {
-    deleteSponsor(_id);
+    axios.delete(`/sponsor/${_id}`).then(res => {
+      setCount((prevCount) => prevCount + 1)
+      //  NotificationManager.success('Sponsor deleted successfully!', 'Success!', 2000);
+   })
+    
+    // deleteSponsor(_id);
     console.log(_id)
   }
+
+  
   
     return (
         <>
