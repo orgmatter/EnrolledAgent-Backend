@@ -102,18 +102,20 @@ const ListArticles = (props) => {
                             >
                               Approve/Disapprove
                             </DropdownItem>
+                            <Link  to={`/admin/article/edit/${article._id}`}>
                             <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
+                            >       
+                             
                               Edit
+                                
                             </DropdownItem>
+                            </Link>
                             <DropdownItem
                               href="#!"
-                              onClick={() => handleDelete(article.id)}
+                              onClick={() => dispatch(deleteArticle(article._id))}
                             >
                               Delete
-                            </DropdownItem>
+                            </DropdownItem> 
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>

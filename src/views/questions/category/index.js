@@ -25,7 +25,7 @@ import {
 
 const ListQuestionCategories = () => {
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.categories.categories)
+    const quecategories = useSelector((state) => state.quecategories.quecategories)
   
   useEffect(() => {
     dispatch(getQuestionsCategories());
@@ -61,7 +61,7 @@ const ListQuestionCategories = () => {
                   </thead>
                   <tbody>
                       {
-                        categories.map((category, index)=>(
+                        quecategories.map((category, index)=>(
                         <tr key={index}>
                         <td>{category._id}</td>
                         <td>{category.name}</td>

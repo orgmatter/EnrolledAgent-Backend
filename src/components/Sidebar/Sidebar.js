@@ -240,6 +240,10 @@ class Sidebar extends React.Component {
                 <i className="ni ni-send text-primary"></i>Questions</Link>
                 </li>
                 <li className="nav-item">
+              <Link className="nav-link" to="/admin/faqs">
+                <i className="ni ni-briefcase-24 text-primary"></i>FAQs</Link>
+                </li>
+                <li className="nav-item">
               <Link className="nav-link" to="/admin/sponsors">
                 <i className="ni ni-building text-primary"></i>Sponsors</Link>
                 </li>

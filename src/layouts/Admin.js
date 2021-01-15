@@ -9,7 +9,8 @@ import AdminFooter from "components/Footers/AdminFooter.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import Private from '../Utils/Private';
 import routes from "routes.js";
-
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+ 
 class Admin extends React.Component {
   componentDidUpdate(e) {
     document.documentElement.scrollTop = 0;
@@ -60,6 +61,7 @@ class Admin extends React.Component {
             {...this.props}
             brandText={this.getBrandText(this.props.location.pathname)}
           />
+          <NotificationContainer />
           <Switch>
             {this.getRoutes(routes)}
             <Redirect from="*" to="/admin/index" />

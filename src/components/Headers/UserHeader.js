@@ -1,11 +1,25 @@
 
-import React from "react";
+import React,{useState, useEffect} from "react";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import axios from "../../redux/axios";
 
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-class UserHeader extends React.Component {
-  render() {
+const UserHeader = () => {
+
+  const [profile, setProfile] = useState([]);
+
+  useEffect(() => { 
+    axios.get("/user/profile")
+      .then(res => {
+        const profile = res.data.data;
+        setProfile(profile);
+        console.log(res.data.data)
+      })
+  }, []);
+  let history = useHistory();
+
     return (
       <>
         <div
@@ -24,18 +38,18 @@ class UserHeader extends React.Component {
           <Container className="d-flex align-items-center" fluid>
             <Row>
               <Col lg="7" md="10">
-                <h1 className="display-2 text-white">Hello Jesse</h1>
+                <h1 className="display-2 text-white">Hello {profile.firstName} {profile.lastName}</h1>
                 <p className="text-white mt-0 mb-5">
-                  This is your profile page. You can see the progress you've
-                  made with your work and manage your projects or assigned tasks
+                  This is your profile page. You can edit your profile here.
+                  This is your profile page. You can edit your profile here.
                 </p>
-                <Button
+                {/* <Button
                   color="info"
                   href="#pablo"
                   onClick={e => e.preventDefault()}
                 >
                   Edit profile
-                </Button>
+                </Button> */}
               </Col>
             </Row>
           </Container>
@@ -43,6 +57,6 @@ class UserHeader extends React.Component {
       </>
     );
   }
-}
+
 
 export default UserHeader;

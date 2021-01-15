@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/main.scss";
-
+import 'react-notifications/lib/notifications.css';
 // React Notification
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';

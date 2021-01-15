@@ -7,7 +7,7 @@ import moment from "moment";
 // reactstrap components
 import {
     Badge,
-    Card,
+    Card, 
     CardHeader,
     CardFooter,
     DropdownMenu,

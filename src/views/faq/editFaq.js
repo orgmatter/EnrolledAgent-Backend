@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-//import {addArticleCategory} from '../../../redux/_actions/articles/category/index'
+import React, {useRef, useEffect} from 'react'
+
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -19,10 +19,48 @@ import {
     FormText
   } from "reactstrap";
   // core components
-  import Header from "components/Headers/Header.js";
+  import Header from "../../components/Headers/Header.js";
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import {getFaqs} from '../../redux/_actions/faq/index';
+import { updateFaq } from '../../redux/_actions/faq/index';
 
-  const editArticle = () => {
+  const EditFaq = props => {
+
+    // faqs  from redux
+    const faq = useSelector(store => store.faqs.faqs?.filter(art => art._id === props.match.params.id)[0] ?? null, shallowEqual);
+    const dispatch = useDispatch();
+    const message = useRef(faq?.message);
+
+    console.log("edit faq", faq, "then",)
+
+    // Fetch Categories and faqs on mount
+    useEffect(() => {
+      dispatch(getFaqs());
+    }, [dispatch]);
     
+   
+    
+    /* Submit New Faq */
+    const handleSubmit = e =>  {
+      e.preventDefault();
+      e.stopPropagation();
+      const form = e.currentTarget;
+
+      if (message.current?.length < 30){
+        alert("Faq Body Content is too short or empty");
+      }
+      else if (form.checkValidity()) {
+        const formData = new FormData(form);
+        formData.append("id", props.match.params.id);
+        formData.append("message", message.current);
+        dispatch(updateFaq(formData));
+        props.history.push("/admin/faqs/");
+      }
+    }
+    // Description field update
+    const handleEditorChange = content => {
+      message.current = content;
+    }
     return (
         <>
         <Header />
@@ -33,21 +71,23 @@ import {
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Edit Article</h3>
+                <h3 className="mb-0">Edit Faq</h3>
                 </CardHeader>
-                <Form  >
+                <Form  onSubmit={handleSubmit}>
                   <FormGroup>
                     <Col sm={12}>
                       <Label for="Title">Title</Label>
-                      <Input type="text" name="title"  id="title" />
+                      <Input type="text" name="title" required  id="title" defaultValue={faq?.title} />
                     </Col>
                   </FormGroup>
+                
+                
                   <FormGroup>
                     <Col sm={12}>
                       <Label for="Body">Body</Label>
                      
                       <Editor
-                            initialValue="<p>This is the initial content of the editor</p>"
+                            initialValue={faq?.message}
                             init={{
                             height: 500,
                             menubar: false,
@@ -61,20 +101,12 @@ import {
                                 alignleft aligncenter alignright alignjustify | \
                                 bullist numlist outdent indent | removeformat | help'
                             }}
-                            name="body" 
-                            id="body"
+                            onEditorChange={handleEditorChange}
+                            id="message"
                         />
                     </Col>
                   </FormGroup>
-                  <FormGroup>
-                  <Col sm={12}>
-                    <Label for="exampleFile">Upload Image</Label>
-                    <Input type="file" name="file" id="exampleFile" />
-                    <FormText color="muted">
-                        Accepted file types are: png, jpeg or jpg.
-                    </FormText>
-                    </Col>
-                    </FormGroup>
+                
                   <FormGroup>
                     <Col sm={12}>
                   <Button className="btn btn-primary mr-2">Submit</Button>
@@ -89,5 +121,5 @@ import {
       </>
         )
     }
- export default editArticle;
+ export default EditFaq;
 

@@ -25,7 +25,7 @@ import {
 
 const ListResourceCategories = () => {
     const dispatch = useDispatch();
-    const categories = useSelector((state) => state.categories.categories)
+    const rescategories = useSelector((state) => state.rescategories.rescategories)
   
   useEffect(() => {
     dispatch(getResourcesCategories());
@@ -61,7 +61,7 @@ const ListResourceCategories = () => {
                   </thead>
                   <tbody>
                       {
-                        categories.map((category, index)=>(
+                        rescategories.map((category, index)=>(
                         <tr key={index}>
                         <td>{category.name}</td>
                         <td>{category.description}</td>

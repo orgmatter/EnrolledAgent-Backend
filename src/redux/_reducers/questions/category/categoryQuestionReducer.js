@@ -6,7 +6,7 @@ import {
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
-  categories : [ ],
+  quecategories : [ ],
   category : {},
   token: localStorage.getItem('token'),
   isAuthenticated: false,
@@ -20,7 +20,7 @@ export default function (state = initState, action) {
       case GET_ALL_QUESTION_CATEGORIES :
           return{
           ...state, 
-          categories: action.payload, 
+          quecategories: action.payload, 
           isAuthenticated: true,
           loading: false,    
       }
@@ -32,18 +32,18 @@ export default function (state = initState, action) {
       case CREATE_QUESTION_CATEGORY :
           return {
               ...state,
-              categories: [action.payload, ...state.categories]
+              quecategories: [action.payload, ...state.quecategories]
           } 
 
       case 'DELETE_category' :
           return{
               ...state,
-              categories: state.categories.filter(category => category.id !==action.payload)
+              quecategories: state.quecategories.filter(category => category.id !==action.payload)
           }
       case 'UPDATE_category':
         return {
           ...state,
-          categories : state.categories.map(category => category.id === action.payload.id ? (category = action.payload) : category )
+          quecategories : state.quecategories.map(category => category.id === action.payload.id ? (category = action.payload) : category )
         }
       default : {
           return state

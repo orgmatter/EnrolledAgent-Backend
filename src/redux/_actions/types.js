@@ -21,6 +21,7 @@ export const CREATE_ARTICLE = 'CREATE_ARTICLE';
 export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 export const GET_ARTICLE = 'GET_ARTICLE';
 export const UPDATE_ARTICLE = 'UPDATE_ARTICLE';
+export const APPROVE_ARTICLE = 'APPROVE_ARTICLE';
 
 //Resources Category
 export const CREATE_RESOURCE_CATEGORY = 'CREATE_RESOURCE_CATEGORY';
@@ -91,6 +92,13 @@ export const DELETE_USER = 'DELETE_USER';
 export const DEACTIVATE_USER = 'DEACTIVATE_USER';
 export const ACTIVATE_USER = 'ACTIVATE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+
+//Faq
+export const GET_FAQS = 'GET_FAQS';
+export const DELETE_FAQ = 'DELETE_FAQ';
+export const CREATE_FAQ = 'CREATE_FAQ';
+export const UPDATE_FAQ = 'UPDATE_FAQ';
+export const APPROVE_FAQ = 'APPROVE_FAQ';
 
 //Confgi - Payment Information
 export const GET_PAYMENT_DATA = 'GET_PAYMENT_DATA';
