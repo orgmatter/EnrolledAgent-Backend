@@ -1,9 +1,6 @@
 import React,{useEffect} from 'react'
-import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import {getArticles, deleteArticle} from '../../../redux/_actions/articles/article';
-import moment from "moment";
-
+import {getClaims} from '../../redux/_actions/agents/index';
 // reactstrap components
 import {
     Badge,
@@ -12,78 +9,78 @@ import {
     CardFooter,
     DropdownMenu,
     DropdownItem,
-    UncontrolledDropdown,
+    UncontrolledDropdown,   
     DropdownToggle,
+    Media,
     Pagination,
     PaginationItem,
     PaginationLink,
+    Progress,
     Table,
     Container,
     Row,
-    Button
+    UncontrolledTooltip
   } from "reactstrap";
- 
   // core components
-import Header from "components/Headers/Header.js";
-const ListArticles = (props) => {
-    const dispatch = useDispatch();
-    const articles = useSelector((state) => state.articles.articles)
-    // console.log(articles);
+  import Header from "components/Headers/Header.js";
+const Claims = () => {
+  const dispatch = useDispatch();
+    const listings = useSelector((state) => state.listings.listings)
+  
   useEffect(() => {
-    dispatch(getArticles());
+    dispatch(getClaims());
   }, [dispatch]);
-
-  const handleDelete = id => {
-    deleteArticle(id);
-    console.log(id)
-  }
     return (
         <>
-        <Header />
-            {/* Page content */}
+            <Header />
+        {/* Page content */}
         <Container className="mt--7" fluid>
           {/* Table */}
           <Row>
             <div className="col">
               <Card className="shadow">
-              <CardHeader className="border-0">
-                  <Link to="/admin/article/create">
-                  <Button color="info">
-                    Add New Article +
-                  </Button>
-                  </Link>
-                  <Link style={{float: 'right'}} to="/admin/article/categories">
-                  <Button >
-                    Article Categories
-                  </Button>
-                  </Link>
+                <CardHeader className="border-0">
+                  <a className="mb-0" href="/admin/agent/upload">Upload New Agent</a>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">News &amp; Articles</h3>
+                  <h3 className="mb-0">List of agents</h3>
+                  
                 </CardHeader>
+               
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                
-                      <th scope="col">Title</th>
-                      <th scope="col">Author</th>
+                      <th scope="col">ID</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Agent</th>
+                      <th scope="col">Role</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(articles)}
+                  {console.log("Listing:" . listings ? listings : "No data")}
                       {
-                        articles.map((article, index)=>(
-                        <tr key={index}>
-                        <td>{article.title}</td>
-                        <td>{article.author}</td>
-                        <td>{article.status}</td>
-                        <td>{moment(article.createdAt).format('MMM-DD-YYYY')}</td>
-                      
-                          
-                      <td className="text-right">
+                        listings.map((listing, index)=>(
+                        listing ?  
+                        <tr key={index} >
+                          <td>{listing._id}</td>
+                          <td>{listing.user.email}</td>
+                          <td>{listing.user.lastName}</td>
+                          <td>{listing.agent.firstName}</td>
+                          <td>{listing.jobRole}</td>
+                          { listing.status=="pending" ? 
+                           <td>
+                           <Badge color="danger">{listing.status}</Badge>
+                           </td>
+                           : 
+                           <td>
+                           <Badge color="success">{listing.status}</Badge>
+                           </td>
+                          }
+                         
+                          <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
                             className="btn-icon-only text-light"
@@ -97,30 +94,50 @@ const ListArticles = (props) => {
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
-                              href="#pablo"
+                              href="#!"
                               onClick={e => e.preventDefault()}
                             >
-                              Approve/Disapprove
+                              View
                             </DropdownItem>
+                            {
+                              listing.status=="pending" ?
+                              <div>
+
                             <DropdownItem
-                              href="#pablo"
+                              href="#!"
                               onClick={e => e.preventDefault()}
                             >
-                              Edit
+                              Approve
                             </DropdownItem>
                             <DropdownItem
                               href="#!"
-                              onClick={() => handleDelete(article.id)}
+                              onClick={e => e.preventDefault()}
                             >
-                              Delete
+                              Reject
                             </DropdownItem>
+                              </div>
+                            
+                            
+                            :
+
+                            <DropdownItem
+                              href="#!"
+                              onClick={e => e.preventDefault()}
+                            >
+                              Cancel Approval
+                            </DropdownItem>
+                            }
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                        ))
-                      }
-                    
+                     : 
+                          <tr>
+                            No Data
+                          </tr>
+                     ))
+                    }
+
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
@@ -184,4 +201,4 @@ const ListArticles = (props) => {
     )
 }
 
-export default ListArticles;
+export default Claims;

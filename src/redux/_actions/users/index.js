@@ -1,6 +1,8 @@
 import axios from '../../axios/'
 import {
-    GET_ALL_USERS
+    GET_ALL_USERS,
+    DEACTIVATE_USER,
+    ACTIVATE_USER
 } from '../types'
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -27,21 +29,36 @@ export const getUsers = () => async dispatch =>{
 //         payload: res.data
 //     });
 // } 
+export const activateUser = (_id) => dispatch => {
+    axios.post(`/user/activate/${_id}`)
+    .then(res => {
+        dispatch({
+            type : ACTIVATE_USER,
+            payload : _id 
+         })
+        // NotificationManager.success('agent deleted successfully!', 'Success!', 2000);
+     })
+     .catch(err => {
+         console.log(err)
+         //NotificationManager.error('Unable to delete agent!', 'Error!', 2000);
+     })
+}
 
-// export const deleteagent = (id) => dispatch => {
-//     axios.delete(`/agent/${id}`)
-//     .then(res => {
-//         dispatch({
-//             type : 'DELETE_agent',
-//             payload : id 
-//          })
-//          NotificationManager.success('agent deleted successfully!', 'Success!', 2000);
-//      })
-//      .catch(err => {
-//          console.log(err)
-//          NotificationManager.error('Unable to delete agent!', 'Error!', 2000);
-//      })
-// }
+export const deactivateUser = (_id) => dispatch => {
+    axios.post(`/user/deactivate/${_id}`)
+    .then(res => {
+        dispatch({
+            type : DEACTIVATE_USER,
+            payload : _id 
+         })
+        // NotificationManager.success('agent deleted successfully!', 'Success!', 2000);
+       // console.log(_id);
+     })
+     .catch(err => {
+         console.log(err)
+        // NotificationManager.error('Unable to delete agent!', 'Error!', 2000);
+     })
+}
 
 // export const getagent = (id) => async dispatch =>{
 

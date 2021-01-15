@@ -10,8 +10,8 @@ import categoryResourceReducer from './resources/category/categoryResourceReduce
 import categoryArticleReducer from './articles/category/categoryArticleReducer';
 import questionReducer from './questions/questionReducer';
 import categoryQuestionReducer from './questions/category/categoryQuestionReducer';
-
-
+import logReducer from './logs/logReducer';
+import configReducer from './config/configReducer'
 
 export default combineReducers({
 
@@ -20,11 +20,14 @@ export default combineReducers({
     articles : articleReducer,
     sponsors : sponsorReducer,
     agents : agentReducer,
+    listings : agentReducer,
     users : userReducer,
     resources: resourceReducer,
     categories: categoryResourceReducer,
     categories: categoryArticleReducer,
     questions: questionReducer,
-    categories: categoryQuestionReducer
+    categories: categoryQuestionReducer,
+    logs: logReducer,
+    payments: configReducer
 
 });

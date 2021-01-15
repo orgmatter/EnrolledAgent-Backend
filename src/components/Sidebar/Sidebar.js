@@ -252,8 +252,12 @@ class Sidebar extends React.Component {
                 <i className="ni ni-circle-08 text-primary"></i>Users</Link>
                 </li>
                 <li className="nav-item">
-              <Link className="nav-link" to="/admin/account-claims">
+              <Link className="nav-link" to="/admin/account-listing-claims">
                 <i className="ni ni-check-bold text-primary"></i>Account Claims</Link>
+                </li>
+                <li className="nav-item">
+              <Link className="nav-link" to="/admin/account-listing-claims">
+                <i className="ni ni-circle-08 text-primary"></i>Account Listing</Link>
                 </li>
                   
                 {/* {this.createLinks(routes)} */}
@@ -266,13 +270,14 @@ class Sidebar extends React.Component {
             {/* Navigation */}
             <Nav navbar>
             <li className="nav-item">
-              <Link className="nav-link" to="/admin/config">
+              <Link className="nav-link" to="/admin/configuration">
                 <i className="ni ni-settings text-primary"></i>Config</Link>
                 </li>
                 <li className="nav-item">
-              <Link className="nav-link" to="#!">
-                <i className="ni ni-button-power text-primary"></i>Logout</Link>
+              <Link className="nav-link" to="/admin/logs">
+                <i className="ni ni-spaceship text-primary"></i>Logs</Link>
                 </li>
+             
             </Nav>
             
           </Collapse>

@@ -12,7 +12,7 @@ import setAuthToken from '../../Utils/setAuthToken';
 //Admin Login
 export const login = (email, password) => async dispatch => {
     const config = {
-        headers: {
+        headers: { 
             'Content-Type': 'application/json',
             'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb'
         }
@@ -53,8 +53,9 @@ export const loadUser = () => async dispatch => {
     }
 }
 
-export const logout = () => dispatch => {
+export const userLogout = () => dispatch => {
     dispatch({
         type: LOGOUT
     })
+    
 }

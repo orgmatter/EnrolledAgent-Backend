@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import {getUsers} from '../../redux/_actions/users/index';
+import {getUsers,activateUser,deactivateUser} from '../../redux/_actions/users/index';
 import moment from 'moment';
 // reactstrap components
 import {
@@ -25,13 +25,22 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListUsers = () => {
+const ListUsers = (props,{_id}) => {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users.users)
-  
+    
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
+
+  const handleActivateUser = _id =>{
+      activateUser();
+      console.log(_id)
+  }
+  const handleDeactivateUser = _id =>{
+    deactivateUser();
+    console.log(_id)
+}
     return (
         <>
         <Header />
@@ -75,10 +84,14 @@ const ListUsers = () => {
                           <td>{user.lastName}</td>
                           <td>{user.email}</td>
                           <td>{moment(user.lastLogin).fromNow()}</td>
-                          <td>
-                           
-                            {user.isActive='true' ? 'Active' : 'Inactive' }
-                            </td>
+                          {
+                            user.isActive==true
+                            ?
+                            <td>Active</td>
+                            :
+                            <td>Deactivated</td>
+                          }
+                         
                           <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -104,12 +117,21 @@ const ListUsers = () => {
                             >
                               Update
                             </DropdownItem>
+                            {user.isActive==true ? 
                             <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
+                              href="#!"
+                              onClick={handleDeactivateUser(user._id)}
                             >
-                              Disable
+                              Deactivate
                             </DropdownItem>
+                            :
+                            <DropdownItem
+                            href="#!"
+                            onClick={handleActivateUser(user._id)}
+                          >
+                            Acivate
+                          </DropdownItem>
+                            }
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
