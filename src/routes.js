@@ -36,6 +36,9 @@ import EditFaq from "./views/faq/editFaq";
 import Claims from "./views/claim/index"
 import Config from "./views/config/index";
 import Log from "./views/logs/index";
+import Subscribers from "./views/subscribers/index";
+import Offshore from "./views/offshore/index";
+
 var routes = [
   {
     path: "/index",
@@ -207,6 +210,20 @@ var routes = [
     name: "User Logs",
     icon: "ni ni-tv-2 text-primary", 
     component: Log,
+    layout: "/admin"
+  },
+  {
+    path: "/subscribers",
+    name: "Subscription Mailing List",
+    icon: "ni ni-tv-2 text-primary", 
+    component: Subscribers,
+    layout: "/admin"
+  },
+  {
+    path: "/offshore-team-list",
+    name: "Offshore Team List",
+    icon: "ni ni-tv-2 text-primary", 
+    component: Offshore,
     layout: "/admin"
   },
   {
