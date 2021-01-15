@@ -32,16 +32,16 @@ const initState = {
         //         ...state,
         //         agents: [action.payload, ...state.agents]
         //     } 
-  
+   
         case DEACTIVATE_USER :
             return{
                 ...state,
-                users: state.users.filter(user => user._id !==action.payload)
+                users: state.users.filter(user => user.id !== action.payload)
             }
         case ACTIVATE_USER :
             return{
                 ...state,
-                users: state.users.filter(user => user._id !==action.payload)
+                users: state.users.filter(user => user.id !== action.payload)
             }
         // case 'UPDATE_agent':
         //   return {

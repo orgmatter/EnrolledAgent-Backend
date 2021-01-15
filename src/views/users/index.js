@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {getUsers,activateUser,deactivateUser} from '../../redux/_actions/users/index';
 import moment from 'moment';
 // reactstrap components
-import {
+import { 
     Badge,
     Card,
     CardHeader,
@@ -33,14 +33,6 @@ const ListUsers = (props,{_id}) => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const handleActivateUser = _id =>{
-      activateUser();
-      console.log(_id)
-  }
-  const handleDeactivateUser = _id =>{
-    deactivateUser();
-    console.log(_id)
-}
     return (
         <>
         <Header />
@@ -87,16 +79,16 @@ const ListUsers = (props,{_id}) => {
                           {
                             user.isActive==true
                             ?
-                            <td>Active</td>
+                            <td><Badge color="success">Active</Badge></td>
                             :
-                            <td>Deactivated</td>
+                            <td><Badge color="danger">Deactivated</Badge></td>
                           }
                          
                           <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
                             className="btn-icon-only text-light"
-                            href="#pablo"
+                            href="#!"
                             role="button"
                             size="sm"
                             color=""
@@ -106,13 +98,13 @@ const ListUsers = (props,{_id}) => {
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
-                              href="#pablo"
+                              href="#!"
                               onClick={e => e.preventDefault()}
                             >
                               View
                             </DropdownItem>
                             <DropdownItem
-                              href="#pablo"
+                              href="#!"
                               onClick={e => e.preventDefault()}
                             >
                               Update
@@ -120,14 +112,14 @@ const ListUsers = (props,{_id}) => {
                             {user.isActive==true ? 
                             <DropdownItem
                               href="#!"
-                              onClick={handleDeactivateUser(user._id)}
+                              onClick={() => dispatch(deactivateUser(user._id))}
                             >
                               Deactivate
                             </DropdownItem>
                             :
                             <DropdownItem
                             href="#!"
-                            onClick={handleActivateUser(user._id)}
+                            onClick={() => dispatch(activateUser(user._id))}
                           >
                             Acivate
                           </DropdownItem>

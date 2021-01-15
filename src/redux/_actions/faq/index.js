@@ -1,17 +1,17 @@
-import axios from '../../../axios';
+import axios from '../../axios';
 import {
-    GET_ARTICLES,
-    DELETE_ARTICLE,
-    GET_ARTICLE,
-    CREATE_ARTICLE,
-    UPDATE_ARTICLE,
-    APPROVE_ARTICLE
-} from '../../types';
+    GET_FAQS,
+    DELETE_FAQ,
+    GET_FAQ,
+    CREATE_FAQ,
+    UPDATE_FAQ,
+
+} from '../types';
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
-export const getArticles = () => async dispatch =>{
+export const getFaqs = () => async dispatch =>{
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -21,9 +21,9 @@ export const getArticles = () => async dispatch =>{
     };
 
     try{
-      const res = await axios.get('/article');
+      const res = await axios.get('/faq');
       dispatch ({ 
-          type : GET_ARTICLES,
+          type : GET_FAQS,
           payload : res.data.data,
           
       }); 
@@ -34,8 +34,8 @@ export const getArticles = () => async dispatch =>{
     }
 }
 
-// Add New Article Action
-export const addArticle = article => async dispatch => {
+// Add New Faq Action
+export const addFaq = faq => async dispatch => {
   const config = {
       headers: {
           'Content-Type': 'multipart/form-data',
@@ -44,19 +44,21 @@ export const addArticle = article => async dispatch => {
       }
   };
   try{
-    const res = await axios.post('/article', article, config);
+    const res = await axios.post('/faq', faq, config);
     dispatch ({
-        type: CREATE_ARTICLE,
+        type: CREATE_FAQ,
         payload: res.data 
     });
+    NotificationManager.success('Faq Added successfully !','Success!', 2000);
+    //window.setTimeout(function(){window.location.reload()}, 700);
   }
   catch(error){
     alert(error?.response?.data?.error.message ?? error.message)
   }
 }
 
-// Update Article Action
-export const updateArticle = article => async dispatch => {
+// Update Faq Action
+export const updateFaq = faq => async dispatch => {
   const config = {
       headers: {
           'Content-Type': 'multipart/form-data',
@@ -65,19 +67,21 @@ export const updateArticle = article => async dispatch => {
       }
   };
   try{
-    const res = await axios.put(`/article/${article.get("id")}`, article, config);
+    const res = await axios.put(`/faq/${faq.get("id")}`, faq, config);
     dispatch ({
-        type: UPDATE_ARTICLE,
+        type: UPDATE_FAQ,
         payload: res.data
     });
+    NotificationManager.success('Faq Updated successfully !','Success!', 2000);
+    window.setTimeout(function(){window.location.reload()}, 700);
   }
   catch(error){
     alert(error?.response?.data?.error.message ?? error.message)
   }
 }
 
-// Delete Article
-export const deleteArticle = (id) => async dispatch => {
+// Delete Faq
+export const deleteFaq = (id) => async dispatch => {
   const config = {
       headers: {
           'Content-Type': 'application/json',
@@ -86,32 +90,14 @@ export const deleteArticle = (id) => async dispatch => {
       }
   };
   try{
-    const res = await axios.delete(`/article/${id}`, config);
+    const res = await axios.delete(`/faq/${id}`, config);
     dispatch({
-        type: DELETE_ARTICLE,
-        payload: id
+        type: DELETE_FAQ
     })
+    NotificationManager.success('Faq Deleted successfully !','Success!', 2000);
+    window.setTimeout(function(){window.location.reload()}, 700);
   }
-  catch(error){
-    alert(error?.response?.data?.error.message ?? error.message)
-  }
-}
-
-export const approveArticle = article => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
-  try{
-    const res = await axios.post(`/article/status/${article.get("id")}`, article, config);
-    dispatch({
-        type: APPROVE_ARTICLE,
-        payload: res.data
-    })
-  }
+  
   catch(error){
     alert(error?.response?.data?.error.message ?? error.message)
   }

@@ -12,7 +12,7 @@ import questionReducer from './questions/questionReducer';
 import categoryQuestionReducer from './questions/category/categoryQuestionReducer';
 import logReducer from './logs/logReducer';
 import configReducer from './config/configReducer'
-
+import faqReducer from './faq/faqReducer';
 export default combineReducers({
 
     //alert,
@@ -23,11 +23,11 @@ export default combineReducers({
     listings : agentReducer,
     users : userReducer,
     resources: resourceReducer,
-    categories: categoryResourceReducer,
+    rescategories: categoryResourceReducer,
     categories: categoryArticleReducer,
     questions: questionReducer,
-    categories: categoryQuestionReducer,
+    quecategories: categoryQuestionReducer,
     logs: logReducer,
-    payments: configReducer
-
+    payments: configReducer,
+    faqs: faqReducer
 });

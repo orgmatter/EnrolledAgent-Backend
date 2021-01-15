@@ -70,7 +70,13 @@ const ListAgent = () => {
                           <td>{agent.lastName}</td>
                           <td>{agent.country}</td>
                           <td>{agent.zipcode}</td>
-                          <td>{agent.isClaimed}</td>
+                          {
+                            agent.isClaimed==true ?
+                          <td><Badge color="success">Claimed</Badge></td>  
+                            : 
+                           <td> <Badge color="danger">Not yet Claimed</Badge></td>
+                          }
+
                           <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -85,23 +91,18 @@ const ListAgent = () => {
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
-                              href="#pablo"
+                              href="#!"
                               onClick={e => e.preventDefault()}
                             >
-                              Action
+                              View
                             </DropdownItem>
                             <DropdownItem
-                              href="#pablo"
+                              href="#!"
                               onClick={e => e.preventDefault()}
                             >
-                              Another action
+                              Delete
                             </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Something else here
-                            </DropdownItem>
+                           
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>

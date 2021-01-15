@@ -1,7 +1,8 @@
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
-  categories : [ ],
+  rescategories : [ ],
+  category: {},
   isAuthenticated: false,
   loading: true
   
@@ -12,7 +13,7 @@ export default function (state = initState, action) {
       case 'GET_RESOURCE_CATEGORIES' :
           return{
           ...state, 
-          categories: action.payload, 
+          rescategories: action.payload, 
           isAuthenticated: true,
           loading: false,    
       }
@@ -24,18 +25,18 @@ export default function (state = initState, action) {
       case 'ADD_category' :
           return {
               ...state,
-              categories: [action.payload, ...state.categories]
+              rescategories: [action.payload, ...state.rescategories]
           } 
 
       case 'DELETE_category' :
           return{
               ...state,
-              categories: state.categories.filter(category => category.id !==action.payload)
+              rescategories: state.rescategories.filter(category => category.id !==action.payload)
           }
       case 'UPDATE_category':
         return {
           ...state,
-          categories : state.categories.map(category => category.id === action.payload.id ? (category = action.payload) : category )
+          rescategories : state.rescategories.map(category => category.id === action.payload.id ? (category = action.payload) : category )
         }
       default : {
           return state

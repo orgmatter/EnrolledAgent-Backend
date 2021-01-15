@@ -1,8 +1,5 @@
-import React, {Component} from 'react'
-//import {addArticleCategory} from '../../../redux/_actions/articles/category/index'
+import React, {useEffect, useRef} from 'react'
 
-// React Notification
-import { NotificationManager } from 'react-notifications';
 import { Editor } from '@tinymce/tinymce-react';
 // reactstrap components
 import {
@@ -20,9 +17,38 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
+  import { useDispatch  } from 'react-redux';
 
-  const addArticle = () => {
+import { addFaq } from 'redux/_actions/faq/index.js';
+
+  const AddFaq = props => {
+
     
+    const dispatch = useDispatch();
+    const body = useRef("");
+
+
+    // Description field update
+    const handleEditorChange = content => {
+      body.current = content;
+    }
+
+  /* Submit New Article */
+  const handleSubmit = e =>  {
+    e.preventDefault();
+    e.stopPropagation();
+    const form = e.currentTarget;
+
+    if (body.current?.length < 30){
+      alert("Faq message Content is too short or empty");
+    }
+    else if (form.checkValidity()) {
+      const formData = new FormData(form);
+      formData.append("message", body.current);
+      dispatch(addFaq(formData));
+      props.history.push("/admin/faqs/");
+    }
+  }
     return (
         <>
         <Header />
@@ -35,16 +61,17 @@ import {
               <CardHeader className="border-0">
                 <h3 className="mb-0">Create New Article</h3>
                 </CardHeader>
-                <Form  >
+                <Form  onSubmit={handleSubmit} >
                   <FormGroup>
                     <Col sm={12}>
                       <Label for="Title">Title</Label>
-                      <Input type="text" name="title"  id="title" />
+                      <Input type="text" name="title" required  id="title" />
                     </Col>
                   </FormGroup>
+                
                   <FormGroup>
                     <Col sm={12}>
-                      <Label for="Body">Body</Label>
+                      <Label for="Message">Message</Label>
                      
                       <Editor
                             initialValue="<p>This is the initial content of the editor</p>"
@@ -61,23 +88,15 @@ import {
                                 alignleft aligncenter alignright alignjustify | \
                                 bullist numlist outdent indent | removeformat | help'
                             }}
-                            name="body" 
-                            id="body"
+                            onEditorChange={handleEditorChange}
+                            id="message"
                         />
                     </Col>
                   </FormGroup>
-                  <FormGroup>
-                  <Col sm={12}>
-                    <Label for="exampleFile">Upload Image</Label>
-                    <Input type="file" name="file" id="exampleFile" />
-                    <FormText color="muted">
-                        Accepted file types are: png, jpeg or jpg.
-                    </FormText>
-                    </Col>
-                    </FormGroup>
+              
                   <FormGroup>
                     <Col sm={12}>
-                  <Button className="btn btn-primary mr-2">Submit</Button>
+                  <Button type="submit" className="btn btn-primary mr-2">Submit</Button>
                   </Col>
                     </FormGroup>
                 </Form>
@@ -89,5 +108,5 @@ import {
       </>
         )
     }
- export default addArticle;
+ export default AddFaq;
 

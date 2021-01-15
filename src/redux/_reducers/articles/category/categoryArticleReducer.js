@@ -1,5 +1,9 @@
 import {
-    GET_ARTICLE_CATEGORIES, CREATE_ARTICLE_CATEGORY
+    GET_ARTICLE_CATEGORIES, 
+    GET_ARTICLE_CATEGORY,
+    CREATE_ARTICLE_CATEGORY,
+    DELETE_ARTICLE_CATEGORY,
+    UPDATE_ARTICLE_CATEGORY
 } from '../../../_actions/types';
 
 const initState = {
@@ -21,7 +25,7 @@ export default function (state = initState, action){
             categories: action.payload
                 
         }
-        case 'GET_category':
+        case GET_ARTICLE_CATEGORY:
           return {
             ...state,
             category : action.payload
@@ -33,12 +37,12 @@ export default function (state = initState, action){
 
             } 
 
-        case 'DELETE_category' :
+        case DELETE_ARTICLE_CATEGORY :
             return{
                 ...state,
                 categories: state.categories.filter(category => category.id !==action.payload)
             }
-        case 'UPDATE_category':
+        case UPDATE_ARTICLE_CATEGORY:
           return {
             ...state,
             categories : state.categories.map(category => category.id === action.payload.id ? (category = action.payload) : category )

@@ -1,16 +1,14 @@
 import Index from "./views/Index.js";
-import Profile from "./views/examples/Profile.js";
-import Maps from "./views/examples/Maps.js";
-import Register from "./views/examples/Register.js";
+import Profile from "./views/admin/Profile.js";
 import Login from "./views/auth/Login.js";
-import Tables from "./views/examples/Tables.js";
 import Icons from "./views/examples/Icons.js";
 
 import ListCategories from "./views/articles/category";
 import addCategory from "./views/articles/category/addCategory";
 
 import ListArticles from "./views/articles/article";
-import addArticle from "./views/articles/article/addArticle";
+import addArticle from "./views/articles/article/AddArticle";
+import editArticle from "./views/articles/article/editArticle";
 
 import ListSponsors from "./views/sponsors/index";
 import CreateSponsor from "./views/sponsors/addSponsor";
@@ -29,6 +27,11 @@ import ListUsers from "./views/users/index";
 import ListQuestions from "./views/questions/index";
 import ListQuestionCategories from "./views/questions/category/index";
 import addCategoryQuestion from "./views/questions/category/addCategory";
+
+//Faq
+import ListFaq from "./views/faq/index";
+import addFaq from "./views/faq/addFaq";
+import EditFaq from "./views/faq/editFaq";
 
 import Claims from "./views/claim/index"
 import Config from "./views/config/index";
@@ -67,6 +70,13 @@ var routes = [
     name: "Create New Article",
     icon: "ni ni-tv-2 text-primary", 
     component: addArticle,
+    layout: "/admin"
+  },
+  {
+    path: "/article/edit/:id",
+    name: "Edit Article",
+    icon: "ni ni-tv-2 text-primary", 
+    component: editArticle,
     layout: "/admin"
   },
   {
@@ -160,6 +170,28 @@ var routes = [
     name: "Account Listing Claims",
     icon: "ni ni-tv-2 text-primary", 
     component: Claims,
+    layout: "/admin"
+  },
+  //FAQ
+  {
+    path: "/faqs",
+    name: "Faqs",
+    icon: "ni ni-tv-2 text-primary", 
+    component: ListFaq,
+    layout: "/admin"
+  },
+  {
+    path: "/faq/create",
+    name: "Faqs",
+    icon: "ni ni-tv-2 text-primary", 
+    component: addFaq,
+    layout: "/admin"
+  },
+  {
+    path: "/faq/edit/:id",
+    name: "Edit Article",
+    icon: "ni ni-tv-2 text-primary", 
+    component: EditFaq,
     layout: "/admin"
   },
   //Admin Configuration

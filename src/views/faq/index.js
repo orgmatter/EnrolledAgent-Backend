@@ -1,6 +1,8 @@
 import React,{useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import {getClaims, approveClaim, rejectClaim} from '../../redux/_actions/agents/index';
+import {getFaqs, deleteFaq} from '../../redux/_actions/faq/index';
+import moment from "moment";
 
 // reactstrap components
 import {
@@ -10,79 +12,73 @@ import {
     CardFooter,
     DropdownMenu,
     DropdownItem,
-    UncontrolledDropdown,   
+    UncontrolledDropdown,
     DropdownToggle,
-    Media,
     Pagination,
     PaginationItem,
     PaginationLink,
-    Progress,
     Table,
     Container,
     Row,
-    UncontrolledTooltip
+    Button
   } from "reactstrap";
+ 
   // core components
-  import Header from "components/Headers/Header.js";
-const Claims = () => {
-  const dispatch = useDispatch();
-    const listings = useSelector((state) => state.listings.listings)
-  
+import Header from "components/Headers/Header.js";
+const ListFaq = (props) => {
+    const dispatch = useDispatch();
+    const faqs = useSelector((state) => state.faqs.faqs)
+    // console.log(articles);
   useEffect(() => {
-    dispatch(getClaims());
+    dispatch(getFaqs());
   }, [dispatch]);
+
+
     return (
         <>
-            <Header />
-        {/* Page content */}
+        <Header />
+            {/* Page content */}
         <Container className="mt--7" fluid>
           {/* Table */}
           <Row>
             <div className="col">
               <Card className="shadow">
-                <CardHeader className="border-0">
-                  <a className="mb-0" href="/admin/agent/upload">Upload New Agent</a>
+              <CardHeader className="border-0">
+                  <Link to="/admin/faq/create">
+                  <Button color="info">
+                    Add New Article +
+                  </Button>
+                  </Link>
+              
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">List of agents</h3>
-                  
+                  <h3 className="mb-0">News &amp; Articles</h3>
                 </CardHeader>
-               
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Last Name</th>
-                      <th scope="col">Agent</th>
-                      <th scope="col">Role</th>
-                      <th scope="col">Status</th>
+                
+                      <th scope="col">Title</th>
+                      <th scope="col">Message</th>
+                      <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                  {console.log("Listing:" . listings ? listings : "No data")}
+                    {console.log(faqs)}
                       {
-                        listings.map((listing, index)=>(
-                        listing ?  
-                        <tr key={index} >
-                          <td>{listing._id}</td>
-                          <td>{listing.user.email}</td>
-                          <td>{listing.user.lastName}</td>
-                          <td>{listing.agent.firstName}</td>
-                          <td>{listing.jobRole}</td>
-                          { listing.status=="pending" || listing.status=="rejected" ? 
-                           <td>
-                           <Badge color="danger">{listing.status}</Badge>
-                           </td>
-                           : 
-                           <td>
-                           <Badge color="success">{listing.status}</Badge>
-                           </td>
-                           
-                          }
-                         
-                          <td className="text-right">
+                        faqs.map((faq, index)=>(
+                        <tr key={index}>
+                        <td>{faq.title}</td>
+                        
+                        <td> {faq.message.length < 10
+                          ? `${faq.messaged}`
+                          : `${faq.message.substring(0, 20)}...`}
+                          </td>
+                        <td>{moment(faq.createdAt).format('MMM-DD-YYYY')}</td>
+                      
+                          
+                      <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
                             className="btn-icon-only text-light"
@@ -95,46 +91,28 @@ const Claims = () => {
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
+                           
+                            <Link  to={`/admin/faq/edit/${faq._id}`}>
                             <DropdownItem
-                              href="#!"
-                              onClick={e => e.preventDefault()}
-                            >
-                              View
+                            >       
+                             
+                              Edit
+                                
                             </DropdownItem>
-                            {
-                              listing.status=="pending" || listing.status=="rejected" ?
-                              <div>
-
+                            </Link>
                             <DropdownItem
-                              href="#!"
-                              onClick={() => dispatch(approveClaim(listing._id))}
+                              href="JavaScript:void(0);"
+                              onClick={() => dispatch(deleteFaq(faq._id))}
                             >
-                              Approve
-                            </DropdownItem>
-                          
-                              </div>
-                            
-                            
-                            :
-
-                            <DropdownItem
-                              href="#!"
-                              onClick={() => dispatch(rejectClaim(listing._id))}
-                            >
-                              Reject / Cancel Approval
-                            </DropdownItem>
-                            }
+                              Delete
+                            </DropdownItem> 
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                     : 
-                          <tr>
-                            No Data
-                          </tr>
-                     ))
-                    }
-
+                        ))
+                      }
+                    
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
@@ -198,4 +176,4 @@ const Claims = () => {
     )
 }
 
-export default Claims;
+export default ListFaq;
