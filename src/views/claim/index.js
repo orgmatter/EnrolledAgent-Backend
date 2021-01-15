@@ -67,9 +67,9 @@ const Claims = () => {
                         listing ?  
                         <tr key={index} >
                           <td>{listing._id}</td>
-                          <td>{listing.user.email}</td>
-                          <td>{listing.user.lastName}</td>
+                       
                           <td>{listing.agent.firstName}</td>
+                          <td>{listing.agent.lastName}</td>
                           <td>{listing.jobRole}</td>
                           { listing.status=="pending" || listing.status=="rejected" ? 
                            <td>
