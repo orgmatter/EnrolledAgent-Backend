@@ -96,12 +96,7 @@ const ListArticles = (props) => {
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Approve/Disapprove
-                            </DropdownItem>
+                         
                             <Link  to={`/admin/article/edit/${article._id}`}>
                             <DropdownItem
                             >       

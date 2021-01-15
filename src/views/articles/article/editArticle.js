@@ -106,21 +106,22 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
                   </FormGroup>
                   <FormGroup>
                     <Col sm={12}>
-                      <Label for="status">Status</Label>
+                      <Label for="category">Status</Label>
 
                         <Input type="select"  id="exampleSelect"
                             required
                             className="mr-sm-2"
                             name="status"
                             id="status"
-                            
                           >
-                            <option value="pending">Pending</option>
-                            <option value="approved">Approved</option>
-                           
+                            <option value="approved">Approve</option>
+                            <option value="pending">Pend</option>
+                            <option value="rejected">Reject</option>
+                          
                         </Input>
                     </Col>
                   </FormGroup>
+              
                   <FormGroup>
                     <Col sm={12}>
                       <Label for="Body">Body</Label>
