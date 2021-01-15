@@ -49,6 +49,8 @@ export const addArticle = article => async dispatch => {
         type: CREATE_ARTICLE,
         payload: res.data 
     });
+    NotificationManager.success('Article added successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
   }
   catch(error){
     alert(error?.response?.data?.error.message ?? error.message)
@@ -70,6 +72,8 @@ export const updateArticle = article => async dispatch => {
         type: UPDATE_ARTICLE,
         payload: res.data
     });
+    NotificationManager.success('Article updated successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
   }
   catch(error){
     alert(error?.response?.data?.error.message ?? error.message)
@@ -91,6 +95,8 @@ export const deleteArticle = (id) => async dispatch => {
         type: DELETE_ARTICLE,
         payload: id
     })
+    NotificationManager.success('Artilce deleted successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
   }
   catch(error){
     alert(error?.response?.data?.error.message ?? error.message)
