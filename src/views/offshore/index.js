@@ -20,18 +20,19 @@ import {
     Table,
     Container,
     Row,
+    Button,
     UncontrolledTooltip
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
-const Subscribers = () => {
-    const [subscribers, setSub] = useState([]);
+const Offshore = () => {
+    const [lists, setList] = useState([]);
 
   useEffect(() => { 
-    axios.get("email-list")
+    axios.get("offshore")
       .then(res => {
-        const subscribers = res.data.data;
-        setSub(subscribers);
+        const lists = res.data.data;
+        setList(lists);
         console.log(res.data.data)
       })
   }, []);
@@ -45,38 +46,52 @@ const Subscribers = () => {
           <Row>
             <div className="col">
               <Card className="shadow">
-            
+              <CardHeader className="border-0">
+                  
+                  <Button style={{float: 'right'}} color="info">
+                    Export As CSV or Excel
+                  </Button>
+
+                </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">List of subscribed users</h3>
+                  <h3 className="mb-0">Off Shore Team List</h3>
                   
                 </CardHeader>
                
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Subscription</th>
+
+                      <th scope="col">Name</th>
                       <th scope="col">Email</th>
-                      <th scope="col">Date Subscribed</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">City</th>
+                       <th scope="col">State</th>
+                       <th scope="col">Zipcode</th>
+                       <th scope="col">Business Size</th>
+                       <th scope="col">Staff Needed</th>
+                       <th scope="col">Hire Urgency</th>
+                       <th scope="col">Prefered Contact</th>
+                      <th scope="col">Date Sent</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(subscribers)}
+                    {console.log(lists)}
                       {
-                        subscribers.map((subscriber, index)=>(
+                        lists.map((list, index)=>(
                         <tr key={index}>                      
-                          <td>{subscriber._id}</td>
-                          {
-                            subscriber.unsubscribed==false
-                            ?
-                            <td><Badge color="success">Active Subscription</Badge></td>
-                            :
-                            <td><Badge color="danger">Inactive Subscription</Badge></td>
-                          }
-                          <td>{subscriber.email}</td>
-                          <td>{moment(subscriber.createdAt).fromNow()}</td>
+                          <td>{list.firstName} {list.lastName}</td>
+                          <td>{list.email}</td>
+                          <td>{list.phone}</td>
+                          <td>{list.city}</td>
+                          <td>{list.state}</td>
+                          <td>{list.zipcode}</td>
+                          <td>{list.businessSize}</td>
+                          <td>{list.staffNeeded}</td>
+                          <td>{list.hireUrgency}</td>
+                          <td>{list.preferredContact}</td>
+                          <td>{moment(list.createdAt).fromNow()}</td>
                          
                          
                           {/* <td className="text-right">
@@ -175,4 +190,4 @@ const Subscribers = () => {
     )
 }
 
-export default Subscribers;
+export default Offshore;
