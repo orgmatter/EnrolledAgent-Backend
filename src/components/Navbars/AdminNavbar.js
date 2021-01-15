@@ -1,14 +1,15 @@
 
-import React from "react";
-import { Link } from "react-router-dom";
-import {logout} from '../../redux/_actions/auth';
+import React,{useEffect, useState} from "react";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import {userLogout} from '../../redux/_actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-
-// reactstrap components
+import axios from "../../redux/axios";
+import Avatar from "../../assets/img/avatar.png"
+// reactstrap components 
 import {
   DropdownMenu,
-  DropdownItem,
+  DropdownItem, 
   UncontrolledDropdown,
   DropdownToggle, 
   Form,
@@ -24,8 +25,22 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props,{logout}) => {
+
+  const [profile, setProfile] = useState([]);
+
+  useEffect(() => { 
+    axios.get("/user/profile")
+      .then(res => {
+        const profile = res.data.data;
+        setProfile(profile);
+        console.log(res.data.data)
+      })
+  }, []);
+  let history = useHistory();
+  
   const logoutUser = () => {
-    logout();
+    localStorage.removeItem("token");
+    history.push("/")
   }
   return (
     <>
@@ -56,83 +71,47 @@ const AdminNavbar = (props,{logout}) => {
                 <span className="avatar avatar-sm rounded-circle">
                   <img
                     alt="..."
-                    src={require("assets/img/theme/team-4-800x800.jpg")}
+                    src={Avatar}
                   />
                 </span>
                 <Media className="ml-2 d-none d-lg-block">
                   <span className="mb-0 text-sm font-weight-bold">
-                    Jessica Jones
+                  
+                    {profile.firstName} {profile.lastName}
                   </span>
                 </Media>
               </Media>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-arrow" right>
               <DropdownItem className="noti-title" header tag="div">
-                <h6 className="text-overflow m-0">Welcome!</h6>
+                <h6 className="text-overflow m-0">Welcome!  {profile.firstName} {profile.lastName}</h6>
               </DropdownItem>
               <DropdownItem to="/admin/user-profile" tag={Link}>
                 <i className="ni ni-single-02" />
                 <span>My profile</span>
               </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
+              <DropdownItem to="/admin/configuration" tag={Link}>
                 <i className="ni ni-settings-gear-65" />
                 <span>Settings</span>
               </DropdownItem>
            
               <DropdownItem divider />
-              <DropdownItem onClick={logoutUser}href="#!">
+              <DropdownItem onClick={logoutUser} href="#!">
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>
-         <Nav className="align-items-center d-none d-md-flex" navbar>
-          <UncontrolledDropdown nav>
-            <DropdownToggle className="pr-0" nav>
-              <Media className="align-items-center">
-                <span className="avatar avatar-sm rounded-circle">
-                  <img
-                    alt="..."
-                    src={require("assets/img/theme/team-4-800x800.jpg")}
-                  />
-                </span>
-                <Media className="ml-2 d-none d-lg-block">
-                  <span className="mb-0 text-sm font-weight-bold">
-                    Jessica Jones
-                  </span>
-                </Media>
-              </Media>
-            </DropdownToggle>
-            <DropdownMenu className="dropdown-menu-arrow" right>
-              <DropdownItem className="noti-title" header tag="div">
-                <h6 className="text-overflow m-0">Welcome!</h6>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-single-02" />
-                <span>My profile</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-settings-gear-65" />
-                <span>Settings</span>
-              </DropdownItem>
-           
-              <DropdownItem divider />
-              <DropdownItem onClick={logoutUser}href="#!">
-                <i className="ni ni-user-run" />
-                <span>Logout</span>
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </Nav>
+       
       </Container>
     </Navbar>
   </>
   )
 }
 AdminNavbar.propTypes = {
-  logout: PropTypes.func.isRequired,
+  auth: PropTypes.func.isRequired,
 }
 
 
-export default connect(null, {logout})(AdminNavbar);
+export default connect(null, {userLogout})(AdminNavbar);

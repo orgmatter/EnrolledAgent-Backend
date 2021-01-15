@@ -6,7 +6,7 @@ import {addArticleCategory} from '../../../redux/_actions/articles/category/inde
 import { NotificationManager } from 'react-notifications';
 
 // reactstrap components
-import {
+import { 
     FormGroup,
     Card,
     CardHeader,

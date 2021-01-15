@@ -1,9 +1,9 @@
-import React,{useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import React,{useState,useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import {getArticles, deleteArticle} from '../../../redux/_actions/articles/article';
-import moment from "moment";
-
+import {getLogs, deleteLog} from '../../redux/_actions/logs/index';
+import {Link} from 'react-router-dom'
+import moment from 'moment';
+import axios from '../../redux/axios/index'
 // reactstrap components
 import {
     Badge,
@@ -22,66 +22,63 @@ import {
     Row,
     Button
   } from "reactstrap";
- 
+
   // core components
 import Header from "components/Headers/Header.js";
-const ListArticles = (props) => {
-    const dispatch = useDispatch();
-    const articles = useSelector((state) => state.articles.articles)
-    // console.log(articles);
+const Log = () => {
+  const dispatch = useDispatch();
+    const logs = useSelector((state) => state.logs.logs)
+  
   useEffect(() => {
-    dispatch(getArticles());
-  }, [dispatch]);
+    dispatch(getLogs());
+  }, [dispatch]); 
 
-  const handleDelete = id => {
-    deleteArticle(id);
-    console.log(id)
+  const [count, setCount] = useState(0);
+
+  const handleDelete = _id => {
+  //   axios.delete(`/log/${_id}`).then(res => {
+  //     setCount((prevCount) => prevCount + 1)
+     
+  //  })
+    deleteLog(_id);
+    // deleteSponsor(_id);
+    console.log(_id)
   }
     return (
         <>
-        <Header />
+            <Header />
             {/* Page content */}
         <Container className="mt--7" fluid>
           {/* Table */}
           <Row>
             <div className="col">
               <Card className="shadow">
-              <CardHeader className="border-0">
-                  <Link to="/admin/article/create">
-                  <Button color="info">
-                    Add New Article +
-                  </Button>
-                  </Link>
-                  <Link style={{float: 'right'}} to="/admin/article/categories">
-                  <Button >
-                    Article Categories
-                  </Button>
-                  </Link>
-                </CardHeader>
+           
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">News &amp; Articles</h3>
+                  <h3 className="mb-0">User Logs</h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
                 
-                      <th scope="col">Title</th>
-                      <th scope="col">Author</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">IP</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Message</th>
+                      <th scope="col">Account</th>
                       <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(articles)}
-                      {
-                        articles.map((article, index)=>(
+               
+                  {
+                        logs.map((log, index)=>(
                         <tr key={index}>
-                        <td>{article.title}</td>
-                        <td>{article.author}</td>
-                        <td>{article.status}</td>
-                        <td>{moment(article.createdAt).format('MMM-DD-YYYY')}</td>
-                      
+                        <td>{log.ip}</td>
+                        <td>{log.category}</td>
+                        <td>{log.message}</td>
+                        <td>{log.account}</td>
+                        <td>{moment(log.createdAt).format('MMM-DD-YYYY')}</td>
                           
                       <td className="text-right">
                         <UncontrolledDropdown>
@@ -96,31 +93,19 @@ const ListArticles = (props) => {
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Approve/Disapprove
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Edit
-                            </DropdownItem>
+                           
                             <DropdownItem
                               href="#!"
-                              onClick={() => handleDelete(article.id)}
+                              onClick={handleDelete(log._id)}
                             >
-                              Delete
+                              Delete Log
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                        ))
+                       ))
                       }
-                    
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
@@ -184,4 +169,4 @@ const ListArticles = (props) => {
     )
 }
 
-export default ListArticles;
+export default Log

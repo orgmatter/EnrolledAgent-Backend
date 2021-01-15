@@ -19,7 +19,7 @@ import {
     PaginationItem,
     PaginationLink,
     Progress,
-    Table,
+    Table, 
     Container,
     Row,
     UncontrolledTooltip
@@ -114,7 +114,7 @@ const ListSponsors = () => {
                                 >
                                   Edit
                                 </DropdownItem>
-                                <DropdownItem
+                                <DropdownItem 
                                   href="#!"
                                   onClick={() => handleDelete(sponsor._id)}
                                 >

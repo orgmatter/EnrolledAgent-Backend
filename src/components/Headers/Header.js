@@ -1,11 +1,19 @@
-
-import React from "react";
-
+import React,{useState, useEffect} from "react";
+import axios from "../../redux/axios";
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 
-class Header extends React.Component {
-  render() {
+const Header = () => {
+  const [analytic, setAnalytic] = useState([]);
+
+  useEffect(() => { 
+    axios.get("/analytic")
+      .then(res => {
+        const analytic = res.data.data;
+        setAnalytic(analytic);
+        console.log(res.data.data)
+      })
+  }, []);
     return (
       <>
         <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -22,10 +30,10 @@ class Header extends React.Component {
                             tag="h5"
                             className="text-uppercase text-muted mb-0"
                           >
-                            Traffic
+                            Total Agents
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            350,897
+                           {analytic.totalAgents}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -55,7 +63,7 @@ class Header extends React.Component {
                             New users
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            2,356
+                          {analytic.newUsers5Days}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -84,7 +92,7 @@ class Header extends React.Component {
                           >
                             Sales
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">924</span>
+                          <span className="h2 font-weight-bold mb-0"> {analytic.totalPayments}</span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -110,10 +118,10 @@ class Header extends React.Component {
                             tag="h5"
                             className="text-uppercase text-muted mb-0"
                           >
-                            Performance
+                            Subscribers
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            49,65%
+                          {analytic.mailingList}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -138,6 +146,6 @@ class Header extends React.Component {
       </>
     );
   }
-}
+
 
 export default Header;

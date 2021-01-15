@@ -30,7 +30,9 @@ import ListQuestions from "./views/questions/index";
 import ListQuestionCategories from "./views/questions/category/index";
 import addCategoryQuestion from "./views/questions/category/addCategory";
 
-
+import Claims from "./views/claim/index"
+import Config from "./views/config/index";
+import Log from "./views/logs/index";
 var routes = [
   {
     path: "/index",
@@ -152,13 +154,36 @@ var routes = [
     component: addCategoryQuestion,
     layout: "/admin"
   },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   icon: "ni ni-planet text-blue",
-  //   component: Icons,
-  //   layout: "/admin"
-  // },
+  //Claim Listing
+  {
+    path: "/account-listing-claims",
+    name: "Account Listing Claims",
+    icon: "ni ni-tv-2 text-primary", 
+    component: Claims,
+    layout: "/admin"
+  },
+  //Admin Configuration
+  {
+    path: "/configuration",
+    name: "Admin Configuration",
+    icon: "ni ni-tv-2 text-primary", 
+    component: Config,
+    layout: "/admin"
+  },
+  {
+    path: "/logs",
+    name: "User Logs",
+    icon: "ni ni-tv-2 text-primary", 
+    component: Log,
+    layout: "/admin"
+  },
+  {
+    path: "/icons",
+    name: "Icons",
+    icon: "ni ni-planet text-blue",
+    component: Icons,
+    layout: "/admin"
+  },
   // { 
   //   path: "/maps",
   //   name: "Maps",

@@ -88,15 +88,18 @@ export const UPLOAD_AGENT = 'UPLOAD_AGENT';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER_DETAILS = 'GET_USER_DETAILS';
 export const DELETE_USER = 'DELETE_USER';
-export const DISABLE_USER = 'DISABLE_USER';
+export const DEACTIVATE_USER = 'DEACTIVATE_USER';
+export const ACTIVATE_USER = 'ACTIVATE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 
-//Confgi - License verification payment
+//Confgi - Payment Information
 export const GET_PAYMENT_DATA = 'GET_PAYMENT_DATA';
 export const UPDATE_PAYMENT_DATA = 'UPDATE_PAYMENT_DATA';
 
 //Admin Profile Update
-export const GET_PROFILE = '';
+export const GET_PROFILE = 'GET_PROFILE';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 
 //Settings
+export const GET_LOGS = 'GET_LOGS';
+export const DELETE_LOG = 'DELETE_LOG';

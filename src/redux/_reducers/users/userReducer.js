@@ -1,10 +1,13 @@
 import {
     GET_ALL_USERS,
+    DEACTIVATE_USER,
+    ACTIVATE_USER
 }from '../../_actions/types';
 
 const initState = {
     error: null,
     users:  [], 
+    user: {},
     agent : {},
     token: localStorage.getItem('token'),
     isAuthenticated: false,
@@ -30,11 +33,16 @@ const initState = {
         //         agents: [action.payload, ...state.agents]
         //     } 
   
-        // case 'DELETE_agent' :
-        //     return{
-        //         ...state,
-        //         agents: state.agents.filter(agent => agent.id !==action.payload)
-        //     }
+        case DEACTIVATE_USER :
+            return{
+                ...state,
+                users: state.users.filter(user => user._id !==action.payload)
+            }
+        case ACTIVATE_USER :
+            return{
+                ...state,
+                users: state.users.filter(user => user._id !==action.payload)
+            }
         // case 'UPDATE_agent':
         //   return {
         //     ...state,
