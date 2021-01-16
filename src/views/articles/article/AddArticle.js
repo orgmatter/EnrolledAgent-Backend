@@ -14,7 +14,7 @@ import {
     Row,
     Col,
     FormText
-  } from "reactstrap";
+  } from "reactstrap"; 
   // core components
   import Header from "components/Headers/Header.js";
   import { useDispatch, useSelector, shallowEqual } from 'react-redux';

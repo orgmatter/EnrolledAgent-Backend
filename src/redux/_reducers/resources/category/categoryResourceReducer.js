@@ -1,3 +1,6 @@
+import {
+  GET_RESOURCE_CATEGORIES
+} from "../../../_actions/types";
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
@@ -10,7 +13,7 @@ const initState = {
 
 export default function (state = initState, action) {
   switch (action.type) {
-      case 'GET_RESOURCE_CATEGORIES' :
+      case GET_RESOURCE_CATEGORIES :
           return{
           ...state, 
           rescategories: action.payload, 

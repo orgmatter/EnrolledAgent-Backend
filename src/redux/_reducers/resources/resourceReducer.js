@@ -1,7 +1,13 @@
+import {
+  CREATE_RESOURCE,
+  GET_RESOURCES
+}
+from "../../_actions/types";
+
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
-  resources:  [ ],
+  resources:  [],
   resource : {},
   isAuthenticated: false,
   loading: true
@@ -10,7 +16,7 @@ const initState = {
 
 export default function (state = initState, action) {
   switch (action.type) {
-      case 'GET_ALL_RESOURCES' :
+      case GET_RESOURCES :
           return{
           ...state, 
           resources: action.payload,
@@ -22,7 +28,7 @@ export default function (state = initState, action) {
           ...state,
           resource : action.payload
         }
-      case 'CREATE_RESOURCE' :
+      case CREATE_RESOURCE :
           return {
               ...state,
               resources: [action.payload, ...state.resources]

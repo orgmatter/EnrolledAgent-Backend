@@ -11,6 +11,11 @@ const initState = {
     error: null,
     articles:  [], 
     article : {},
+    page: 1,
+    prev: true,
+    next: false,
+    perPage: 10,
+    status: "success"
 }; 
 
 export default function (state = initState, action){

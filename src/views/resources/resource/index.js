@@ -22,7 +22,7 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
-
+ 
 const ListResource = () => {
     const dispatch = useDispatch();
     const resources = useSelector((state) => state.resources.resources)
@@ -75,9 +75,9 @@ const ListResource = () => {
                     {
                         resources.map((resource, index)=>(
                         <tr key={index}>
-                          <td>{resource.id}</td>
-                          <td>{resource.sponsor}</td>
-                          <td>{resource.category}</td>
+                          <td>{resource._id}</td>
+                          <td>{resource.sponsor.name}</td>
+                          <td>{resource.category.name}</td>
                           <td>{resource.title}</td>
                           <td>{resource.actionLink}</td>
                           <td>{resource.actionText}</td>

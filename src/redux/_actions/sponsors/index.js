@@ -17,7 +17,7 @@ export const getAllSponsors = () => async dispatch =>{
     const res = await axios.get('/sponsor', config);
     dispatch ({ 
         type : GET_ALL_SPONSORS,
-        payload : res.data.data
+        payload : res.data.data 
     }); 
 }
 
