@@ -267,7 +267,10 @@ class Sidebar extends React.Component {
               <Link className="nav-link" to="/admin/licence-verification">
                 <i className="ni ni-circle-08 text-primary"></i>License Verification</Link>
                 </li>
-                  
+                <li className="nav-item">
+              <Link className="nav-link" to="/admin/payments">
+                <i className="ni ni-circle-08 text-primary"></i>Payments</Link>
+                </li>
                 {/* {this.createLinks(routes)} */}
         
             </Nav>
