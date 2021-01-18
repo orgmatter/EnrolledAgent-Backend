@@ -54,7 +54,7 @@ const Payment = () => {
 
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">Contact List</h3>
+                  <h3 className="mb-0">Payment Transactions</h3>
                   
                 </CardHeader>
                
