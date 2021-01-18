@@ -37,6 +37,7 @@ import addFaq from "./views/faq/addFaq";
 import EditFaq from "./views/faq/editFaq";
 
 import Claims from "./views/claim/index"
+import Listing from "./views/listing-request/index"
 import Config from "./views/config/index";
 import Log from "./views/logs/index";
 import Subscribers from "./views/subscribers/index";
@@ -265,6 +266,14 @@ var routes = [
     name: "License Verification List",
     icon: "ni ni-tv-2 text-primary", 
     component: License,
+    layout: "/admin"
+  },
+  //Listing request
+  {
+    path: "/listing-requests",
+    name: "License Verification List",
+    icon: "ni ni-tv-2 text-primary", 
+    component: Listing,
     layout: "/admin"
   },
   {
