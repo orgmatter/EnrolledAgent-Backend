@@ -49,11 +49,16 @@ const Listing = () => {
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Last Name</th>
-                      <th scope="col">Agent</th>
-                      <th scope="col">Role</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Agent Name </th>
+                      <th scope="col">Agent Email </th>
+                      <th scope="col">Agent Phone </th>
+                      <th scope="col">Agent City </th>
+                      <th scope="col">Agent State </th>
+                      <th scope="col">Agent Country </th>
+                      <th scope="col">Agent Licence </th>
+                      <th scope="col">Position</th>
                       <th scope="col">Status</th>
                       <th scope="col" />
                     </tr>
@@ -65,11 +70,16 @@ const Listing = () => {
                         requests.map((request, index)=>(
                         
                         <tr key={index} >
-                          <td>{request._id}</td>
-                       
-                          <td>{request.agent.firstName}</td>
-                          <td>{request.agent.lastName}</td>
-                          <td>{request.jobRole}</td>
+                          <td>{request.user.firstName} {request.user.lastName}</td>
+                          <td>{request.user.email}</td>
+                          <td>{request.firstName} {request.lasttName}</td>
+                          <td>{request.email}</td>
+                          <td>{request.phone}</td>
+                            <td>{request.city}</td>
+                            <td>{request.state}</td>
+                            <td>{request.country}</td>
+                            <td>{request.licence}</td>
+                            <td>{request.position}</td>
                           { request.status=="pending" || request.status=="rejected" ? 
                            <td>
                            <Badge color="danger">{request.status}</Badge>
@@ -94,12 +104,12 @@ const Listing = () => {
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
+                            {/* <DropdownItem
                               href="#!"
                               onClick={e => e.preventDefault()}
                             >
                               View
-                            </DropdownItem>
+                            </DropdownItem> */}
                             {
                               request.status=="pending" || request.status=="rejected" ?
                               <div>
