@@ -12,7 +12,7 @@ import routes from "routes.js";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
  
 class Admin extends React.Component {
-  componentDidUpdate(e) {
+  componentDidUpdate(e) { 
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.mainContent.scrollTop = 0;

@@ -9,6 +9,9 @@ import {
 } from './types'
 import setAuthToken from '../../Utils/setAuthToken';
 
+// React Notification
+import { NotificationManager } from 'react-notifications';
+
 //Admin Login
 export const login = (email, password) => async dispatch => {
     const config = {
@@ -25,14 +28,13 @@ export const login = (email, password) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: res.data
         })
-    } catch (err) {
-        const errors = err.response.data.error;
-        if(errors){
-            errors.forEach(error => dispatch (setAlert(error.message, 'danger')));
-        }
+    } catch (error) {
+       // alert(error?.response?.data?.error.message ?? error.message)
+        NotificationManager.error(`${error?.response?.data?.error.message ?? error.message}`,'Error!', 2000);
         dispatch({
             type: LOGIN_FAIL
         })
+        
     }
 }   
 

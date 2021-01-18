@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import {getArticleCategories} from '../../../redux/_actions/articles/category/'
+import {getArticleCategories, deleteArticleCategory} from '../../../redux/_actions/articles/category/'
 
 // reactstrap components
 import {
@@ -73,37 +73,34 @@ const ListCategories = () => {
                           
                       <td className="text-right">
                         <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#pablo"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={e => e.preventDefault()}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
+                            <DropdownToggle
+                              className="btn-icon-only text-light"
                               href="#pablo"
+                              role="button"
+                              size="sm"
+                              color=""
                               onClick={e => e.preventDefault()}
                             >
-                              Action
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Another action
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Something else here
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
+                              <i className="fas fa-ellipsis-v" />
+                            </DropdownToggle>
+                            <DropdownMenu className="dropdown-menu-arrow" right>
+                          
+                              <Link  to={`/admin/article/category/edit/${category._id}`}>
+                              <DropdownItem
+                              >       
+                              
+                                Edit
+                                  
+                              </DropdownItem>
+                              </Link>
+                              <DropdownItem
+                                href="#!"
+                                onClick={() => dispatch(deleteArticleCategory(category._id))}
+                              >
+                                Delete
+                              </DropdownItem> 
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
                       </td>
                       </tr>
                         ))

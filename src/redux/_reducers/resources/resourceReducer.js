@@ -1,39 +1,45 @@
+import {
+  CREATE_RESOURCE,
+  GET_RESOURCES,
+  UPDATE_RESOURCE,
+  DELETE_RESOURCE
+}
+from "../../_actions/types";
+
 const initState = {
   token: localStorage.getItem('token'),
   error: null,
-  resources:  [ ],
+  resources:  [],
   resource : {},
-  isAuthenticated: false,
-  loading: true
+  page: 1,
+  prev: true,
+  next: false,
+  perPage: 10,
+  status: "success"
   
 }; 
 
 export default function (state = initState, action) {
   switch (action.type) {
-      case 'GET_ALL_RESOURCES' :
+      case GET_RESOURCES :
           return{
           ...state, 
           resources: action.payload,
           isAuthenticated: true,
           loading: false,     
       }
-      case 'GET_resource':
-        return {
-          ...state,
-          resource : action.payload
-        }
-      case 'CREATE_RESOURCE' :
+      case CREATE_RESOURCE :
           return {
               ...state,
               resources: [action.payload, ...state.resources]
           } 
 
-      case 'DELETE_resource' :
+      case DELETE_RESOURCE :
           return{
               ...state,
               resources: state.resources.filter(resource => resource.id !==action.payload)
           }
-      case 'UPDATE_resource':
+      case UPDATE_RESOURCE:
         return {
           ...state,
           resources : state.resources.map(resource => resource.id === action.payload.id ? (resource = action.payload) : resource )

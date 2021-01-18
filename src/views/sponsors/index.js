@@ -37,18 +37,7 @@ const ListSponsors = () => {
     dispatch(getAllSponsors());
   }, [dispatch, count]);
 
-  const handleDelete = _id => {
-    axios.delete(`/sponsor/${_id}`).then(res => {
-      setCount((prevCount) => prevCount + 1)
-      //  NotificationManager.success('Sponsor deleted successfully!', 'Success!', 2000);
-   })
-    
-    // deleteSponsor(_id);
-    console.log(_id)
-  }
 
-  
-  
     return (
         <>
         <Header />
@@ -116,7 +105,7 @@ const ListSponsors = () => {
                                 </DropdownItem>
                                 <DropdownItem 
                                   href="#!"
-                                  onClick={() => handleDelete(sponsor._id)}
+                                  onClick={() => dispatch(deleteSponsor(sponsor._id))}
                                 >
                                   Delete
                                 </DropdownItem>
