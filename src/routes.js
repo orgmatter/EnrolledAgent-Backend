@@ -45,6 +45,8 @@ import Offshore from "./views/offshore/index";
 import Contact from "./views/contact/index";
 import License from "./views/license-verification/index";
 
+//Payment
+import Payment from "./views/payment/index";
 
 var routes = [
   {
@@ -274,6 +276,14 @@ var routes = [
     name: "Agent Listing Request",
     icon: "ni ni-tv-2 text-primary", 
     component: Listing,
+    layout: "/admin"
+  },
+  //Payments
+  {
+    path: "/payments",
+    name: "All Payments",
+    icon: "ni ni-tv-2 text-primary", 
+    component: Payment,
     layout: "/admin"
   },
   {
