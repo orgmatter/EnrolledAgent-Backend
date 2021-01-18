@@ -41,6 +41,9 @@ import Config from "./views/config/index";
 import Log from "./views/logs/index";
 import Subscribers from "./views/subscribers/index";
 import Offshore from "./views/offshore/index";
+import Contact from "./views/contact/index";
+import License from "./views/license-verification/index";
+
 
 var routes = [
   {
@@ -251,19 +254,27 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/contacts",
+    name: "Contact List",
+    icon: "ni ni-tv-2 text-primary", 
+    component: Contact,
+    layout: "/admin"
+  },
+  {
+    path: "/licence-verification",
+    name: "License Verification List",
+    icon: "ni ni-tv-2 text-primary", 
+    component: License,
+    layout: "/admin"
+  },
+  {
     path: "/icons",
     name: "Icons",
     icon: "ni ni-planet text-blue",
     component: Icons,
     layout: "/admin"
   },
-  // { 
-  //   path: "/maps",
-  //   name: "Maps",
-  //   icon: "ni ni-pin-3 text-orange",
-  //   component: Maps,
-  //   layout: "/admin"
-  // },
+
   {
     path: "/user-profile",
     name: "User Profile",
@@ -271,13 +282,7 @@ var routes = [
     component: Profile,
     layout: "/admin"
   },
-  // {
-  //   path: "/tables",
-  //   name: "Tables",
-  //   icon: "ni ni-bullet-list-67 text-red",
-  //   component: Tables,
-  //   layout: "/admin"
-  // },
+
   {
     path: "/login",
     name: "Login",
@@ -285,12 +290,6 @@ var routes = [
     component: Login,
     layout: "/auth"
   },
-  // {
-  //   path: "/register",
-  //   name: "Register",
-  //   icon: "ni ni-circle-08 text-pink",
-  //   component: Register,
-  //   layout: "/auth"
-  // }
+
 ];
 export default routes;
