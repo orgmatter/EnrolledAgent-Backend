@@ -271,7 +271,7 @@ var routes = [
   //Listing request
   {
     path: "/listing-requests",
-    name: "License Verification List",
+    name: "Agent Listing Request",
     icon: "ni ni-tv-2 text-primary", 
     component: Listing,
     layout: "/admin"

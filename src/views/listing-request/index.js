@@ -40,11 +40,9 @@ const Listing = () => {
           <Row>
             <div className="col">
               <Card className="shadow">
+              
                 <CardHeader className="border-0">
-                  <a className="mb-0" href="/admin/agent/upload">Upload New Agent</a>
-                </CardHeader>
-                <CardHeader className="border-0">
-                  <h3 className="mb-0">List of agents</h3>
+                  <h3 className="mb-0">Agent Listing Request</h3>
                   
                 </CardHeader>
                
