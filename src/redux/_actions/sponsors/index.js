@@ -1,7 +1,8 @@
 import axios from '../../axios'
 import {
-    GET_ALL_SPONSORS, DELETE_SPONSOR
+    GET_ALL_SPONSORS, DELETE_SPONSOR, UPDATE_SPONSOR
 } from '../types'
+
 // React Notification
 import { NotificationManager } from 'react-notifications';
 
@@ -29,49 +30,50 @@ export const sponsorAdd = (sponsor) => async dispatch => {
     });
 } 
 
-export const deleteSponsor = (_id) => dispatch => {
-    axios.delete(`/sponsor/${_id}`)
-    .then(res => {
-        dispatch({
-            type : DELETE_SPONSOR,
-            payload : _id 
-         })
-         NotificationManager.success('Sponsor deleted successfully!', 'Success!', 2000);
-     })
-     .catch(err => {
-         console.log(err)
-         NotificationManager.error('Unable to delete Sponsor!', 'Error!', 2000);
-     })
+//Update Sponsor Action
+export const updateSponsor = sponsor => async dispatch => {
+  const config = {
+      headers: {
+          'Content-Type': 'multipart/form-data',
+          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+  };
+
+  try{
+    const res = await axios.put(`/sponsor/${sponsor.get("id")}`, sponsor, config);
+    dispatch ({
+        type: UPDATE_SPONSOR,
+        payload: res.data
+    });
+    NotificationManager.success('Sponsor Updated successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+  }
+
+  catch(error){
+    alert(error?.response?.data?.error.message ?? error.message)
+  }
 }
 
-// export const getSponsor = (id) => async dispatch =>{
-
-//     try {
-
-//         const res = await axios.get('/blog-category/'+id);
-//         dispatch({
-//           type : 'GET_category',
-//           payload : res.data 
-//          })
-//     } catch (error) {
-//         alert(error) 
-//     }
-    
-// }
-
-// export const updateSponsor = (category) =>async dispatch => {
-
-//     try {
-//         const res = await axios.put(`/blog-category/${category.id}`, category);
-
-//      dispatch({
-//         type : 'UPDATE_category',
-//         payload : res.data
-//       })
-//       NotificationManager.success('Blog Category edited successfully!', 'Success!', 2000);
-//     } catch (error) {
-        
-//         NotificationManager.error('Unable to edit Blog category!', 'Error!', 2000);
-//     }
-    
-// }
+// Delete Sponsor
+export const deleteSponsor = (id) => async dispatch => {
+  const config = {
+      headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+  };
+  try{
+    const res = await axios.delete(`/sponsor/${id}`, config);
+    dispatch({
+        type: DELETE_SPONSOR,
+        payload: id
+    })
+    NotificationManager.success('Sponsor deleted successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+  }
+  catch(error){
+    alert(error?.response?.data?.error.message ?? error.message)
+  }
+}

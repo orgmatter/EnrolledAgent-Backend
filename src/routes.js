@@ -4,6 +4,7 @@ import Login from "./views/auth/Login.js";
 import Icons from "./views/examples/Icons.js";
 
 import ListCategories from "./views/articles/category";
+import editCategory from "./views/articles/category/editCategory";
 import addCategory from "./views/articles/category/addCategory";
 
 import ListArticles from "./views/articles/article";
@@ -15,8 +16,10 @@ import CreateSponsor from "./views/sponsors/addSponsor";
 
 import CreateResource from "./views/resources/resource/addResource";
 import ListResource from "./views/resources/resource/index";
+import editResource from "./views/resources/resource/editResource";
 
 import addCategoryResource from "./views/resources/category/addCategoryResource";
+import editCategoryResource from "./views/resources/category/editCategoryResource";
 import ListResourceCategories from "./views/resources/category/index";
 
 import ListAgent from "./views/agents/index";
@@ -52,6 +55,13 @@ var routes = [
     name: "Create Article Category",
     icon: "ni ni-tv-2 text-primary", 
     component: addCategory,
+    layout: "/admin"
+  },
+  {
+    path: "/article/category/edit/:id",
+    name: "Edit Article Categories",
+    icon: "ni ni-tv-2 text-primary", 
+    component: editCategory,
     layout: "/admin"
   },
   {
@@ -104,10 +114,24 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/resource/edit/:id",
+    name: "Edit Resource",
+    icon: "ni ni-tv-2 text-primary", 
+    component: editResource,
+    layout: "/admin"
+  },
+  {
     path: "/resource/category/create",
     name: "Create Resource Category",
     icon: "ni ni-tv-2 text-primary", 
     component: addCategoryResource,
+    layout: "/admin"
+  },
+  {
+    path: "/resource/category/edit/:id",
+    name: "Edit Resource Category",
+    icon: "ni ni-tv-2 text-primary", 
+    component: editCategoryResource,
     layout: "/admin"
   },
   {

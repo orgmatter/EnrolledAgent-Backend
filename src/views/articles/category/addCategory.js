@@ -53,7 +53,7 @@ import {
       
       //Submit Category
       this.props.addArticleCategory(newPropertySponsor)
-      NotificationManager.success('Blog category added!', 'Successful!', 2000);
+      NotificationManager.success('Article category added!', 'Successful!', 2000);
       
        //Clear state
        this.setState({

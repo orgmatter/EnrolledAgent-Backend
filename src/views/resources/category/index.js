@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import {getResourcesCategories} from '../../../redux/_actions/resources/category/index'
+import {getResourcesCategories, deleteResourceCat} from '../../../redux/_actions/resources/category/index'
 // reactstrap components
 import {
     Badge,
@@ -23,13 +23,15 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListResourceCategories = () => {
+const ListResourceCategories = (props) => {
     const dispatch = useDispatch();
     const rescategories = useSelector((state) => state.rescategories.rescategories)
   
   useEffect(() => {
     dispatch(getResourcesCategories());
   }, [dispatch]);
+
+
     return (
         <>
         <Header />
@@ -69,7 +71,7 @@ const ListResourceCategories = () => {
                       
                           
                       <td className="text-right">
-                        <UncontrolledDropdown>
+                      <UncontrolledDropdown>
                           <DropdownToggle
                             className="btn-icon-only text-light"
                             href="#pablo"
@@ -81,24 +83,20 @@ const ListResourceCategories = () => {
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
+                            <Link  to={`/admin/resource/category/edit/${category._id}`}>
                             <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Action
+                            >       
+                             
+                              Edit
+                                
                             </DropdownItem>
+                            </Link>
                             <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
+                              href="#!"
+                              onClick={() => dispatch(deleteResourceCat(category._id))}
                             >
-                              Another action
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Something else here
-                            </DropdownItem>
+                              Delete
+                            </DropdownItem> 
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>

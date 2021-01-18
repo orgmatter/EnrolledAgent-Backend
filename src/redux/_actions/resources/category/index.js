@@ -1,5 +1,5 @@
 import axios from '../../../axios';
-import { GET_RESOURCE_CATEGORIES, CREATE_RESOURCE } from '../../types';
+import { GET_RESOURCE_CATEGORIES, CREATE_RESOURCE_CATEGORY, UPDATE_RESOURCE_CATEGORY, DELETE_RESOURCE_CATEGORY } from '../../types';
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -25,54 +25,53 @@ export const getResourcesCategories = () => async dispatch =>{
 export const addResourceCategory = (category) => async dispatch => {
     const res = await axios.post('/category/resource', category);
     dispatch ({
-        type: 'ADD_category',
+        type: CREATE_RESOURCE_CATEGORY,
         payload: res.data
     });
 } 
 
-// export const deleteBlogCategory = (id) => dispatch => {
-//     axios.delete(`/blog-category/${id}`)
-//     .then(res => {
-//         dispatch({
-//             type : 'DELETE_category',
-//             payload : id 
-//          })
-//          NotificationManager.success('Blog category deleted successfully!', 'Success!', 2000);
-//      })
-//      .catch(err => {
-//          console.log(err)
-//          NotificationManager.error('Unable to delete Blog category!', 'Error!', 2000);
-//      })
-// }
+// Update Resource category Action
+export const updateResourceCat = category => async dispatch => {
+  const config = {
+      headers: {
+          'Content-Type': 'multipart/form-data',
+          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+  };
+  try{
+    const res = await axios.put(`/category/resource/${category.get("id")}`, category, config);
+    dispatch ({
+        type: UPDATE_RESOURCE_CATEGORY,
+        payload: res.data
+    });
+    NotificationManager.success('Resource Category updated successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+  }
+  catch(error){
+    alert(error?.response?.data?.error.message ?? error.message)
+  }
+}
 
-// export const getBlogCategory = (id) => async dispatch =>{
-
-//     try {
-
-//         const res = await axios.get('/blog-category/'+id);
-//         dispatch({
-//           type : 'GET_category',
-//           payload : res.data 
-//          })
-//     } catch (error) {
-//         alert(error) 
-//     }
-    
-// }
-
-// export const updateBlogCategory = (category) =>async dispatch => {
-
-//     try {
-//         const res = await axios.put(`/blog-category/${category.id}`, category);
-
-//      dispatch({
-//         type : 'UPDATE_category',
-//         payload : res.data
-//       })
-//       NotificationManager.success('Blog Category edited successfully!', 'Success!', 2000);
-//     } catch (error) {
-        
-//         NotificationManager.error('Unable to edit Blog category!', 'Error!', 2000);
-//     }
-    
-// }
+// Delete Resource Category
+export const deleteResourceCat = (id) => async dispatch => {
+  const config = {
+      headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+  };
+  try{
+    const res = await axios.delete(`/category/resource/${id}`, config);
+    dispatch({
+        type: DELETE_RESOURCE_CATEGORY,
+        payload: id
+    })
+    NotificationManager.success('Resource Category deleted successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+  }
+  catch(error){
+    alert(error?.response?.data?.error.message ?? error.message)
+  }
+}

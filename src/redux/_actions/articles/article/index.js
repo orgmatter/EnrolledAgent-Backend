@@ -2,7 +2,6 @@ import axios from '../../../axios';
 import {
     GET_ARTICLES,
     DELETE_ARTICLE,
-    GET_ARTICLE,
     CREATE_ARTICLE,
     UPDATE_ARTICLE,
     APPROVE_ARTICLE

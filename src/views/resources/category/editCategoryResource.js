@@ -1,8 +1,5 @@
 import React, {useRef, useEffect} from 'react'
-//import {addArticleCategory} from '../../../redux/_actions/articles/category/index'
 
-// React Notification
-import { NotificationManager } from 'react-notifications';
 import { Editor } from '@tinymce/tinymce-react';
 // reactstrap components
 import {
@@ -20,41 +17,42 @@ import {
   } from "reactstrap";
   // core components
   import Header from "../../../components/Headers/Header.js";
+  
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
-import { getArticleCategories } from '../../../redux/_actions/articles/category/index';
-import { updateArticleCategory } from 'redux/_actions/articles/category/index';
+import {getResourcesCategories} from '../../../redux/_actions/resources/category/index';
+import { updateResourceCat } from '../../../redux/_actions/resources/category/index';
 
-  const EditCategory = props => {
+  const EditResourceCat = props => {
 
     // Articles and categories from redux
-    const category = useSelector(store => store.categories.categories?.filter(art => art._id === props.match.params.id)[0] ?? null, shallowEqual);
+    const category = useSelector(store => store.rescategories.rescategories?.filter(cat => cat._id === props.match.params.id)[0] ?? null, shallowEqual);
     const dispatch = useDispatch();
     const description = useRef(category?.description);
 
-    console.log("edit article category", category)
+    console.log("edit resource category", category)
 
     // Fetch Categories and Articles on mount
     useEffect(() => {
-      dispatch(getArticleCategories());
+      dispatch(getResourcesCategories());
     }, [dispatch]);
     
     
-    /* Submit New Article Category */
+    /* Submit New Resource Category */
     const handleSubmit = e =>  {
       e.preventDefault();
       e.stopPropagation();
       const form = e.currentTarget;
 
       if (description.current?.length < 30){
-        alert("Article category description Content is too short or empty");
+        alert("Article description Content is too short or empty");
       }
       else if (form.checkValidity()) {
         const formData = new FormData(form);
         formData.append("id", props.match.params.id);
         formData.append("description", description.current);
-        dispatch(updateArticleCategory(formData));
-        props.history.push("/admin/article/categories");
+        dispatch(updateResourceCat(formData));
+        props.history.push("/admin/resource/categories/");
       }
     }
     // Description field update
@@ -71,19 +69,19 @@ import { updateArticleCategory } from 'redux/_actions/articles/category/index';
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Edit Article Category</h3>
+                <h3 className="mb-0">Edit Resource Category</h3>
                 </CardHeader>
                 <Form  onSubmit={handleSubmit}>
                   <FormGroup>
                     <Col sm={12}>
-                      <Label for="Name">Name</Label>
+                      <Label for="name">Name</Label>
                       <Input type="text" name="name" required  id="name" defaultValue={category?.name} />
                     </Col>
                   </FormGroup>
               
                   <FormGroup>
                     <Col sm={12}>
-                      <Label for="description">description</Label>
+                      <Label for="description">Description</Label>
                      
                       <Editor
                             initialValue={category?.description}
@@ -109,7 +107,7 @@ import { updateArticleCategory } from 'redux/_actions/articles/category/index';
                     <Col sm={12}>
                       <Button className="btn btn-primary mr-2">Submit</Button>
                     </Col>
-                    </FormGroup>
+                  </FormGroup>
                 </Form>
               </Card>
             </div>
@@ -119,5 +117,5 @@ import { updateArticleCategory } from 'redux/_actions/articles/category/index';
       </>
         )
     }
- export default EditCategory;
+ export default EditResourceCat;
 
