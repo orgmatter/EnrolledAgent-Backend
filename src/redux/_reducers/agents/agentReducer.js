@@ -2,7 +2,11 @@ import {
   GET_ALL_AGENTS,
   GET_ALL_CLAIM_LISTING,
   APPROVE_CLAIM_LISTING,
-  CANCEL_CLAIM_LISTING
+  CANCEL_CLAIM_LISTING,
+  GET_ALL_LISTING_REQUEST,
+  GET_LISTING_REQUEST,
+  APPROVE_LISTING_REQUEST,
+  REJECT_LISTING_REQUEST
 
 } from '../../_actions/types'
 const initState = {
@@ -11,6 +15,8 @@ const initState = {
   agent : {},
   listings : [],
   listing: {},
+  requests: [],
+  request: {},
   token: localStorage.getItem('token'),
   isAuthenticated: false,
   loading: true
@@ -27,7 +33,7 @@ export default function (state = initState, action) {
           loading: false,     
       }
     
-      //Claim listing
+      //Claim 
           case GET_ALL_CLAIM_LISTING :
             return{
               ...state, 
@@ -42,6 +48,22 @@ export default function (state = initState, action) {
             return{
                 ...state, 
                 listings: state.listings.filter(listing => listing.id !== action.payload)
+            }
+            //Listing Request
+          case GET_ALL_LISTING_REQUEST :
+            return{
+              ...state, 
+              requests: action.payload,   
+          }
+          case REJECT_LISTING_REQUEST :
+            return{
+                ...state,
+                requests: state.requests.filter(request => request.id !== action.payload)
+            }
+            case APPROVE_LISTING_REQUEST :
+            return{
+                ...state, 
+                requests: state.requests.filter(request => request.id !== action.payload)
             }
       default : {
           return state

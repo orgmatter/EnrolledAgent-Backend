@@ -21,6 +21,7 @@ export default combineReducers({
     sponsors : sponsorReducer,
     agents : agentReducer,
     listings : agentReducer,
+    requests : agentReducer,
     users : userReducer,
     resources: resourceReducer,
     rescategories: categoryResourceReducer,
