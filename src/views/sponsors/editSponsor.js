@@ -1,108 +1,97 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
+import React, {useRef, useEffect} from 'react'
+
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import { Editor } from '@tinymce/tinymce-react';
+// reactstrap components
 import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  TextField,
-  makeStyles
-} from '@material-ui/core';
+    FormGroup,
+    Card,
+    CardHeader,
+    Form,
+    Label,
+    Input,
+    Button,
+    Container,
+    Row,
+    Col,
+    FormText
+  } from "reactstrap";
+  // core components
+  import Header from "../../components/Headers/Header";
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
-const useStyles = makeStyles(() => ({
-  root: {}
-}));
+import { getAllSponsors } from '../../redux/_actions/sponsors/index';
+import { updateSponsor } from '../../redux/_actions/sponsors/index';
 
-const editCategory = ({ className, ...rest }) => {
-  const classes = useStyles();
-  const [values, setValues] = useState({
-    name: '',
-    description: '',
-  });
+  const EditSponsor = props => {
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
+    // Sponsors from redux
+    const sponsor = useSelector(store => store.sponsors.sponsors?.filter(art => art._id === props.match.params.id)[0] ?? null, shallowEqual);
+    const dispatch = useDispatch();
+    
 
-  return (
-    <form
-      autoComplete="off"
-      noValidate
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
-      <Card>
-        <CardHeader
-          subheader="Create Category"
-          title="Article Category"
-        />
-        <Divider />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                helperText="Please specify the category name"
-                label="Category name"
-                name="name"
-                onChange={handleChange}
-                required
-                value={values.name}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={12}
-              xs={6}
-            >
-              <TextField
-                fullWidth
-                label="Category description"
-                name="description"
-                onChange={handleChange}
-                required
-                value={values.description}
-                variant="outlined"
-              />
-            </Grid>
-            
-          </Grid>
-        </CardContent>
-        <Divider />
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          p={2}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Save details
-          </Button>
-        </Box>
-      </Card>
-    </form>
-  );
-};
+    console.log("edit article sponsor", sponsor)
 
-editCategory.propTypes = {
-  className: PropTypes.string
-};
+    // Fetch sponsors on mount
+    useEffect(() => {
+      dispatch(getAllSponsors());
+    }, [dispatch]);
+    
+    
+    /* Submit New Article sponsor */
+    const handleSubmit = e =>  {
+      e.preventDefault();
+      e.stopPropagation();
+      const form = e.currentTarget;
 
-export default editCategory;
+      if (form.checkValidity()) {
+        const formData = new FormData(form);
+        formData.append("id", props.match.params.id);
+        dispatch(updateSponsor(formData));
+        props.history.push("/admin/sponsors/");
+      }
+    }
+    
+    return (
+        <>
+        <Header />
+        {/* Page content */}
+        <Container className="mt--7" fluid>
+          {/* Table */}
+          <Row>
+            <div className="col">
+              <Card className="shadow">
+              <CardHeader className="border-0">
+                <h3 className="mb-0">Edit Article sponsor</h3>
+                </CardHeader>
+                <Form  onSubmit={handleSubmit}>
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Label for="Name">Name</Label>
+                      <Input type="text" name="name" required  id="name" defaultValue={sponsor?.name} />
+                    </Col>
+                  </FormGroup>
+              
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Label for="link">Link</Label>
+                      <Input type="url" name="link" required  id="link" defaultValue={sponsor?.link} />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Button className="btn btn-primary mr-2">Submit</Button>
+                    </Col>
+                    </FormGroup>
+                </Form>
+              </Card>
+            </div>
+          </Row>
+         
+        </Container>
+      </>
+        )
+    }
+ export default EditSponsor;
+

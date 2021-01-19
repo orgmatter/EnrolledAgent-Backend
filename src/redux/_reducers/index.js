@@ -12,6 +12,7 @@ import questionReducer from './questions/questionReducer';
 import categoryQuestionReducer from './questions/category/categoryQuestionReducer';
 import logReducer from './logs/logReducer';
 import configReducer from './config/configReducer'
+import staffReducer from './config/staff/staffReducer'
 import faqReducer from './faq/faqReducer';
 export default combineReducers({
 
@@ -30,5 +31,6 @@ export default combineReducers({
     quecategories: categoryQuestionReducer,
     logs: logReducer,
     payments: configReducer,
+    staffs: staffReducer,
     faqs: faqReducer
 });

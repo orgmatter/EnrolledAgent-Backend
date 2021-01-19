@@ -131,6 +131,18 @@ import { addArticle } from 'redux/_actions/articles/article/index.js';
                         />
                     </Col>
                   </FormGroup>
+                  <FormGroup tag="fieldset">
+                    <Col sm={12}>
+                      <legend>Choose</legend>
+                      <FormGroup check>
+                        <Label check>
+                          <Input type="radio" value="true" name="featured" />
+                         Featured
+                        </Label>
+                      </FormGroup>
+                      
+                    </Col>
+                  </FormGroup>
                   <FormGroup>
                   <Col sm={12}>
                     <Label for="exampleFile">Upload Image</Label>

@@ -4,7 +4,12 @@ import {getAgents} from '../../redux/_actions/agents/index';
 // reactstrap components
 import {
     Badge,
+    Button,
     Card,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
     CardHeader,
     CardFooter,
     DropdownMenu,
@@ -24,13 +29,32 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListAgent = () => {
+const ListAgent = (props) => {
+
     const dispatch = useDispatch();
+    const {
+      buttonLabel,
+      className
+    } = props;
+    const [modal, setModal] = useState(false);
+    const [nestedModal, setNestedModal] = useState(false);
+    const [closeAll, setCloseAll] = useState(false);
+
+    const toggle = () => setModal(!modal);
+    const toggleNested = () => {
+      setNestedModal(!nestedModal);
+      setCloseAll(false);
+    }
+    const toggleAll = () => {
+      setNestedModal(!nestedModal);
+      setCloseAll(true);
+    }
+    
     const agents = useSelector((state) => state.agents.agents)
   
-  useEffect(() => {
-    dispatch(getAgents());
-  }, [dispatch]);
+    useEffect(() => {
+      dispatch(getAgents());
+    }, [dispatch]);
     return (
         <>
         <Header />
@@ -92,7 +116,7 @@ const ListAgent = () => {
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
                               href="#!"
-                              onClick={e => e.preventDefault()}
+                              onClick={toggle}
                             >
                               View
                             </DropdownItem>
@@ -169,6 +193,26 @@ const ListAgent = () => {
           </Row>
          
         </Container>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalBody>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <br />
+          <Button color="success" onClick={toggleNested}>Show Nested Modal</Button>
+          <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
+            <ModalHeader>Nested Modal title</ModalHeader>
+            <ModalBody>Stuff and things</ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={toggleNested}>Done</Button>{' '}
+              <Button color="secondary" onClick={toggleAll}>All Done</Button>
+            </ModalFooter>
+          </Modal>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
+          <Button color="secondary" onClick={toggle}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
       </>
     )
 }

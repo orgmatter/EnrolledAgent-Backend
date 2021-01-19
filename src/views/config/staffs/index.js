@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import {getAllStaffs} from '../../../redux/_actions/config/staff/index';
 import moment from 'moment';
 import {Link} from 'react-router-dom'
 // reactstrap components
 import {
     Badge,
+    Button,
     Card,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
     CardHeader,
     CardFooter,
     DropdownMenu,
@@ -19,12 +26,35 @@ import {
     Table,
     Container,
     Row,
-    Button,
     UncontrolledTooltip
   } from "reactstrap";
 
 
-const Staff = () => {
+const Staff = (props) => {
+  const dispatch = useDispatch();
+  const {
+    buttonLabel,
+    className
+  } = props;
+  const [modal, setModal] = useState(false);
+  const [nestedModal, setNestedModal] = useState(false);
+  const [closeAll, setCloseAll] = useState(false);
+
+  const toggle = () => setModal(!modal);
+  const toggleNested = () => {
+    setNestedModal(!nestedModal);
+    setCloseAll(false);
+  }
+  const toggleAll = () => {
+    setNestedModal(!nestedModal);
+    setCloseAll(true);
+  }
+
+  const staffs = useSelector((state) => state.staffs.staffs)
+  
+    useEffect(() => {
+      dispatch(getAllStaffs());
+    }, [dispatch]);
 
     return (
         <>
@@ -36,7 +66,7 @@ const Staff = () => {
             <div className="col">
               <Card className="shadow">
                 <CardHeader className="border-0">
-                <Link to="/admin/roles/create">
+                <Link to="/admin/staffs/create">
                   <Button color="info">
                     Add New Staff +
                   </Button>
@@ -54,22 +84,21 @@ const Staff = () => {
                       <th scope="col">First Name</th>
                       <th scope="col">Last Name</th>
                       <th scope="col">Email</th>
-                      <th scope="col">Last Login</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">Role</th>
+                      
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                  
-                      
-                        <tr>
-                          <td> 
-                          </td>
-                         
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                    {console.log(staffs)}
+                      {
+                        staffs.map((staff, index) =>(
+                        <tr key={index}>
+                          <td>{staff._id}</td>
+                          <td>{staff.firstName}</td>
+                          <td>{staff.lastName}</td>
+                          <td>{staff.email}</td>
+                          <td>{staff.role}</td>
                           <td>
                            
                           
@@ -89,16 +118,11 @@ const Staff = () => {
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
                               href="#pablo"
-                              onClick={e => e.preventDefault()}
+                              onClick={toggle}
                             >
                               View
                             </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Update
-                            </DropdownItem>
+                            
                             <DropdownItem
                               href="#pablo"
                               onClick={e => e.preventDefault()}
@@ -109,6 +133,8 @@ const Staff = () => {
                         </UncontrolledDropdown>
                       </td>
                       </tr>
+                      ))
+                    }
                     
                   </tbody>
                 </Table>
@@ -169,6 +195,26 @@ const Staff = () => {
           </Row>
          
         </Container>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalBody>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <br />
+          <Button color="success" onClick={toggleNested}>Show Nested Modal</Button>
+          <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
+            <ModalHeader>Nested Modal title</ModalHeader>
+            <ModalBody>Stuff and things</ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={toggleNested}>Done</Button>{' '}
+              <Button color="secondary" onClick={toggleAll}>All Done</Button>
+            </ModalFooter>
+          </Modal>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
+          <Button color="secondary" onClick={toggle}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
       </>
     )
 }
