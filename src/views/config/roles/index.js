@@ -33,7 +33,7 @@ const Role = () => {
             <div className="col">
               <Card className="shadow">
                 <CardHeader className="border-0">
-                <Link to="/admin/staffs/create">
+                <Link to="/admin/roles/create">
                   <Button color="info">
                     Add New Role +
                   </Button>

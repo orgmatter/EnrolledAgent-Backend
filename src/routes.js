@@ -12,6 +12,7 @@ import addArticle from "./views/articles/article/AddArticle";
 import editArticle from "./views/articles/article/editArticle";
 
 import ListSponsors from "./views/sponsors/index";
+import editSponsor from "./views/sponsors/editSponsor";
 import CreateSponsor from "./views/sponsors/addSponsor";
 
 import CreateResource from "./views/resources/resource/addResource";
@@ -97,6 +98,13 @@ var routes = [
     name: "Sponsors",
     icon: "ni ni-tv-2 text-primary",
     component: ListSponsors,
+    layout: "/admin"
+  },
+  {
+    path: "/sponsor/edit/:id",
+    name: "Edit Sponsor",
+    icon: "ni ni-tv-2 text-primary",
+    component: editSponsor,
     layout: "/admin"
   },
   {

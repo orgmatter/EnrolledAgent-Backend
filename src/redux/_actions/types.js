@@ -22,6 +22,7 @@ export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 export const GET_ARTICLE = 'GET_ARTICLE';
 export const UPDATE_ARTICLE = 'UPDATE_ARTICLE';
 export const APPROVE_ARTICLE = 'APPROVE_ARTICLE';
+export const REJECT_ARTICLE = 'REJECT_ARTICLE';
 
 //Resources Category
 export const CREATE_RESOURCE_CATEGORY = 'CREATE_RESOURCE_CATEGORY';
@@ -100,7 +101,7 @@ export const CREATE_FAQ = 'CREATE_FAQ';
 export const UPDATE_FAQ = 'UPDATE_FAQ';
 export const APPROVE_FAQ = 'APPROVE_FAQ';
 
-//Confgi - Payment Information
+//Config - Payment Information
 export const GET_PAYMENT_DATA = 'GET_PAYMENT_DATA';
 export const UPDATE_PAYMENT_DATA = 'UPDATE_PAYMENT_DATA';
 
@@ -111,3 +112,8 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 //Settings
 export const GET_LOGS = 'GET_LOGS';
 export const DELETE_LOG = 'DELETE_LOG';
+
+//Config - Staff Information
+export const GET_ALL_STAFFS = 'GET_ALL_STAFFS';
+export const CREATE_STAFF = 'CREATE_STAFF';
+export const GET_STAFF_DETAILS = 'GET_STAFF_DETAILS';

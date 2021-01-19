@@ -33,10 +33,7 @@ const ListArticles = (props) => {
     dispatch(getArticles());
   }, [dispatch]);
 
-  const handleDelete = id => {
-    deleteArticle(id);
-    console.log(id)
-  }
+  
     return (
         <>
         <Header />
@@ -66,7 +63,7 @@ const ListArticles = (props) => {
                     <tr>
                 
                       <th scope="col">Title</th>
-                      <th scope="col">Author</th>
+                      <th scope="col">Body</th>
                       <th scope="col">Status</th>
                       <th scope="col">Date Created</th>
                       <th scope="col" />
@@ -78,7 +75,7 @@ const ListArticles = (props) => {
                         articles.map((article, index)=>(
                         <tr key={index}>
                         <td>{article.title}</td>
-                        <td>{article.author}</td>
+                        <td>{article.body}</td>
                         <td>{article.status}</td>
                         <td>{moment(article.createdAt).format('MMM-DD-YYYY')}</td>
                       
@@ -110,7 +107,8 @@ const ListArticles = (props) => {
                               onClick={() => dispatch(deleteArticle(article._id))}
                             >
                               Delete
-                            </DropdownItem> 
+                              </DropdownItem>
+                            
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>

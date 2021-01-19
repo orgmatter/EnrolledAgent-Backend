@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import axios from '../../redux/axios/index'
 import moment from "moment"
 import { useSelector, useDispatch } from "react-redux";
 import {getAllSponsors, deleteSponsor} from '../../redux/_actions/sponsors/index'
@@ -30,12 +29,10 @@ import {
 const ListSponsors = () => {
     const dispatch = useDispatch();
     const sponsors = useSelector((state) => state.sponsors.sponsors)
-
-    const [count, setCount] = useState(0);
   
   useEffect(() => {
     dispatch(getAllSponsors());
-  }, [dispatch, count]);
+  }, [dispatch]);
 
 
     return (
@@ -91,15 +88,8 @@ const ListSponsors = () => {
                                 <i className="fas fa-ellipsis-v" />
                               </DropdownToggle>
                               <DropdownMenu className="dropdown-menu-arrow" right>
+                                <Link  to={`/admin/sponsor/edit/${sponsor._id}`}>
                                 <DropdownItem
-                                  href="#pablo"
-                                  onClick={e => e.preventDefault()}
-                                >
-                                  Approve/Disapprove
-                                </DropdownItem>
-                                <DropdownItem
-                                  href="#pablo"
-                                  onClick={e => e.preventDefault()}
                                 >
                                   Edit
                                 </DropdownItem>
@@ -109,6 +99,7 @@ const ListSponsors = () => {
                                 >
                                   Delete
                                 </DropdownItem>
+                                </Link>
                               </DropdownMenu>
                             </UncontrolledDropdown>
                           </td>
