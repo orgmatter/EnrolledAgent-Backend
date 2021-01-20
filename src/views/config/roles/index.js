@@ -1,29 +1,59 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import {getRoles} from '../../../redux/_actions/config/role/index';
 import moment from 'moment';
 import {Link} from 'react-router-dom'
 // reactstrap components
 import {
-    Badge,
-    Card,
-    CardHeader,
-    CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,   
-    DropdownToggle,
-    Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Progress,
-    Table,
-    Container,
-    Row,
-    Button,
-    UncontrolledTooltip
+  Badge,
+  Button,
+  Card,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  CardHeader,
+  CardFooter,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,   
+  DropdownToggle,
+  Media,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  Progress,
+  Table,
+  Container,
+  Row,
+  UncontrolledTooltip
   } from "reactstrap";
 
-const Role = () => {
+const Role = (props) => {
+  const dispatch = useDispatch();
+  const {
+    buttonLabel,
+    className
+  } = props;
+  const [modal, setModal] = useState(false);
+  const [nestedModal, setNestedModal] = useState(false);
+  const [closeAll, setCloseAll] = useState(false);
+
+  const toggle = () => setModal(!modal);
+  const toggleNested = () => {
+    setNestedModal(!nestedModal);
+    setCloseAll(false);
+  }
+  const toggleAll = () => {
+    setNestedModal(!nestedModal);
+    setCloseAll(true);
+  }
+
+  const roles = useSelector((state) => state.roles.roles)
+  
+    useEffect(() => {
+      dispatch(getRoles());
+    }, [dispatch]);
     return (
         <>
              {/* Page content */}
@@ -58,7 +88,7 @@ const Role = () => {
                   </thead>
                   <tbody>
                   
-                      
+                    {console.log(roles)}
                         <tr>
                           <td> 
                           </td>

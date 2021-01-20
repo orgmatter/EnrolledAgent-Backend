@@ -14,6 +14,7 @@ import logReducer from './logs/logReducer';
 import configReducer from './config/configReducer'
 import staffReducer from './config/staff/staffReducer'
 import faqReducer from './faq/faqReducer';
+import roleReducer from './config/role/roleReducer'
 export default combineReducers({
 
     //alert,
@@ -32,5 +33,6 @@ export default combineReducers({
     logs: logReducer,
     payments: configReducer,
     staffs: staffReducer,
-    faqs: faqReducer
+    faqs: faqReducer,
+    roles: roleReducer
 });
