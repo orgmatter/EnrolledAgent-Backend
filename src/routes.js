@@ -46,6 +46,10 @@ import Offshore from "./views/offshore/index";
 import Contact from "./views/contact/index";
 import License from "./views/license-verification/index";
 
+//Staffs and Roles
+import AddRole from "./views/config/roles/addRole";
+
+import AddStaff from "./views/config/staffs/addStaff";
 //Payment
 import Payment from "./views/payment/index";
 
@@ -309,7 +313,23 @@ var routes = [
     component: Profile,
     layout: "/admin"
   },
+  //Staffs and Roles
+  {
+    path: "/roles/create",
+    name: "Add Role",
+    icon: "ni ni-key-25 text-info",
+    component: AddRole,
+    layout: "/admin"
+  },
 
+  //Staff
+  {
+    path: "/staffs/create",
+    name: "Add Staff",
+    icon: "ni ni-key-25 text-info",
+    component: AddStaff,
+    layout: "/admin"
+  },
   {
     path: "/login",
     name: "Login",

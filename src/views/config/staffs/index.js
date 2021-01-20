@@ -80,7 +80,6 @@ const Staff = (props) => {
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">ID</th>
                       <th scope="col">First Name</th>
                       <th scope="col">Last Name</th>
                       <th scope="col">Email</th>
@@ -94,7 +93,6 @@ const Staff = (props) => {
                       {
                         staffs.map((staff, index) =>(
                         <tr key={index}>
-                          <td>{staff._id}</td>
                           <td>{staff.firstName}</td>
                           <td>{staff.lastName}</td>
                           <td>{staff.email}</td>

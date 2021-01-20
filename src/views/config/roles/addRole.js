@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect, useRef} from 'react';
 import { addRole } from '../../../redux/_actions/config/role/index';
-import axios from '../../../redux/axios/index';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 
 // React Notification
@@ -22,26 +21,38 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { addRole } from 'redux/_actions/resources/index.js';
+
 
 const AddRole = props => {
 
-  const roles = useSelector(store => store.roles.roles, shallowEqual);
-  const dispatch = useDispatch();
+      
+      const dispatch = useDispatch();
 
-  /* Submit New Article */
-  const handleSubmit = e =>  {
-    e.preventDefault();
-    e.stopPropagation();
-    const form = e.currentTarget;
+  const handleChange = (e) => {
+    // to find out if it's checked or not; returns true or false
+    const checked = e.target.checked;
+    
+    const value = e.target.value;
+    // to get the checked name
+    const checkedName = e.target.name;
 
-    if (form.checkValidity()) {
-      const formData = new FormData(form);
-      dispatch(addRole(formData));
-      props.history.push("/admin/configuration/");
+    console.log(value);
+    //then you can do with the value all you want to do with it.
+    };
+    /* Submit New Role */
+    const handleSubmit = e =>  {
+      e.preventDefault();
+      e.stopPropagation();
+      const form = e.currentTarget;
+
+      if (form.checkValidity()) {
+        const formData = new FormData(form);
+        //formData.append("permissions",);
+        dispatch(addRole(formData));
+        props.history.push("/admin/config/");
+      }
+
     }
-  }
 
   return (
     <>
@@ -58,76 +69,279 @@ const AddRole = props => {
                 <Form  onSubmit={handleSubmit} >
                   <FormGroup>
                     <Col sm={12}>
-                      <Label for="Title">Title</Label>
-                      <Input type="text" name="title" required  id="title" />
+                      <Label for="Title">Name</Label>
+                      <Input type="text" name="name" required  id="name" />
                     </Col>
                   </FormGroup>
-                  <FormGroup>
-                    <Col sm={12}>
-                      <Label for="Title">Action Link</Label>
-                      <Input type="link" name="actionLink" required  id="actionLink" />
+           
+                  <FormGroup check>
+                    <Col className="row">
+                    
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" onClick={handleChange} name="permissions" value="can_view_analytics" />{' '}
+                      CAN_VIEW_ANALYTICS
                     </Col>
-                  </FormGroup>
-                  <FormGroup>
-                    <Col sm={12}>
-                      <Label for="Title">Action Text</Label>
-                      <Input type="text" name="actionText" required  id="actionText" />
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_logs" />{' '}
+                      CAN_VIEW_LOGS
                     </Col>
-                  </FormGroup>
-                  <FormGroup>
-                    <Col sm={12}>
-                      <Label for="category">Category</Label>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_users" />{' '}
+                      CAN_VIEW_USERS
+                    </Col>
+                    </Col>
+                    <Col className="row">
+                    
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_subscribers" />{' '}
+                      CAN_VIEW_SUBSCRIBERS
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_payment" />{' '}
+                      CAN_VIEW_PAYMENT
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_agent" />{' '}
+                      CAN_VIEW_AGENT
+                    </Col>
+                    </Col>
 
-                        <Input type="select" 
-                            required
-                            className="mr-sm-2"
-                            name="category"
-                          >
-                            <option value=""></option>
-                            {catOptions}
-                        </Input>
+                    <Col className="row">
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_create_agent" />{' '}
+                      CAN_CREATE_AGENT
                     </Col>
-                  </FormGroup>
-                  <FormGroup>
-                    <Col sm={12}>
-                      <Label for="sponsor">Sponsor</Label>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_delete_agent" />{' '}
+                      CAN_DELETE_AGENT
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_agent" />{' '}
+                      CAN_UPDATE_AGENT
+                    </Col>
+                    </Col>
+                    <Col className="row">
+                    
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_upload_agent" />{' '}
+                      CAN_UPLOAD_AGENT
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_approve_listing_claim" />{' '}
+                      CAN_APPROVE_LISTING_CLAIM
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_reject_listing_claim" />{' '}
+                      CAN_REJECT_LISTING_CLAIM
+                    </Col>
+                    </Col>
 
-                        <Input type="select" 
-                            required
-                            className="mr-sm-2"
-                            name="sponsor"
-                          >
-                            <option value=""></option>
-                            {sponsorOptions}
-                        </Input>
+
+                    <Col className="row">
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_article" />{' '}
+                      CAN_VIEW_ARTICLE
                     </Col>
-                  </FormGroup>
-                
-                  <FormGroup>
-                    <Col sm={12}>
-                      <Label for="Body">Body</Label>
-                     
-                      <Editor
-                            initialValue="<p>This is the initial content of the editor</p>"
-                            init={{
-                            height: 500,
-                            menubar: false,
-                            plugins: [
-                                'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table paste code help wordcount'
-                            ],
-                            toolbar:
-                                'undo redo | formatselect | bold italic backcolor | \
-                                alignleft aligncenter alignright alignjustify | \
-                                bullist numlist outdent indent | removeformat | help'
-                            }}
-                            onEditorChange={handleEditorChange}
-                            id="body"
-                        />
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_create_article" />{' '}
+                      CAN_CREATE_ARTICLE
                     </Col>
-                  </FormGroup>
-              
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_delete_article" />{' '}
+                      CAN_DELETE_ARTICLE
+                    </Col>
+                    </Col>
+                    <Col className="row">
+                    
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_article" />{' '}
+                      CAN_UPDATE_ARTICLE
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_question" />{' '}
+                      CAN_VIEW_QUESTION
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_create_question" />{' '}
+                      CAN_CREATE_QUESTION
+                    </Col>
+                    </Col>
+
+
+
+                    <Col className="row">
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_delete_question" />{' '}
+                     CAN_DELETE_QUESTION
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_question" />{' '}
+                      CAN_UPDATE_QUESTION
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_sponsor" />{' '}
+                      CAN_VIEW_SPONSOR
+                    </Col>
+                    </Col>
+                    <Col className="row">
+                    
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_create_sponsor" />{' '}
+                      CAN_CREATE_SPONSOR
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_delete_sponsor" />{' '}
+                      CAN_DELETE_SPONSOR
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_sponsor" />{' '}
+                      CAN_UPDATE_SPONSOR
+                    </Col>
+                    </Col>
+
+
+
+                    <Col className="row">
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_resource" />{' '}
+                      CAN_VIEW_RESOURSE
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_create_resource" />{' '}
+                      CAN_CREATE_RESOURSE
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_delete_resource" />{' '}
+                      CAN_DELETE_RESOURSE
+                    </Col>
+                    </Col>
+                    <Col className="row">
+                    
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_resource" />{' '}
+                      CAN_UPDATE_RESOURSE
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_roles" />{' '}
+                      CAN_VIEW_ROLES
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_create_role" />{' '}
+                      CAN_CREATE_ROLE
+                    </Col>
+                    </Col>
+
+
+
+
+                    <Col className="row">
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_delete_role" />{' '}
+                      CAN_DELETE_ROLE
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_role" />{' '}
+                      CAN_UPDATE_ROLE
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_staff" />{' '}
+                      CAN_VIEW_STAFF
+                    </Col>
+                    </Col>
+                    <Col className="row">
+                    
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_create_staff" />{' '}
+                      CAN_CREATE_STAFF
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_staff" />{' '}
+                      CAN_UPDATE_STAFF
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_delete_staff" />{' '}
+                      CAN_DELETE_STAFF
+                    </Col>
+                    </Col>
+
+
+
+
+                    <Col className="row">
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_company" />{' '}
+                      CAN_UPDATE_COMPANY
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_add_sub_to_company" />{' '}
+                      CAN_ADD_SUB_TO_COMPANY
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_delete_category" />{' '}
+                      CAN_DELETE_CATEGORY
+                    </Col>
+                    </Col>
+                    <Col className="row">
+                    
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_view_category" />{' '}
+                      CAN_VIEW_CATEGORY
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_create_category" />{' '}
+                      CAN_CREATE_CATEGORY
+                    </Col>
+                    <Col md={4}>
+                      <Label check />
+                      <Input type="checkbox" name="permissions" value="can_update_category" />{' '}
+                      CAN_UPDATE_CATEGORY
+                    </Col>
+                    </Col>
+
+                  </FormGroup> 
+                  
+               
                   <FormGroup>
                     <Col sm={12}>
                   <Button type="submit" className="btn btn-primary mr-2">Submit</Button>

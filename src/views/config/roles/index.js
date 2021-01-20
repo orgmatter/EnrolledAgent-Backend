@@ -77,30 +77,25 @@ const Role = (props) => {
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Last Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Last Login</th>
+                      <th scope="col">Name</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
                   
                     {console.log(roles)}
-                        <tr>
-                          <td> 
-                          </td>
-                         
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>
-                           
-                          
-                            </td>
+                    {
+                    roles.map((role, index)=>(
+
+                   
+                        <tr key={index}>
+
+                          <td>{role.name}</td>
+                          <td>{role.status}</td>
+                          <td>{moment(role.createdAt).format('MMM-DD-YYYY')}</td>
+    
                           <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -118,25 +113,20 @@ const Role = (props) => {
                               href="#pablo"
                               onClick={e => e.preventDefault()}
                             >
-                              View
-                            </DropdownItem>
+                              Edit
+                            </DropdownItem>               
                             <DropdownItem
                               href="#pablo"
                               onClick={e => e.preventDefault()}
                             >
-                              Update
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Disable
+                              Delete
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                    
+                     ))
+                    }
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">

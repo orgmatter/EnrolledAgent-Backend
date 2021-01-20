@@ -9,7 +9,7 @@ import { NotificationManager } from 'react-notifications';
 export const getAllStaffs = () => async dispatch =>{
 
     const config = {
-        headers: {
+        headers: { 
             'Content-Type': 'application/json',
             'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
             "Authorization": `Bearer ${localStorage.getItem("token")}`
