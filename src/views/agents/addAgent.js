@@ -15,7 +15,7 @@ import {
     Col,
     FormText
   } from "reactstrap"; 
-  // core components
+  // core components 
 
   import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { addAgent } from 'redux/_actions/agents/index.js';

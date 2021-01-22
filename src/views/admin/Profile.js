@@ -1,6 +1,7 @@
 
 import React,{useEffect, useState} from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
+import {useDispatch} from 'react-redux';
 import axios from "../../redux/axios";
 import Avatar from "../../assets/img/avatar.png"
 // reactstrap components
@@ -18,6 +19,7 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+//import {updateProfile} from '';
 
 const Profile = () => {
   const [profile, setProfile] = useState([]);
@@ -31,6 +33,19 @@ const Profile = () => {
       })
   }, []);
   let history = useHistory();
+   const dispatch = useDispatch();
+
+   /* Update Profile */
+  const handleSubmit = e =>  {
+    e.preventDefault();
+    e.stopPropagation();
+    const form = e.currentTarget;
+    if (form.checkValidity()) {
+      const formData = new FormData(form);
+      //dispatch(updateProfile(formData));
+      <Redirect to="/admin/user-profile/" />
+    }
+  }
     return (
       <> 
         <UserHeader />
@@ -53,43 +68,13 @@ const Profile = () => {
                   </Col>
                 </Row>
                 <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                  {/* <div className="d-flex justify-content-between">
-                    <Button
-                      className="mr-4"
-                      color="info"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Connect
-                    </Button>
-                    <Button
-                      className="float-right"
-                      color="default"
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                      size="sm"
-                    >
-                      Message
-                    </Button>
-                  </div> */}
+              
                 </CardHeader>
                 <CardBody className="pt-0 pt-md-4">
                   <Row>
                     <div className="col">
                       <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                        {/* <div>
-                          <span className="heading">22</span>
-                          <span className="description">Friends</span>
-                        </div>
-                        <div>
-                          <span className="heading">10</span>
-                          <span className="description">Photos</span>
-                        </div>
-                        <div> 
-                          <span className="heading">89</span>
-                          <span className="description">Comments</span>
-                        </div> */}
+                    
                       </div>
                     </div>
                   </Row>
@@ -107,15 +92,7 @@ const Profile = () => {
                       <i className="ni education_hat mr-2" />
                       Account Type: {profile.accountType}
                     </div>
-                    {/* <hr className="my-4" />
-                    <p>
-                      Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                      Nick Murphy — writes, performs and records all of his own
-                      music.
-                    </p>
-                    <a href="#pablo" onClick={e => e.preventDefault()}>
-                      Show more
-                    </a> */}
+              
                   </div>
                 </CardBody>
               </Card>
@@ -131,7 +108,7 @@ const Profile = () => {
                       <Button
                         color="primary"
                         href="#!"
-                        onClick={e => e.preventDefault()}
+                        onClick={handleSubmit}
                         size="sm"
                       >
                         Save
@@ -140,8 +117,8 @@ const Profile = () => {
                   </Row>
                 </CardHeader>
                 <CardBody>
-                  <Form>
-                    <h6 className="heading-small text-muted mb-4">
+                  <Form onSubmit={handleSubmit}>
+                    <h6 className="heading-small text-muted mb-4" >
                       User information
                     </h6>
                     <div className="pl-lg-4">
@@ -186,7 +163,7 @@ const Profile = () => {
                           <FormGroup>
                             <label
                               className="form-control-label"
-                              htmlFor="input-first-name"
+                              htmlFor="input-first-name" 
                             >
                               First name
                             </label>
@@ -278,22 +255,7 @@ const Profile = () => {
                         </Col>
                       </Row>
                     </div>
-                    {/* <hr className="my-4" />
-                    
-                    <h6 className="heading-small text-muted mb-4">About me</h6>
-                    <div className="pl-lg-4">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          className="form-control-alternative"
-                          placeholder="A few words about you ..."
-                          rows="4"
-                          defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
-                          type="textarea"
-                        />
-                      </FormGroup>
-                    </div> */}
+                  
                   </Form>
                 </CardBody>
               </Card>
