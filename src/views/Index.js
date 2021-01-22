@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
+import axios from "../redux/axios";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -31,26 +32,38 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-class Index extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      activeNav: 1,
-      chartExample1Data: "data1"
-    };
+const Index = (props) => {
+
+    const [activeNav, setActiveNav] = useState([1]);
+    const [chartExample1Data, setChartExample1Data] = useState("data1");
+    const [pages, setPages] = useState([]);
+
     if (window.Chart) {
       parseOptions(Chart, chartOptions());
     }
-  }
-  toggleNavs = (e, index) => {
+ 
+  const toggleNavs = (e, index) => {
     e.preventDefault();
-    this.setState({
-      activeNav: index,
-      chartExample1Data:
-        this.state.chartExample1Data === "data1" ? "data2" : "data1"
+    setActiveNav({
+      activeNav:
+      activeNav=== index
     });
+    setChartExample1Data({
+      chartExample1Data:
+    chartExample1Data === "data1" ? "data2" : "data1"
+    })
   };
-  render() {
+  
+
+  useEffect(() => { 
+    axios.get("/page")
+      .then(res => {
+        const pages = res.data.data;
+        setPages(pages);
+        console.log(res.data.data)
+      })
+  }, []);
+
     return (
       <>
         <Header />
@@ -72,10 +85,10 @@ class Index extends React.Component {
                         <NavItem>
                           <NavLink
                             className={classnames("py-2 px-3", {
-                              active: this.state.activeNav === 1
+                              active: activeNav === 1
                             })}
                             href="#pablo"
-                            onClick={e => this.toggleNavs(e, 1)}
+                            onClick={e => toggleNavs(e, 1)}
                           >
                             <span className="d-none d-md-block">Month</span>
                             <span className="d-md-none">M</span>
@@ -84,11 +97,11 @@ class Index extends React.Component {
                         <NavItem>
                           <NavLink
                             className={classnames("py-2 px-3", {
-                              active: this.state.activeNav === 2
+                              active: activeNav === 2
                             })}
                             data-toggle="tab"
                             href="#pablo"
-                            onClick={e => this.toggleNavs(e, 2)}
+                            onClick={e => toggleNavs(e, 2)}
                           >
                             <span className="d-none d-md-block">Week</span>
                             <span className="d-md-none">W</span>
@@ -102,7 +115,7 @@ class Index extends React.Component {
                   {/* Chart */}
                   <div className="chart">
                     <Line
-                      data={chartExample1[this.state.chartExample1Data]}
+                      data={chartExample1[chartExample1Data]}
                       options={chartExample1.options}
                       getDatasetAtEvent={e => console.log(e)}
                     />
@@ -158,22 +171,25 @@ class Index extends React.Component {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">Page name</th>
-                      <th scope="col">Visitors</th>
-                      <th scope="col">Unique users</th>
-                      <th scope="col">Bounce rate</th>
+                      <th scope="col">Day</th>
+                      <th scope="col">Month</th>
+                      <th scope="col">Count</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">/argon/</th>
-                      <td>4,569</td>
-                      <td>340</td>
+                    {pages.map((page, index) => (
+
+                    
+                    <tr key={index}>
+                      <th scope="row">{page.page}</th>
+                      <td>{page.day}</td>
+                      <td>{page.month}</td>
                       <td>
                         <i className="fas fa-arrow-up text-success mr-3" />{" "}
-                        46,53%
+                        {page.count}
                       </td>
                     </tr>
-                    
+                    ))}
                   </tbody>
                 </Table>
               </Card>
@@ -232,6 +248,6 @@ class Index extends React.Component {
       </>
     );
   }
-}
+
 
 export default Index;
