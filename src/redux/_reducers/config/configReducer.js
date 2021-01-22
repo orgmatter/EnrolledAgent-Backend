@@ -5,8 +5,8 @@ import {
 
 const initState = {
     error: null,
-    //payment:  [], 
-    payments : {},
+    payment:  {}, 
+    payments : [],
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     loading: true

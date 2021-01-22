@@ -27,7 +27,7 @@ import { addArticle } from 'redux/_actions/articles/article/index.js';
     const categories = useSelector(store => store.categories.categories, shallowEqual);
     const dispatch = useDispatch();
     const body = useRef("");
-
+ 
     // Fetch Categories on mount
     useEffect(() => {
       dispatch(getArticleCategories());

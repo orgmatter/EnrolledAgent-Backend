@@ -96,11 +96,8 @@ const Staff = (props) => {
                           <td>{staff.firstName}</td>
                           <td>{staff.lastName}</td>
                           <td>{staff.email}</td>
-                          <td>{staff.role}</td>
-                          <td>
-                           
-                          
-                            </td>
+                          <td>{staff.status}</td>
+                      
                           <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle

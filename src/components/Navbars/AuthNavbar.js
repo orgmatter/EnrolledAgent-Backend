@@ -58,17 +58,7 @@ class AdminNavbar extends React.Component {
                     <span className="nav-link-inner--text">Main Website</span>
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink
-                    className="nav-link-icon"
-                    to="#"
-                    tag={Link}
-                  >
-                    <i className="ni ni-app" />
-                    <span className="nav-link-inner--text">Download Mobile App</span>
-                  </NavLink>
-                </NavItem>
-           
+            
               </Nav>
             </UncontrolledCollapse>
           </Container>

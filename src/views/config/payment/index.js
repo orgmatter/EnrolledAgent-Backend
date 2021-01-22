@@ -1,10 +1,10 @@
 import React,{useEffect, useState} from 'react'
 import moment from 'moment';
-import { connect } from "react-redux";
-import axios from '../../../redux/axios'
 import {Link} from 'react-router-dom'
 import {updatePaymentData} from '../../../redux/_actions/config/payment/';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import PropTypes from 'prop-types';
+import axios from '../../../redux/axios/index';
 // reactstrap components
 // reactstrap components
 import {
@@ -20,23 +20,10 @@ import {
   Col
 } from "reactstrap";
 
-const Payment = (payments) => {
+const Payment = (props) => {
 
   const [payment, setPayment] = useState({});
 
-  const [formData, setFormData] = useState({
-    accountUpgradePrice: '',
-    licenceVerificationPrice: ''
-  });
-
-  const {
-    accountUpgradePrice,
-    licenceVerificationPrice
-  }= formData;
-  
-  const onChange = e => {
-    setFormData=({...formData, [e.target.name]: e.target.value});
-  }
   useEffect(() => { 
     axios.get("/config")
       .then(res => {
@@ -46,12 +33,25 @@ const Payment = (payments) => {
       })
   }, []);
 
-  // const count = useSelector(state => state.counter.count);
-  // const dispatch = useDispatch();
-  const handlePaymentSubmit = async e => {
-    e.preventDefault();
-    updatePaymentData();
-  }
+      
+  const dispatch = useDispatch();
+
+  
+    /* Submit New Role */
+    const handleSubmit = e =>  {
+      e.preventDefault();
+      e.stopPropagation();
+      const form = e.currentTarget;
+
+      if (form.checkValidity()) {
+        const formData = new FormData(form);
+        //formData.append("permissions",);
+        dispatch(updatePaymentData(formData));
+        //props.history.push("/admin/config/");
+      }
+
+    }
+ 
     return (
         <>
           
@@ -64,7 +64,7 @@ const Payment = (payments) => {
               <CardHeader className="border-0">
                 <h3 className="mb-0">Update Payment Information</h3>
                 </CardHeader>
-                <Form onSubmit={e => handlePaymentSubmit(e)} >
+                <Form onSubmit={handleSubmit} >
                   <FormGroup>
                     <Col sm={12}>
                       <Label for="Licenence Verification Price">License Verification Price (<strong>Current Price:</strong> $ {payment.licenceVerificationPrice})</Label>
@@ -74,23 +74,20 @@ const Payment = (payments) => {
                       name="licenceVerificationPrice" 
                       id="licenceVerificationPrice" 
                       placeholder="Ex 10000. You do not need to include the dollar sign"
-                      value={licenceVerificationPrice}
-                      onChange={e => onChange(e)} 
+
                       />
                     </Col>
                   </FormGroup>
                 
                   <FormGroup>
                     <Col sm={12}>
-                      <Label for="Account Upgrade Price">Account Upgrade Price (<strong>Current Price:</strong> $ 1000)</Label>
+                      <Label for="Account Upgrade Price">Account Upgrade Price (<strong>Current Price:</strong> $ {payment.accountUpgradePrice})</Label>
 
                       <Input 
                       type="text" 
                       name="accountUpgradePrice"  
                       id="accountUpgradePrice" 
                       placeholder="Ex 10000. You do not need to include the dollar sign" 
-                      value={accountUpgradePrice}
-                      onChange={e => onChange(e)} 
                       />
                     </Col>
                   </FormGroup>
@@ -107,8 +104,6 @@ const Payment = (payments) => {
         </>
     )
 }
-Payment.propTypes = {
-  payments: PropTypes.func.isRequired,
-}
 
-export default connect(null, {updatePaymentData})(Payment);
+
+export default Payment;

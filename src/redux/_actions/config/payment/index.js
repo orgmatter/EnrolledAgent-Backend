@@ -21,7 +21,7 @@ import { NotificationManager } from 'react-notifications';
 //         payload : res.data.data
 //     });   
 // }
-export const updatePaymentData = (payment) => async dispatch => {
+export const updatePaymentData = payment => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -30,11 +30,14 @@ export const updatePaymentData = (payment) => async dispatch => {
         }
     };
     
-    const res = await axios.update('/config', payment, config);
+    const res = await axios.post('/config', payment, config);
     dispatch ({
         type: UPDATE_PAYMENT_DATA,
         payload: res.data
     });
+    NotificationManager.success('Payment amount updated successfully !','Success!', 2000);
+    window.setTimeout(function(){window.location.reload()}, 700);
 } 
 
+ 
  

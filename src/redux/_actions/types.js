@@ -92,6 +92,7 @@ export const GET_AGENT_DETAILS = 'GET_AGENT_DETAILS';
 export const UPDATE_AGENT_DETAILS = 'UPDATE_AGENT_DETAILS';
 export const DELETE_AGENT = 'DELETE_AGENT';
 export const UPLOAD_AGENT = 'UPLOAD_AGENT';
+export const ADD_AGENT = 'ADD_AGENT';
 
 //Users
 export const GET_ALL_USERS = 'GET_ALL_USERS';

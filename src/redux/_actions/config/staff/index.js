@@ -24,10 +24,19 @@ export const getAllStaffs = () => async dispatch =>{
 
 export const addStaff = (staff) => async dispatch => {
     const res = await axios.post('/staff', staff);
-    dispatch ({
-        type: CREATE_STAFF,
-        payload: res.data
-    });
+    try{
+        
+        dispatch ({
+            type: CREATE_STAFF,
+            payload: res.data
+        });
+        NotificationManager.success('Staff Created Successfully. Password has been sent to email !','Success!', 2000);
+        //window.setTimeout(function(){window.location.reload()}, 700);
+    }
+    catch(error){
+        NotificationManager.error(error?.response?.data?.error.message ?? error.message, 2000);
+        //window.setTimeout(function(){window.location.reload()}, 700);
+    }
 } 
 
 

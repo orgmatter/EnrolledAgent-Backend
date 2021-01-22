@@ -1,12 +1,14 @@
 import {
   GET_ALL_AGENTS,
+  UPLOAD_AGENT,
   GET_ALL_CLAIM_LISTING,
   APPROVE_CLAIM_LISTING,
   CANCEL_CLAIM_LISTING,
   GET_ALL_LISTING_REQUEST,
   GET_LISTING_REQUEST,
   APPROVE_LISTING_REQUEST,
-  REJECT_LISTING_REQUEST
+  REJECT_LISTING_REQUEST,
+  ADD_AGENT
 
 } from '../../_actions/types'
 const initState = {
@@ -65,6 +67,16 @@ export default function (state = initState, action) {
                 ...state, 
                 requests: state.requests.filter(request => request.id !== action.payload)
             }
+            case UPLOAD_AGENT :
+              return{
+                ...state,
+                agents: [action.payload.data, ...state.agents]
+              }
+              case ADD_AGENT :
+              return{
+                ...state,
+                agents: [action.payload.data, ...state.agents]
+              }
       default : {
           return state
       }

@@ -49,7 +49,7 @@ const AddRole = props => {
         const formData = new FormData(form);
         //formData.append("permissions",);
         dispatch(addRole(formData));
-        props.history.push("/admin/config/");
+        //props.history.push("/admin/config/");
       }
 
     }

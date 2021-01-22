@@ -51,7 +51,7 @@ const ListAgent = (props) => {
     }
     
     const agents = useSelector((state) => state.agents.agents)
-  
+ 
     useEffect(() => {
       dispatch(getAgents());
     }, [dispatch]);
@@ -114,12 +114,12 @@ const ListAgent = (props) => {
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
+                            {/* <DropdownItem
                               href="#!"
                               onClick={toggle}
                             >
                               View
-                            </DropdownItem>
+                            </DropdownItem> */}
                             <DropdownItem
                               href="#!"
                               onClick={e => e.preventDefault()}

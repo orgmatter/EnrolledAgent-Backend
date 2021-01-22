@@ -35,11 +35,19 @@ export const addRole = (role) => async dispatch => {
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.post('/role', role, config);
-    dispatch ({
-        type: CREATE_ROLE,
-        payload: res.data
-    });
+    try{
+
+        const res = await axios.post('/role', role, config);
+        dispatch ({
+            type: CREATE_ROLE,
+            payload: res.data
+        });
+        NotificationManager.success('Role Created successfully !','Success!', 2000);
+        //window.setTimeout(function(){window.location.reload()}, 700);
+    }
+    catch(error){
+        NotificationManager.error(error?.response?.data?.error.message ?? error.message, 2000);
+    }
 }
 
 // Update Role Action
@@ -65,7 +73,7 @@ export const updateRole = role => async dispatch => {
   }
 }
 
-// Delete Article Category
+// Delete Role
 export const deleteRole = (id) => async dispatch => {
   const config = {
       headers: {

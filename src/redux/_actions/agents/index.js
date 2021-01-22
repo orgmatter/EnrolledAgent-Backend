@@ -1,13 +1,15 @@
 import axios from '../../axios/'
 import {
     GET_ALL_AGENTS,
+    UPLOAD_AGENT,
     GET_ALL_CLAIM_LISTING,
     APPROVE_CLAIM_LISTING,
     CANCEL_CLAIM_LISTING,
     GET_ALL_LISTING_REQUEST,
     GET_LISTING_REQUEST,
     APPROVE_LISTING_REQUEST,
-    REJECT_LISTING_REQUEST
+    REJECT_LISTING_REQUEST,
+    ADD_AGENT
 } from '../types'
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -30,7 +32,7 @@ export const getAgents = () => async dispatch =>{
 export const agentUpload = (agent) => async dispatch => {
   const res = await axios.post('/agent/upload', agent);
   dispatch ({
-      type: 'ADD_agent', 
+      type: UPLOAD_AGENT, 
       payload: res.data
   });
 }
@@ -105,8 +107,29 @@ export const rejectClaim = (id) => async dispatch => {
     
     window.setTimeout(function(){window.location.reload()}, 700);
   }
-
-
+ 
+// Add New Agent 
+export const addAgent = agent => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    };
+    try{
+      const res = await axios.post('/agent', agent, config);
+      dispatch ({
+          type: ADD_AGENT,
+          payload: res.data 
+      });
+      NotificationManager.success('Agent added successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+    }
+    catch(error){
+      alert(error?.response?.data?.error.message ?? error.message)
+    }
+  }
 
 
 

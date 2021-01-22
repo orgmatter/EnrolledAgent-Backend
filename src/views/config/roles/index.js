@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import {getRoles} from '../../../redux/_actions/config/role/index';
+import {getRoles,deleteRole} from '../../../redux/_actions/config/role/index';
 import moment from 'moment';
 import {Link} from 'react-router-dom'
 // reactstrap components
@@ -116,8 +116,8 @@ const Role = (props) => {
                               Edit
                             </DropdownItem>               
                             <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
+                              href="#!"
+                              onClick={() => dispatch(deleteRole(role._id))}
                             >
                               Delete
                             </DropdownItem>
