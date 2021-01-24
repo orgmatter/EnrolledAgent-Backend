@@ -62,6 +62,7 @@ const ListSponsors = () => {
                       <th scope="col">ID</th>
                       <th scope="col">Name</th>
                       <th scope="col">Link</th>
+                      <th scope="col">Avatr</th>
                       <th scope="col"> Date Updated </th>
                       <th scope="col" />
                     </tr>
@@ -74,6 +75,7 @@ const ListSponsors = () => {
                           <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
+                          <td><img src={sponsor.avatar}></img>{sponsor.avatar}</td>
                           <td> {moment(sponsor.createdAt).format('MMM-DD-YYYY')} </td>
                           <td className="text-right">
                             <UncontrolledDropdown>

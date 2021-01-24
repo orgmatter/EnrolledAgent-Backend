@@ -9,6 +9,7 @@ import {NotificationManager} from 'react-notifications';
 import {
     FormGroup,
     Card,
+    FormText,
     CardHeader,
     Form,
     Label,
@@ -25,6 +26,7 @@ import {
     state = {
       link: '',
       name: '',
+      avatar: '',
       errors: {}
     };
 
@@ -35,7 +37,7 @@ import {
     handleSubmit = (e) =>{
       e.preventDefault();
       
-      const { link, name } = this.state;
+      const { link, name, avatar } = this.state;
   
       //Check for errors
       if(link === ''){
@@ -46,20 +48,25 @@ import {
         this.setState({ errors: { url: 'name is required'}});
         return;
       }
-      const newPropertySponsor = {
+      if (avatar === '') {
+        this.setState({ errors: { avatar: 'avatar is required'}})
+      }
+      const newSponsor = {
         link,
         name,
+        avatar
       }
      
       
       //Submit Category
-      this.props.sponsorAdd(newPropertySponsor)
+      this.props.sponsorAdd(newSponsor)
       
       
        //Clear state
        this.setState({
         link: '',
         name: '',
+        avatar: '',
         errors: {}
       })
       this.props.history.push('/admin/sponsors');
@@ -68,7 +75,7 @@ import {
     }
 
     render() {
-      const { link, name, errors } = this.state;
+      const { link, name, avatar, errors } = this.state;
 
     return (
         <>
@@ -93,6 +100,16 @@ import {
                     <Col sm={12}>
                       <Label for="Name">Name</Label>
                       <Input type="text" value={name} onChange = {this.onChangeInput} name="name" error={errors.name} id="Name" />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Col sm={12}>
+                      <Label for="exampleFile">Upload Image</Label>
+                      <Input type="file" name="avatar" accept=".png, .jpeg, .jpg" id="exampleFile" />
+                      <FormText color="muted">
+                          Accepted file types are: png, jpeg or jpg.
+                      </FormText>
                     </Col>
                   </FormGroup>
                   
