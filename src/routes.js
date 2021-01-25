@@ -2,6 +2,7 @@ import Index from "./views/Index.js";
 import Profile from "./views/admin/Profile.js";
 import Login from "./views/auth/Login.js";
 import PasswordReset from "./views/auth/PasswordReset";
+import Reset from "./views/auth/Reset";
 import Icons from "./views/examples/Icons.js";
 
 import ListCategories from "./views/articles/category";
@@ -343,6 +344,13 @@ var routes = [
     name: "Password Reset",
     icon: "ni ni-key-25 text-info",
     component: PasswordReset,
+    layout: "/auth"
+  },
+  {
+    path: "/reset/:token",
+    name: "Password Reset",
+    icon: "ni ni-key-25 text-info",
+    component: Reset,
     layout: "/auth"
   },
 
