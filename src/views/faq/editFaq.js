@@ -33,7 +33,7 @@ import { updateFaq } from '../../redux/_actions/faq/index';
 
     console.log("edit faq", faq, "then",)
 
-    // Fetch Categories and faqs on mount
+    // Fetch faqs on mount
     useEffect(() => {
       dispatch(getFaqs());
     }, [dispatch]);
