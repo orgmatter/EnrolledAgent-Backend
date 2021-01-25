@@ -133,14 +133,21 @@ import { addArticle } from 'redux/_actions/articles/article/index.js';
                   </FormGroup>
                   <FormGroup tag="fieldset">
                     <Col sm={12}>
-                      <legend>Choose</legend>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="true" name="featured" />
-                         Featured
-                        </Label>
-                      </FormGroup>
-                      
+                    <div className="custom-control custom-control-alternative custom-checkbox">
+                  <input
+                    className="custom-control-input"
+                    id=" customCheckLogin"
+                    type="checkbox"
+                    name="featured"
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor=" customCheckLogin"
+                  >
+                    <span className="text-muted">Featured </span>
+                  </label>
+                </div>
+              
                     </Col>
                   </FormGroup>
                   <FormGroup>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import {getAllStaffs} from '../../../redux/_actions/config/staff/index';
+import {deleteStaff, getAllStaffs} from '../../../redux/_actions/config/staff/index';
 import moment from 'moment';
 import {Link} from 'react-router-dom'
 // reactstrap components
@@ -115,14 +115,14 @@ const Staff = (props) => {
                               href="#pablo"
                               onClick={toggle}
                             >
-                              View
+                              Edit
                             </DropdownItem>
                             
                             <DropdownItem
                               href="#pablo"
-                              onClick={e => e.preventDefault()}
+                              onClick={() => dispatch(deleteStaff(staff._id))}
                             >
-                              Disable
+                              Delete
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>
