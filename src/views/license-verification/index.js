@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import moment from 'moment';
 import axios from '../../redux/axios'
 import {useHistory} from 'react-router-dom';
+import { CSVLink } from "react-csv";
 // reactstrap components
 import { 
     Badge,
@@ -36,6 +37,36 @@ const License = () => {
         console.log(res.data.data)
       })
   }, []);
+
+  const headers = [
+    { label: "ID", key: "_id" },
+    { label: "First Name", key: "firstName" },
+    { label: "Last Name", key: "lastName" },
+    { label: "Email", key: "email" },
+    { label: "Phone", key: "phone" },
+    { label: "City", key: "city" },
+    { label: "State", key: "state" },
+    { label: "Zip Code", key: "zipcode" },
+    { label: "Agent Email", key: "agentEmail" },
+    { label: "Agent First Name", key: "agentFirstName" },
+    { label: "Agent Last Name", key: "agentLastName" },
+    { label: "Agent City", key: "agentCity" },
+    { label: "Agent Zip Code", key: "agentZipcode" },
+    { label: "Agent Phone", key: "agentPhone" },
+    { label: "Agent State", key: "agentstate" },
+    { label: "Licence", key: "licence" },
+    { label: "Message", key: "message" },
+    { label: "Preferred Contact", key: "preferredContact" },
+    { label: "Transaction", key: "transaction" },
+    { label: "Created At", key: "createdAt" },
+    { label: "Updated At", key: "updatedAt" },
+  ];
+
+  const csvReport = {
+    data: license,
+    headers: headers,
+    filename: 'License_Verification_Report.csv'
+  };
   let history = useHistory();
     return (
         <>
@@ -49,8 +80,10 @@ const License = () => {
               <CardHeader className="border-0">
                   
                   <Button style={{float: 'right'}} color="info">
-                    Export As CSV or Excel
+                    <CSVLink {...csvReport}>Export to CSV</CSVLink>
                   </Button>
+
+                  
 
                 </CardHeader>
                 <CardHeader className="border-0">

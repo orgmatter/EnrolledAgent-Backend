@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import moment from 'moment';
 import axios from '../../redux/axios'
 import {useHistory} from 'react-router-dom';
+import { CSVLink } from "react-csv";
 // reactstrap components
 import { 
     Badge,
@@ -36,6 +37,29 @@ const Payment = () => {
         console.log(res.data.data)
       })
   }, []);
+
+  const headers = [
+    { label: "ID", key: "_id" },
+    { label: "Amount", key: "amount" },
+    { label: "Cancelled At", key: "canceled_at" },
+    { label: "Cancellation Reason", key: "cancellation_reason" },
+    { label: "Created", key: "created" },
+    { label: "Currency", key: "currency" },
+    { label: "Description", key: "description" },
+    { label: "Livemode", key: "livemode" },
+    { label: "Receipt Email", key: "receipt_email" },
+    { label: "Status", key: "status" },
+    { label: "Agent", key: "agent" },
+    { label: "Purpose", key: "purpose" },
+    { label: "Created At", key: "createdAt" },
+    { label: "Updated At", key: "updatedAt" },
+  ];
+
+  const csvReport = {
+    data: payments,
+    headers: headers,
+    filename: 'Payment_Transactions_Report.csv'
+  };
   let history = useHistory();
     return (
         <>
@@ -48,8 +72,8 @@ const Payment = () => {
               <Card className="shadow">
               <CardHeader className="border-0">
                   
-                  <Button style={{float: 'right'}} color="info">
-                    Export As CSV or Excel
+              <Button style={{float: 'right'}} color="info">
+                    <CSVLink {...csvReport}>Export to CSV</CSVLink>
                   </Button>
 
                 </CardHeader>
