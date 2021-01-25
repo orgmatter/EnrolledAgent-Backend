@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -125,13 +126,10 @@ const Login = ({login, isAuthenticated}) => {
           </Card>
           <Row className="mt-3">
             <Col xs="6">
-              <a
-                className="text-light"
-                href="#!"
-                onClick={e => e.preventDefault()}
-              >
+              <Link to="/auth/password/reset">
+                <Button className="my-4" color="primary">Submit</Button>
                 <small>Forgot password?</small>
-              </a>
+              </Link>
             </Col>
           
           </Row>
