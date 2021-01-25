@@ -63,7 +63,6 @@ const ListArticles = (props) => {
                     <tr>
                 
                       <th scope="col">Title</th>
-                      <th scope="col">Body</th>
                       <th scope="col">Status</th>
                       <th scope="col">Date Created</th>
                       <th scope="col" />
@@ -75,7 +74,6 @@ const ListArticles = (props) => {
                         articles.map((article, index)=>(
                         <tr key={index}>
                         <td>{article.title}</td>
-                        <td>{article.body}</td>
                         <td>{article.status}</td>
                         <td>{moment(article.createdAt).format('MMM-DD-YYYY')}</td>
                       
