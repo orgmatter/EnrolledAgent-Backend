@@ -36,7 +36,7 @@ export default function (state = initState, action){
       case DELETE_ROLE :
           return{ 
               ...state,
-              roles: state.roles.filter(role => role.id !== action.payload)
+              roles: state.roles.filter(role => role.id !== action.payload) 
           }
           
       case UPDATE_ROLE:

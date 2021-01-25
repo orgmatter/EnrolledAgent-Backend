@@ -119,7 +119,7 @@ const Role = (props) => {
                               href="#!"
                               onClick={() => dispatch(deleteRole(role._id))}
                             >
-                              Delete
+                              Delete 
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>

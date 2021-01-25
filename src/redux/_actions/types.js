@@ -125,6 +125,8 @@ export const DELETE_LOG = 'DELETE_LOG';
 export const GET_ALL_STAFFS = 'GET_ALL_STAFFS';
 export const CREATE_STAFF = 'CREATE_STAFF';
 export const GET_STAFF_DETAILS = 'GET_STAFF_DETAILS';
+export const UPDATE_STAFF = 'UPDATE_STAFF';
+export const DELETE_STAFF = 'DELETE_STAFF';
 
 //Config - Roles
 export const GET_ALL_ROLE = 'GET_ALL_ROLE';
