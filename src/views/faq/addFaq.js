@@ -59,7 +59,7 @@ import { addFaq } from 'redux/_actions/faq/index.js';
             <div className="col">
               <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Create New Article</h3>
+                <h3 className="mb-0">Create New Faq</h3>
                 </CardHeader>
                 <Form  onSubmit={handleSubmit} >
                   <FormGroup>
