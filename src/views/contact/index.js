@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import moment from 'moment';
 import axios from '../../redux/axios'
 import {useHistory} from 'react-router-dom';
+import { CSVLink } from "react-csv";
 // reactstrap components
 import { 
     Badge,
@@ -36,6 +37,24 @@ const Contact = () => {
         console.log(res.data.data)
       })
   }, []);
+
+  const headers = [
+    { label: "ID", key: "_id" },
+    { label: "Name", key: "name" },
+    { label: "Email", key: "email" },
+    { label: "Subject", key: "subject" },
+    { label: "Message", key: "message" },
+    { label: "Phone", key: "phone" },
+    { label: "Created At", key: "createdAt" },
+    { label: "Updated At", key: "updatedAt" },
+  ];
+
+  const csvReport = {
+    data: contacts,
+    headers: headers,
+    filename: 'Contact_List_Report.csv'
+  };
+
   let history = useHistory();
     return (
         <>
@@ -49,7 +68,7 @@ const Contact = () => {
               <CardHeader className="border-0">
                   
                   <Button style={{float: 'right'}} color="info">
-                    Export As CSV or Excel
+                    <CSVLink {...csvReport}>Export to CSV</CSVLink>
                   </Button>
 
                 </CardHeader>
