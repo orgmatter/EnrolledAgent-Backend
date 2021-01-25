@@ -1,11 +1,12 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import axios from 'redux/axios/index'
 import {
   BrowserRouter as Router,
   Switch,
   useLocation, 
   Redirect,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
 // reactstrap components
@@ -24,38 +25,67 @@ import {
   } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+
+// React Notification
+import { NotificationManager } from 'react-notifications';
+
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 
 
-const Login = () => {
+const Login = (props) => {
      
       const [passwordShown, setPasswordShown] = useState(false);
+      const [formData, setFormData] = useState({
+        password: '', 
+        confirm_password: '',
+        token: props.match.params.token
+      });
 
       const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
       };
       
     
-    const [passwordReset, setPasswordReset] = useState(
-        { password: '', token: ''}
-    );
-
-    const handleChange = (event) => {
-        setPasswordReset({...passwordReset, [event.target.name]: event.target.value})
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.post('/reset-password/', passwordReset)
-            .then(function (response) {
-                console.log(response)
-            })
-            .catch(function (error) {
-                console.log(error)
-            }) 
-        }
+      let history = useHistory();
+      let location = useLocation();
+    
+      let { from } = location.state || { from: { pathname: "/" } };
+    
+      const handleChange = e => {
+        e.persist();
+        setFormData(prevState => {
+          return {
+            ...prevState,
+            [e.target.name]: e.target.value
+          };
+        });
+      };
       
+    const body = JSON.stringify(formData);
+    const config = {
+        headers: { 
+            'Content-Type': 'application/json',
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb'
+        }
+    }
+      const handleSubmit = e => {
+        e.preventDefault();
+        axios.post("/reset-password", body, config )
+          .then(res => {
+            if (res.status === 200) {
+              history.push("/");
+              NotificationManager.success("Password Changed Successfully",'Success!', 2000);
+            }
+          })
+          .then(res => {
+            history.replace(from);
+          })
+          .catch(error => {
+            console.error("Password Reset error:", error);
+            NotificationManager.error(`${error?.response?.data?.error.message ?? error.message}`,'Error!', 2000);
+          });
+      };
     return (
         <>
         <Col lg="5" md="7">
@@ -104,6 +134,7 @@ const Login = () => {
                     name="confirmpassword"
                     type={passwordShown ? "text" : "password"}
                     required
+                
                     />
                     <i 
                     style={{
