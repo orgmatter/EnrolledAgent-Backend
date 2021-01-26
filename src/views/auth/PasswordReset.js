@@ -42,7 +42,7 @@ class PasswordReset extends Component {
         });
       } else{
         axios
-        .post('/reset-password', {
+        .post('/send-reset', {
           email: this.state.email
         })
         .then(response => {
@@ -93,7 +93,7 @@ class PasswordReset extends Component {
                   <Button className="my-4" color="primary" type="submit">Send</Button>
                 </div>
               </Form>
-              console.log(error.message)
+         
               
             </CardBody>
           </Card>

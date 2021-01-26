@@ -96,7 +96,6 @@ export default class ListArticles extends Component {
                     <tr>
                 
                       <th scope="col">Title</th>
-                      <th scope="col">Body</th>
                       <th scope="col">Status</th>
                       <th scope="col">Date Created</th>
                       <th scope="col" />
@@ -109,7 +108,6 @@ export default class ListArticles extends Component {
                         return(
                         <tr key={article._id}>
                         <td>{article.title}</td>
-                        <td>{article.body}</td>
                         <td>{article.status}</td>
                         <td>{moment(article.createdAt).format('MMM-DD-YYYY')}</td>
                       

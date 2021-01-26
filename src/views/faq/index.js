@@ -46,7 +46,7 @@ const ListFaq = (props) => {
               <CardHeader className="border-0">
                   <Link to="/admin/faq/create">
                   <Button color="info">
-                    Add New Article +
+                    Add New Faq +
                   </Button>
                   </Link>
               

@@ -147,6 +147,25 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
                         />
                     </Col>
                   </FormGroup>
+                  <FormGroup tag="fieldset">
+                    <Col sm={12}>
+                    <div className="custom-control custom-control-alternative custom-checkbox">
+                  <input
+                    className="custom-control-input"
+                    id=" customCheckLogin"
+                    type="checkbox"
+                    name="featured"
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor=" customCheckLogin"
+                  >
+                    <span className="text-muted">Featured </span>
+                  </label>
+                </div>
+              
+                    </Col>
+                  </FormGroup>
                   <FormGroup>
                   <Col sm={12}>
                     <Label for="exampleFile">Upload Image</Label>

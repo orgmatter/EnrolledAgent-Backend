@@ -1,6 +1,6 @@
 import axios from '../../../axios/index'
 import {
-    GET_ALL_STAFFS, CREATE_STAFF, GET_STAFF_DETAILS
+    GET_ALL_STAFFS, CREATE_STAFF, GET_STAFF_DETAILS, DELETE_STAFF, UPDATE_STAFF
 } from '../../types'
 
 // React Notification
@@ -39,4 +39,30 @@ export const addStaff = (staff) => async dispatch => {
     }
 } 
 
+
+// Reject Listing
+export const deleteStaff = (id) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    };
+    try{
+      const res = await axios.delete(`/staff/${id}`, config);
+      dispatch({
+          type: DELETE_STAFF,
+          payload: id
+      })
+      NotificationManager.success('Staff deleted successfully !','Success!', 2000);
+      //window.setTimeout(function(){window.location.reload()}, 700);
+    }
+    
+    catch(error){
+      NotificationManager.error(error?.response?.data?.error.message ?? error.message, 2000);
+    }
+    //window.setTimeout(function(){window.location.reload()}, 700);
+   
+  }
 

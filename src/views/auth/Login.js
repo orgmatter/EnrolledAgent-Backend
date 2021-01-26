@@ -127,6 +127,7 @@ const Login = ({login, isAuthenticated}) => {
           <Row className="mt-3">
             <Col xs="6">
               <Link to="/auth/password/reset">
+       
                 <small>Forgot password?</small>
               </Link>
             </Col>
