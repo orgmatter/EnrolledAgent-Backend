@@ -1,41 +1,74 @@
-import React,{useEffect} from 'react'
+import React, { Component } from 'react'
+import moment from "moment"
 import {Link} from 'react-router-dom'
-import { useSelector, useDispatch } from "react-redux";
-import {getArticles, deleteArticle} from '../../../redux/_actions/articles/article';
-import moment from "moment";
+import axios from '../../../redux/axios/index';
+import Pagination from "react-js-pagination";
 
 // reactstrap components
 import {
-    Badge,
-    Card,
-    CardHeader,
-    CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Table,
-    Container,
-    Row,
-    Button
-  } from "reactstrap";
- 
-  // core components
-import Header from "components/Headers/Header.js";
-const ListArticles = (props) => {
-    const dispatch = useDispatch();
-    const articles = useSelector((state) => state.articles.articles)
-    // console.log(articles);
-  useEffect(() => {
-    dispatch(getArticles());
-  }, [dispatch]);
+  Badge,
+  Card,
+  CardHeader,
+  CardFooter,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  // Pagination,
+  // PaginationItem,
+  // PaginationLink,
+  Table,
+  Container,
+  Row,
+  Button
+} from "reactstrap";
 
-  
+// core components
+import Header from "components/Headers/Header.js";
+
+export default class ListArticles extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+        articles: [],
+        activePage: 1,
+        itemsCountPerPage: 1,
+        totalItemsCount: 1,
+        pageRangeDisplayed: 3
+    }
+    this.handlePageChange = this.handlePageChange.bind(this);
+  }
+   
+  componentDidMount() {
+    axios.get('article')
+      .then(response => {
+        this.setState({
+          articles: response.data.data,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          activePage: response.data.current_page
+        });
+    });
+  }
+
+  handlePageChange(pageNumber) {
+    //console.log(`active page is ${pageNumber}`);
+     this.setState({activePage: pageNumber});
+    //"http://127.0.0.1:8000/category?page=1
+    axios.get('article?page=' + pageNumber)
+        .then(response => {
+            this.setState({
+                articles: response.data.data,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                activePage: response.data.current_page
+            });
+      });
+    }
+  render() {
     return (
-        <>
+      <>
         <Header />
             {/* Page content */}
         <Container className="mt--7" fluid>
@@ -70,10 +103,11 @@ const ListArticles = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(articles)}
-                      {
-                        articles.map((article, index)=>(
-                        <tr key={index}>
+                    
+                  {
+                      this.state.articles.map(article => {
+                        return(
+                        <tr key={article._id}>
                         <td>{article.title}</td>
                         <td>{article.body}</td>
                         <td>{article.status}</td>
@@ -104,7 +138,7 @@ const ListArticles = (props) => {
                             </Link>
                             <DropdownItem
                               href="#!"
-                              onClick={() => dispatch(deleteArticle(article._id))}
+                              // onClick={() => dispatch(deleteArticle(article._id))}
                             >
                               Delete
                               </DropdownItem>
@@ -113,61 +147,23 @@ const ListArticles = (props) => {
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                        ))
-                      }
+                        )
+                      })
+                    }
                     
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -176,7 +172,7 @@ const ListArticles = (props) => {
          
         </Container>
         </>
-    )
+    ) 
+  }
 }
 
-export default ListArticles;
