@@ -1,7 +1,10 @@
-import React, {useEffect,} from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
-import { useSelector, useDispatch } from "react-redux";
-import { getResources, deleteResource } from '../../../redux/_actions/resources/index';
+import ResourceService from "./ResourceService"
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../../redux/axios/index';
+import Pagination from "react-js-pagination";
 // reactstrap components
 import {
     Badge,
@@ -13,25 +16,64 @@ import {
     UncontrolledDropdown,   
     DropdownToggle,
     Button,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
+    // Pagination,
+    // PaginationItem,
+    // PaginationLink,
     Table,
     Container,
     Row
   } from "reactstrap";
   // core components
-  import Header from "components/Headers/Header.js";
- 
-const ListResource = (props) => {
-    const dispatch = useDispatch();
-    const resources = useSelector((state) => state.resources.resources)
-  
-    useEffect(() => {
-      dispatch(getResources());
-    }, [dispatch]);
+import Header from "components/Headers/Header.js";
 
-    
+export default class ListResource extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      resources: [],
+        activePage: 1,
+        itemsCountPerPage: 1,
+        totalItemsCount: 1,
+        pageRangeDisplayed: 3
+    }
+    this.deleteResource = this.deleteResource.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+  }
+
+  deleteResource(id){
+    ResourceService.deleteResource(id).then( res => {
+      this.setState({resources: this.state.resources.filter(resource => resource._id !== id)});
+      NotificationManager.success('Resource deleted successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+    });
+  }
+   
+  componentDidMount() {
+    axios.get('resource')
+      .then(response => {
+        this.setState({
+          resources: response.data.data,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          activePage: response.data.current_page
+        });
+    });
+  }
+
+  handlePageChange(pageNumber) {
+     this.setState({activePage: pageNumber});
+    axios.get('resource?page=' + pageNumber)
+        .then(response => {
+            this.setState({
+                resources: response.data.data,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                activePage: response.data.current_page
+            });
+      });
+    }
+  render() {
     return (
         <>
         <Header />
@@ -72,11 +114,10 @@ const ListResource = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(resources)}
-                      
-                    {
-                        resources.map((resource, index)=>(
-                        <tr key={index}>
+                  {
+                      this.state.resources.map(resource => {
+                        return(
+                        <tr key={resource._id}>
                           <td>{resource._id}</td>
                           <td>{resource.sponsor.name}</td>
                           <td>{resource.category.name}</td>
@@ -106,7 +147,7 @@ const ListResource = (props) => {
                             </Link>
                             <DropdownItem
                               href="#!"
-                              onClick={() => dispatch(deleteResource(resource._id))}
+                              onClick={ () => this.deleteResource(resource._id)}
                             >
                               Delete
                             </DropdownItem> 
@@ -114,60 +155,23 @@ const ListResource = (props) => {
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                        ))
-                      }
+                        )
+                      })
+                    }
+                    
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -177,6 +181,5 @@ const ListResource = (props) => {
         </Container>
       </>
     )
+  }
 }
-
-export default ListResource;
