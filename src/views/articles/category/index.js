@@ -1,7 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
-import {getArticleCategories, deleteArticleCategory} from '../../../redux/_actions/articles/category/'
+import ArticleCategoryService from "./ArticleCategoryService"
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../../redux/axios/index';
+import Pagination from "react-js-pagination";
 
 // reactstrap components
 import {
@@ -13,7 +16,7 @@ import {
     DropdownItem,
     UncontrolledDropdown,
     DropdownToggle,
-    Pagination,
+    // Pagination,
     PaginationItem,
     PaginationLink,
     Table,
@@ -23,14 +26,53 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 
-const ListCategories = () => {
-    const dispatch = useDispatch();
-    const categories = useSelector((state) => state.categories.categories)
-    // console.log(categories);
-    
-  useEffect(() => {
-    dispatch(getArticleCategories());
-  }, [dispatch]);
+export default class ListCategories extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        categories: [],
+        activePage: 1,
+        itemsCountPerPage: 1,
+        totalItemsCount: 1,
+        pageRangeDisplayed: 3
+    }
+    this.deleteArticleCategory = this.deleteArticleCategory.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+  }
+
+  deleteArticleCategory(id){
+    ArticleCategoryService.deleteArticleCategory(id).then( res => {
+      this.setState({categories: this.state.categories.filter(category => category._id !== id)});
+      NotificationManager.success('Artilce Category deleted successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+    });
+  }
+   
+  componentDidMount() {
+    axios.get('category/article')
+      .then(response => {
+        this.setState({
+          categories: response.data.data,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          activePage: response.data.current_page
+        });
+    });
+  }
+
+  handlePageChange(pageNumber) {
+     this.setState({activePage: pageNumber});
+    axios.get('category/article?page=' + pageNumber)
+        .then(response => {
+            this.setState({
+                categories: response.data.data,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                activePage: response.data.current_page
+            });
+      });
+    }
+  render() {
     return (
         <>
         <Header />
@@ -61,9 +103,9 @@ const ListCategories = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(categories)}
-                      {
-                        categories.map((category)=>(
+                  {
+                      this.state.categories.map(category => {
+                        return(
                         <tr key={category._id}>
                         <td>{category._id}</td>
                         <td>{category.name}</td>
@@ -95,7 +137,7 @@ const ListCategories = () => {
                               </Link>
                               <DropdownItem
                                 href="#!"
-                                onClick={() => dispatch(deleteArticleCategory(category._id))}
+                                onClick={ () => this.deleteArticleCategory(category._id)}
                               >
                                 Delete
                               </DropdownItem> 
@@ -103,61 +145,23 @@ const ListCategories = () => {
                           </UncontrolledDropdown>
                       </td>
                       </tr>
-                        ))
-                      }
+                        )
+                      })
+                    }
                     
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -166,7 +170,6 @@ const ListCategories = () => {
          
         </Container>
       </>
-    )
+    ) 
+  }
 }
-
-export default ListCategories;

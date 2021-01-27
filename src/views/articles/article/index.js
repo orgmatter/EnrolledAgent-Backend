@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import moment from "moment"
+import ArticleService from "./ArticleService"
 import {Link} from 'react-router-dom'
+// React Notification
+import { NotificationManager } from 'react-notifications';
 import axios from '../../../redux/axios/index';
 import Pagination from "react-js-pagination";
 
@@ -28,8 +31,8 @@ import Header from "components/Headers/Header.js";
 
 export default class ListArticles extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
         articles: [],
         activePage: 1,
@@ -37,7 +40,16 @@ export default class ListArticles extends Component {
         totalItemsCount: 1,
         pageRangeDisplayed: 3
     }
+    this.deleteArticle = this.deleteArticle.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+  }
+
+  deleteArticle(id){
+    ArticleService.deleteArticle(id).then( res => {
+      this.setState({articles: this.state.articles.filter(article => article._id !== id)});
+      NotificationManager.success('Artilce deleted successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+    });
   }
    
   componentDidMount() {
@@ -53,9 +65,7 @@ export default class ListArticles extends Component {
   }
 
   handlePageChange(pageNumber) {
-    //console.log(`active page is ${pageNumber}`);
      this.setState({activePage: pageNumber});
-    //"http://127.0.0.1:8000/category?page=1
     axios.get('article?page=' + pageNumber)
         .then(response => {
             this.setState({
@@ -136,7 +146,7 @@ export default class ListArticles extends Component {
                             </Link>
                             <DropdownItem
                               href="#!"
-                              // onClick={() => dispatch(deleteArticle(article._id))}
+                              onClick={ () => this.deleteArticle(article._id)}
                             >
                               Delete
                               </DropdownItem>
