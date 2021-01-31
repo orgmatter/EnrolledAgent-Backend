@@ -1,7 +1,9 @@
-import React,{useEffect} from 'react'
+import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
-import { useSelector, useDispatch } from "react-redux";
-import {getFaqs, deleteFaq} from '../../redux/_actions/faq/index';
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../redux/axios/index';
+import Pagination from "react-js-pagination";
 import moment from "moment";
 
 // reactstrap components
@@ -14,9 +16,6 @@ import {
     DropdownItem,
     UncontrolledDropdown,
     DropdownToggle,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Table,
     Container,
     Row,
@@ -25,15 +24,55 @@ import {
  
   // core components
 import Header from "components/Headers/Header.js";
-const ListFaq = (props) => {
-    const dispatch = useDispatch();
-    const faqs = useSelector((state) => state.faqs.faqs)
-    // console.log(articles);
-  useEffect(() => {
-    dispatch(getFaqs());
-  }, [dispatch]);
+import FaqService from './FaqService';
+export default class ListFaq extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+        faqs: [],
+        activePage: 1,
+        itemsCountPerPage: 1,
+        totalItemsCount: 1,
+        pageRangeDisplayed: 3
+    }
+    this.deleteFaq = this.deleteFaq.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+  }
 
+  deleteFaq(id){
+    FaqService.deleteFaq(id).then( res => {
+      this.setState({faqs: this.state.faqs.filter(faq => faq._id !== id)});
+      NotificationManager.success('Faq deleted successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+    });
+  }
+   
+  componentDidMount() {
+    axios.get('/faq')
+      .then(response => {
+        this.setState({
+          faqs: response.data.data,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          activePage: response.data.current_page
+        });
+    });
+  }
+
+  handlePageChange(pageNumber) {
+     this.setState({activePage: pageNumber});
+    axios.get('/faq/?page=' + pageNumber)
+        .then(response => {
+            this.setState({
+                faqs: response.data.data,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                activePage: response.data.current_page
+            });
+      });
+    }
+  render() {
     return (
         <>
         <Header />
@@ -65,10 +104,10 @@ const ListFaq = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(faqs)}
-                      {
-                        faqs.map((faq, index)=>(
-                        <tr key={index}>
+                  {
+                      this.state.faqs.map(faq => {
+                        return(
+                        <tr key={faq._id}>
                         <td>{faq.title}</td>
                         
                         <td> {faq.message.length < 10
@@ -101,70 +140,32 @@ const ListFaq = (props) => {
                             </DropdownItem>
                             </Link>
                             <DropdownItem
-                              href="JavaScript:void(0);"
-                              onClick={() => dispatch(deleteFaq(faq._id))}
+                              href="#!"
+                              onClick={ () => this.deleteFaq(faq._id)}
                             >
                               Delete
-                            </DropdownItem> 
+                            </DropdownItem>  
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                        ))
-                      }
+                        )
+                      })
+                    }
                     
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -174,6 +175,5 @@ const ListFaq = (props) => {
         </Container>
         </>
     )
+  }
 }
-
-export default ListFaq;

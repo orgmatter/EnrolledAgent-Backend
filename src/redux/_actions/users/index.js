@@ -24,7 +24,6 @@ export const getUsers = () => async dispatch =>{
     });   
 }
 
-// Activate Article
 export const deactivateUser = (id) => async dispatch => {
     const config = {
         headers: {
