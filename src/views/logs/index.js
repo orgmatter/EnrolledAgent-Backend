@@ -1,9 +1,9 @@
-import React,{useState,useEffect} from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import {getLogs, deleteLog} from '../../redux/_actions/logs/index';
-import {Link} from 'react-router-dom'
+import React,{Component} from 'react'
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../redux/axios/index';
+import Pagination from "react-js-pagination";
 import moment from 'moment';
-import axios from '../../redux/axios/index'
 // reactstrap components
 import {
     Badge,
@@ -14,9 +14,6 @@ import {
     DropdownItem,
     UncontrolledDropdown,
     DropdownToggle,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Table,
     Container,
     Row,
@@ -25,25 +22,55 @@ import {
 
   // core components
 import Header from "components/Headers/Header.js";
-const Log = () => {
-  const dispatch = useDispatch();
-    const logs = useSelector((state) => state.logs.logs)
-  
-  useEffect(() => {
-    dispatch(getLogs());
-  }, [dispatch]); 
+import LogService from './LogService';
+export default class Log extends Component {
 
-  const [count, setCount] = useState(0);
-
-  const handleDelete = _id => {
-  //   axios.delete(`/log/${_id}`).then(res => {
-  //     setCount((prevCount) => prevCount + 1)
-     
-  //  })
-    deleteLog(_id);
-    // deleteSponsor(_id);
-    console.log(_id)
+  constructor(props) {
+    super(props);
+    this.state = {
+        logs: [],
+        activePage: 1,
+        itemsCountPerPage: 1,
+        totalItemsCount: 1,
+        pageRangeDisplayed: 3
+    }
+    this.deleteLog = this.deleteLog.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
+
+  deleteLog(id){
+    LogService.deleteLog(id).then( res => {
+      this.setState({logs: this.state.logs.filter(log => log._id !== id)});
+      NotificationManager.success('Log deleted successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+    });
+  }
+   
+  componentDidMount() {
+    axios.get('log')
+      .then(response => {
+        this.setState({
+          logs: response.data.data,
+          itemsCountPerPage: response.data.per_page,
+          totalItemsCount: response.data.total,
+          activePage: response.data.current_page
+        });
+    });
+  }
+
+  handlePageChange(pageNumber) {
+     this.setState({activePage: pageNumber});
+    axios.get('log?page=' + pageNumber)
+        .then(response => {
+            this.setState({
+                logs: response.data.data,
+                itemsCountPerPage: response.data.per_page,
+                totalItemsCount: response.data.total,
+                activePage: response.data.current_page
+            });
+      });
+    }
+  render() {
     return (
         <>
             <Header />
@@ -72,8 +99,9 @@ const Log = () => {
                   <tbody>
                
                   {
-                        logs.map((log, index)=>(
-                        <tr key={index}>
+                      this.state.logs.map(log => {
+                        return(
+                        <tr key={log._id}>
                         <td>{log.ip}</td>
                         <td>{log.category}</td>
                         <td>{log.message}</td>
@@ -96,7 +124,7 @@ const Log = () => {
                            
                             <DropdownItem
                               href="#!"
-                              onClick={handleDelete(log._id)}
+                              onClick={ () => this.deleteLog(log._id)}
                             >
                               Delete Log
                             </DropdownItem>
@@ -104,60 +132,22 @@ const Log = () => {
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                       ))
-                      }
+                       )
+                      })
+                    }
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -166,7 +156,7 @@ const Log = () => {
          
         </Container>
         </>
-    )
-}
+      )
+  }
 
-export default Log
+}
