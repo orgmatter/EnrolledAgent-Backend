@@ -1,6 +1,10 @@
-import React,{useEffect} from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import {getClaims, approveClaim, rejectClaim} from '../../redux/_actions/agents/index';
+import React,{Component} from 'react'
+import {Link} from 'react-router-dom';
+import moment from "moment"
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../redux/axios/index';
+import Pagination from "react-js-pagination";
 
 // reactstrap components
 import {
@@ -13,9 +17,6 @@ import {
     UncontrolledDropdown,   
     DropdownToggle,
     Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Progress,
     Table,
     Container,
@@ -24,13 +25,66 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
-const Claims = () => {
-  const dispatch = useDispatch();
-    const listings = useSelector((state) => state.listings.listings)
+import ClaimService from './ClaimService';
+  export default class Claims extends Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+          listings: [],
+          activePage: 1,
+          itemsCountPerPage: 1,
+          totalItemsCount: 1,
+          pageRangeDisplayed: 3
+      }
+      this.rejectClaim = this.rejectClaim.bind(this);
+      this.approveClaim = this.approveClaim.bind(this);
+      this.handlePageChange = this.handlePageChange.bind(this);
+    }
   
-  useEffect(() => {
-    dispatch(getClaims());
-  }, [dispatch]);
+    rejectClaim(id){
+      ClaimService.rejectClaim(id).then( res => {
+        this.setState({listings: this.state.listings.filter(list => list._id !== id)});
+        NotificationManager.success('Claim rejected successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      });
+    }
+
+    approveClaim(id){
+      ClaimService.approveClaim(id).then( res => {
+        this.setState({listings: this.state.listings.filter(list => list._id !== id)});
+        NotificationManager.success('Claim approved successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      })
+    }
+
+    
+     
+    componentDidMount() {
+      axios.get('/claim')
+        .then(response => {
+          this.setState({
+            listings: response.data.data,
+            itemsCountPerPage: response.data.per_page,
+            totalItemsCount: response.data.total,
+            activePage: response.data.current_page
+          });
+      });
+    }
+  
+    handlePageChange(pageNumber) {
+       this.setState({activePage: pageNumber});
+      axios.get('/claim/?page=' + pageNumber)
+          .then(response => {
+              this.setState({
+                  listings: response.data.data,
+                  itemsCountPerPage: response.data.per_page,
+                  totalItemsCount: response.data.total,
+                  activePage: response.data.current_page
+              });
+        });
+      }
+    render() {
     return (
         <>
             <Header />
@@ -58,11 +112,14 @@ const Claims = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  {console.log("Listing:" . listings ? listings : "No data")}
-                      {
-                        listings.map((listing, index)=>(
-                        listing ?  
-                        <tr key={index} >
+                  
+                  {
+                      this.state.listings.map(listing => {
+                        return(
+                          listing ?
+                        <tr key={listing._id}>
+                          
+                        
                           <td>{listing._id}</td>
                        
                           <td>{listing.agent.firstName}</td>
@@ -104,7 +161,7 @@ const Claims = () => {
 
                             <DropdownItem
                               href="#!"
-                              onClick={() => dispatch(approveClaim(listing._id))}
+                              onClick={ () => this.approveClaim(listing._id)}
                             >
                               Approve
                             </DropdownItem>
@@ -116,7 +173,7 @@ const Claims = () => {
 
                             <DropdownItem
                               href="#!"
-                              onClick={() => dispatch(rejectClaim(listing._id))}
+                              onClick={ () => this.rejectClaim(listing._id)}
                             >
                               Reject / Cancel Approval
                             </DropdownItem>
@@ -129,61 +186,23 @@ const Claims = () => {
                           <tr>
                             No Data
                           </tr>
-                     ))
-                    }
+                          )
+                        })
+                      }
 
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -193,6 +212,5 @@ const Claims = () => {
         </Container>
         </>
     )
+  }
 }
-
-export default Claims;

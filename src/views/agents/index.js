@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import {getAgents} from '../../redux/_actions/agents/index';
+import React, {Component } from 'react';
+import {Link} from 'react-router-dom';
+import moment from "moment"
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../redux/axios/index';
+import Pagination from "react-js-pagination";
 // reactstrap components
 import {
     Badge,
     Button,
     Card,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
     CardHeader,
     CardFooter,
     DropdownMenu,
@@ -17,10 +17,7 @@ import {
     UncontrolledDropdown,   
     DropdownToggle,
     Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Progress,
+    
     Table,
     Container,
     Row,
@@ -28,33 +25,56 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
+import AgentService from './AgentService';
 
-const ListAgent = (props) => {
+  export default class ListAgent extends Component {
 
-    const dispatch = useDispatch();
-    const {
-      buttonLabel,
-      className
-    } = props;
-    const [modal, setModal] = useState(false);
-    const [nestedModal, setNestedModal] = useState(false);
-    const [closeAll, setCloseAll] = useState(false);
-
-    const toggle = () => setModal(!modal);
-    const toggleNested = () => {
-      setNestedModal(!nestedModal);
-      setCloseAll(false);
+    constructor(props) {
+      super(props);
+      this.state = {
+          agents: [],
+          activePage: 1,
+          itemsCountPerPage: 1,
+          totalItemsCount: 1,
+          pageRangeDisplayed: 3
+      }
+      this.deleteAgent = this.deleteAgent.bind(this);
+      this.handlePageChange = this.handlePageChange.bind(this);
     }
-    const toggleAll = () => {
-      setNestedModal(!nestedModal);
-      setCloseAll(true);
+  
+    deleteAgent(id){
+      AgentService.deleteAgent(id).then( res => {
+        this.setState({agents: this.state.agents.filter(agent => agent._id !== id)});
+        NotificationManager.success('A deleted successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      });
     }
-    
-    const agents = useSelector((state) => state.agents.agents)
- 
-    useEffect(() => {
-      dispatch(getAgents());
-    }, [dispatch]);
+     
+    componentDidMount() {
+      axios.get('/agent')
+        .then(response => {
+          this.setState({
+            agents: response.data.data,
+            itemsCountPerPage: response.data.per_page,
+            totalItemsCount: response.data.total,
+            activePage: response.data.current_page
+          });
+      });
+    }
+  
+    handlePageChange(pageNumber) {
+       this.setState({activePage: pageNumber});
+      axios.get('/agent/?page=' + pageNumber)
+          .then(response => {
+              this.setState({
+                  agents: response.data.data,
+                  itemsCountPerPage: response.data.per_page,
+                  totalItemsCount: response.data.total,
+                  activePage: response.data.current_page
+              });
+        });
+      }
+    render() {
     return (
         <>
         <Header />
@@ -85,10 +105,10 @@ const ListAgent = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(agents)}
-                      {
-                        agents.map((agent, index)=>(
-                        <tr key={index}>
+                  {
+                      this.state.agents.map(agent => {
+                        return(
+                        <tr key={agent._id}>
                           <td>{agent.id}</td>
                           <td>{agent.firstName}</td>
                           <td>{agent.lastName}</td>
@@ -114,78 +134,40 @@ const ListAgent = (props) => {
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            {/* <DropdownItem
-                              href="#!"
-                              onClick={toggle}
-                            >
-                              View
-                            </DropdownItem> */}
                             <DropdownItem
                               href="#!"
-                              onClick={e => e.preventDefault()}
+                              onClick={e => {
+                                this.showModal(e);
+                              }}
                             >
-                              Delete
+                              
+                            
+                              View
                             </DropdownItem>
+                            
                            
                           </DropdownMenu>
                         </UncontrolledDropdown>
+                        
                       </td>
                       </tr>
-                        ))
-                      }
+                        )
+                      })
+                    }
                     
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -193,28 +175,8 @@ const ListAgent = (props) => {
           </Row>
          
         </Container>
-        <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-        <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          <br />
-          <Button color="success" onClick={toggleNested}>Show Nested Modal</Button>
-          <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
-            <ModalHeader>Nested Modal title</ModalHeader>
-            <ModalBody>Stuff and things</ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={toggleNested}>Done</Button>{' '}
-              <Button color="secondary" onClick={toggleAll}>All Done</Button>
-            </ModalFooter>
-          </Modal>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-          <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter>
-      </Modal>
+        
       </>
     )
+  }
 }
-
-export default ListAgent;

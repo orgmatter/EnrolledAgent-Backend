@@ -70,7 +70,7 @@ export const rejectClaim = (id) => async dispatch => {
           type: CANCEL_CLAIM_LISTING,
           payload: id
       })
-      NotificationManager.success('User deactivated successfully !','Success!', 2000);
+      NotificationManager.success('Claim rejected successfully !','Success!', 2000);
       window.setTimeout(function(){window.location.reload()}, 700);
     }
     
@@ -96,7 +96,7 @@ export const rejectClaim = (id) => async dispatch => {
           type: APPROVE_CLAIM_LISTING,
           payload: id,
       })
-      NotificationManager.success('User activated successfully !','Success!', 2000);
+      NotificationManager.success('Claim approved successfully !','Success!', 2000);
       window.setTimeout(function(){window.location.reload()}, 700);
     }
     

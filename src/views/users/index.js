@@ -1,7 +1,10 @@
-import React, {useEffect, useState} from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import {getUsers,activateUser,deactivateUser} from '../../redux/_actions/users/index';
-import moment from 'moment';
+import React, {Component} from 'react'
+import {Link} from 'react-router-dom';
+import moment from "moment"
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../redux/axios/index';
+import Pagination from "react-js-pagination";
 // reactstrap components
 import { 
     Badge,
@@ -13,9 +16,6 @@ import {
     UncontrolledDropdown,   
     DropdownToggle,
     Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Progress,
     Table,
     Container,
@@ -24,15 +24,67 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
+import UserService from './UserService';
 
-const ListUsers = (props,{_id}) => {
-    const dispatch = useDispatch();
-    const users = useSelector((state) => state.users.users)
+export default class ListUsers extends Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+          users: [],
+          activePage: 1,
+          itemsCountPerPage: 1,
+          totalItemsCount: 1,
+          pageRangeDisplayed: 3
+      }
+      this.deactivateUser = this.deactivateUser.bind(this);
+      this.activateUser = this.activateUser.bind(this);
+      this.handlePageChange = this.handlePageChange.bind(this);
+    }
+  
+    deactivateUser(id){
+      UserService.deactivateUser(id).then( res => {
+        this.setState({users: this.state.users.filter(user => user._id !== id)});
+        NotificationManager.success('User deactivated successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      });
+    }
+
+    activateUser(id){
+      UserService.activateUser(id).then( res => {
+        this.setState({users: this.state.users.filter(user => user._id !== id)});
+        NotificationManager.success('User activated successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      })
+    }
+
     
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-
+     
+    componentDidMount() {
+      axios.get('/user')
+        .then(response => {
+          this.setState({
+            users: response.data.data,
+            itemsCountPerPage: response.data.per_page,
+            totalItemsCount: response.data.total,
+            activePage: response.data.current_page
+          });
+      });
+    }
+  
+    handlePageChange(pageNumber) {
+       this.setState({activePage: pageNumber});
+      axios.get('/user/?page=' + pageNumber)
+          .then(response => {
+              this.setState({
+                  users: response.data.data,
+                  itemsCountPerPage: response.data.per_page,
+                  totalItemsCount: response.data.total,
+                  activePage: response.data.current_page
+              });
+        });
+      }
+    render() {
     return (
         <>
         <Header />
@@ -63,10 +115,10 @@ const ListUsers = (props,{_id}) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(users)}
-                      {
-                        users.map((user, index)=>(
-                        <tr key={index}>
+                  {
+                      this.state.users.map(user => {
+                        return(
+                        <tr key={user._id}>
                           <td> {user._id.length < 5
                           ? `${user._id}`
                           : `${user._id.substring(0, 8)}...`}
@@ -112,14 +164,15 @@ const ListUsers = (props,{_id}) => {
                             {user.isActive==true ? 
                             <DropdownItem
                               href="#!"
-                              onClick={() => dispatch(deactivateUser(user._id))}
+                              onClick={ () => this.deactivateUser(user._id)}
+                              
                             >
                               Deactivate
                             </DropdownItem>
                             :
                             <DropdownItem
                             href="#!"
-                            onClick={() => dispatch(activateUser(user._id))}
+                            onClick={ () => this.activateUser(user._id)}
                           >
                             Acivate
                           </DropdownItem>
@@ -128,61 +181,23 @@ const ListUsers = (props,{_id}) => {
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                        ))
-                      }
+                        )
+                      })
+                    }
                     
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -192,6 +207,5 @@ const ListUsers = (props,{_id}) => {
         </Container>
       </>
     )
+  }
 }
-
-export default ListUsers;

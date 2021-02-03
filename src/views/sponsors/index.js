@@ -1,8 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import moment from "moment"
-import { useSelector, useDispatch } from "react-redux";
-import {getAllSponsors, deleteSponsor} from '../../redux/_actions/sponsors/index'
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../redux/axios/index';
+import Pagination from "react-js-pagination";
+
 // reactstrap components
 import {
     Badge,
@@ -14,10 +17,6 @@ import {
     UncontrolledDropdown,   
     DropdownToggle,
     Button,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Progress,
     Table, 
     Container,
     Row,
@@ -25,16 +24,56 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
+import SponsorService from './SponsorService';
 
-const ListSponsors = () => {
-    const dispatch = useDispatch();
-    const sponsors = useSelector((state) => state.sponsors.sponsors)
+  export default class ListSponsors extends Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+          sponsors: [],
+          activePage: 1,
+          itemsCountPerPage: 1,
+          totalItemsCount: 1,
+          pageRangeDisplayed: 3
+      }
+      this.deleteSponsor = this.deleteSponsor.bind(this);
+      this.handlePageChange = this.handlePageChange.bind(this);
+    }
   
-  useEffect(() => {
-    dispatch(getAllSponsors());
-  }, [dispatch]);
-
-
+    deleteSponsor(id){
+      SponsorService.deleteSponsor(id).then( res => {
+        this.setState({sponsors: this.state.sponsors.filter(sponsor => sponsor._id !== id)});
+        NotificationManager.success('Sponsor deleted successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      });
+    }
+     
+    componentDidMount() {
+      axios.get('/sponsor')
+        .then(response => {
+          this.setState({
+            sponsors: response.data.data,
+            itemsCountPerPage: response.data.per_page,
+            totalItemsCount: response.data.total,
+            activePage: response.data.current_page
+          });
+      });
+    }
+  
+    handlePageChange(pageNumber) {
+       this.setState({activePage: pageNumber});
+      axios.get('/sponsor/?page=' + pageNumber)
+          .then(response => {
+              this.setState({
+                  sponsors: response.data.data,
+                  itemsCountPerPage: response.data.per_page,
+                  totalItemsCount: response.data.total,
+                  activePage: response.data.current_page
+              });
+        });
+      }
+    render() {
     return (
         <>
         <Header />
@@ -68,10 +107,10 @@ const ListSponsors = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {console.log(sponsors)}
-                      {
-                        sponsors.map((sponsor, index)=>(
-                        <tr key={index}>
+                  {
+                      this.state.sponsors.map(sponsor => {
+                        return(
+                        <tr key={sponsor._id}>
                           <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
@@ -97,7 +136,7 @@ const ListSponsors = () => {
                                 </DropdownItem>
                                 <DropdownItem 
                                   href="#!"
-                                  onClick={() => dispatch(deleteSponsor(sponsor._id))}
+                                  onClick={ () => this.deleteSponsor(sponsor._id)}
                                 >
                                   Delete
                                 </DropdownItem>
@@ -105,65 +144,26 @@ const ListSponsors = () => {
                               </DropdownMenu>
                             </UncontrolledDropdown>
                           </td>
-                          <td>
+                          <td>  
                           
                           </td>
                       </tr>
-                        ))
-                      }
-                    
+                        )
+                      })
+                    }
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -173,6 +173,5 @@ const ListSponsors = () => {
         </Container>
       </>
     )
+  }
 }
-
-export default ListSponsors;

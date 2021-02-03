@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import {getRoles,deleteRole} from '../../../redux/_actions/config/role/index';
+import React,{Component} from 'react'
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../../redux/axios/index';
+import Pagination from "react-js-pagination";
 import moment from 'moment';
 import {Link} from 'react-router-dom'
 // reactstrap components
@@ -19,41 +21,62 @@ import {
   UncontrolledDropdown,   
   DropdownToggle,
   Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Progress,
   Table,
   Container,
   Row,
   UncontrolledTooltip
   } from "reactstrap";
+import RoleService from './RoleService';
 
-const Role = (props) => {
-  const dispatch = useDispatch();
-  const {
-    buttonLabel,
-    className
-  } = props;
-  const [modal, setModal] = useState(false);
-  const [nestedModal, setNestedModal] = useState(false);
-  const [closeAll, setCloseAll] = useState(false);
+  export default class Role extends Component {
 
-  const toggle = () => setModal(!modal);
-  const toggleNested = () => {
-    setNestedModal(!nestedModal);
-    setCloseAll(false);
-  }
-  const toggleAll = () => {
-    setNestedModal(!nestedModal);
-    setCloseAll(true);
-  }
-
-  const roles = useSelector((state) => state.roles.roles)
+    constructor(props) {
+      super(props);
+      this.state = {
+          roles: [],
+          activePage: 1,
+          itemsCountPerPage: 1,
+          totalItemsCount: 1,
+          pageRangeDisplayed: 3
+      }
+      this.deleteRole = this.deleteRole.bind(this);
+      this.handlePageChange = this.handlePageChange.bind(this);
+    }
   
-    useEffect(() => {
-      dispatch(getRoles());
-    }, [dispatch]);
+    deleteRole(id){
+      RoleService.deleteRole(id).then( res => {
+        this.setState({roles: this.state.roles.filter(role => role._id !== id)});
+        NotificationManager.success('Role deleted successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      });
+    }
+     
+    componentDidMount() {
+      axios.get('role')
+        .then(response => {
+          this.setState({
+            roles: response.data.data,
+            itemsCountPerPage: response.data.per_page,
+            totalItemsCount: response.data.total,
+            activePage: response.data.current_page
+          });
+      });
+    }
+  
+    handlePageChange(pageNumber) {
+       this.setState({activePage: pageNumber});
+      axios.get('role?page=' + pageNumber)
+          .then(response => {
+              this.setState({
+                  roles: response.data.data,
+                  itemsCountPerPage: response.data.per_page,
+                  totalItemsCount: response.data.total,
+                  activePage: response.data.current_page
+              });
+        });
+      }
+    render() {
     return (
         <>
              {/* Page content */}
@@ -85,12 +108,10 @@ const Role = (props) => {
                   </thead>
                   <tbody>
                   
-                    {console.log(roles)}
-                    {
-                    roles.map((role, index)=>(
-
-                   
-                        <tr key={index}>
+                  {
+                      this.state.roles.map(role => {
+                        return(
+                        <tr key={role._id}>
 
                           <td>{role.name}</td>
                           <td>{role.status}</td>
@@ -117,7 +138,7 @@ const Role = (props) => {
                             </DropdownItem>               
                             <DropdownItem
                               href="#!"
-                              onClick={() => dispatch(deleteRole(role._id))}
+                              onClick={ () => this.deleteRole(role._id)}
                             >
                               Delete 
                             </DropdownItem>
@@ -125,60 +146,22 @@ const Role = (props) => {
                         </UncontrolledDropdown>
                       </td>
                       </tr>
-                     ))
-                    }
+                     )
+                    })
+                  }
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
                     <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -188,6 +171,5 @@ const Role = (props) => {
         </Container>
         </>
     )
+  }
 }
-
-export default Role
