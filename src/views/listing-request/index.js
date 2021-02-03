@@ -1,6 +1,8 @@
-import React,{useEffect} from 'react'
-import { useSelector, useDispatch } from "react-redux";
-import {getListing, approveListing, rejectListing} from '../../redux/_actions/agents/index';
+import React,{Component} from 'react'
+// React Notification
+import { NotificationManager } from 'react-notifications';
+import axios from '../../redux/axios/index';
+import Pagination from "react-js-pagination";
 
 // reactstrap components
 import {
@@ -13,9 +15,6 @@ import {
     UncontrolledDropdown,   
     DropdownToggle,
     Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Progress,
     Table,
     Container,
@@ -24,13 +23,76 @@ import {
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
-const Listing = () => {
-  const dispatch = useDispatch();
-    const requests = useSelector((state) => state.requests.requests)
+import ListingService from './ListingService';
+  export default class request extends Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+          requests: [],
+          activePage: 1,
+          itemsCountPerPage: 1,
+          totalItemsCount: 1,
+          pageRangeDisplayed: 3
+      }
+      this.rejectListing = this.rejectListing.bind(this);
+      this.approveListing = this.approveListing.bind(this);
+      this.handlePageChange = this.handlePageChange.bind(this);
+    }
   
-  useEffect(() => {
-    dispatch(getListing());
-  }, [dispatch]);
+    rejectListing(id){
+      ListingService.rejectListing(id).then( res => {
+        this.setState({requests: this.state.requests.filter(request => request._id !== id)});
+        NotificationManager.success('Listing rejected successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      });
+    }
+
+    approveListing(id){
+      ListingService.approveListing(id).then( res => {
+        this.setState({requests: this.state.requests.filter(request => request._id !== id)});
+        try{
+  
+          NotificationManager.success('Listing approved successfully !','Success!', 2000);
+          window.setTimeout(function(){window.location.reload()}, 700);
+        }
+        
+        catch(error){
+          alert(error?.response?.data?.error.message ?? error.message)
+          NotificationManager.success('An error occured','Error!', 2000);
+          window.setTimeout(function(){window.location.reload()}, 700);
+        }
+        
+      })
+    }
+
+    
+     
+    componentDidMount() {
+      axios.get('/listing-request')
+        .then(response => {
+          this.setState({
+            requests: response.data.data,
+            itemsCountPerPage: response.data.per_page,
+            totalItemsCount: response.data.total,
+            activePage: response.data.current_page
+          });
+      });
+    }
+  
+    handlePageChange(pageNumber) {
+       this.setState({activePage: pageNumber});
+      axios.get('/listing-request/?page=' + pageNumber)
+          .then(response => {
+              this.setState({
+                  requests: response.data.data,
+                  itemsCountPerPage: response.data.per_page,
+                  totalItemsCount: response.data.total,
+                  activePage: response.data.current_page
+              });
+        });
+      }
+    render() {
     return (
         <>
             <Header />
@@ -42,7 +104,7 @@ const Listing = () => {
               <Card className="shadow">
               
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">Agent Listing Request</h3>
+                  <h3 className="mb-0">Agent request Request</h3>
                   
                 </CardHeader>
                
@@ -64,12 +126,12 @@ const Listing = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  {console.log("Requests:" . requests ? requests : "No data")}
-                      {
-                          requests ?  
-                        requests.map((request, index)=>(
-                        
-                        <tr key={index} >
+                  {
+                      this.state.requests ?
+                      this.state.requests.map(request => {
+                        return(
+                          
+                        <tr key={request._id}>
                           <td>{request.user.firstName} {request.user.lastName}</td>
                           <td>{request.user.email}</td>
                           <td>{request.firstName} {request.lasttName}</td>
@@ -116,7 +178,8 @@ const Listing = () => {
 
                             <DropdownItem
                               href="#!"
-                              onClick={() => dispatch(approveListing(request._id))}
+                              onClick={ () => this.approveListing(request._id)}
+                             
                             >
                               Approve
                             </DropdownItem>
@@ -128,7 +191,7 @@ const Listing = () => {
 
                             <DropdownItem
                               href="#!"
-                              onClick={() => dispatch(rejectListing(request._id))}
+                              onClick={ () => this.rejectListing(request._id)}
                             >
                               Reject / Cancel Approval
                             </DropdownItem>
@@ -138,63 +201,25 @@ const Listing = () => {
                       </td>
                       </tr>
                   
-                     ))
+                     )})
                      :
                      <div>No Data</div>
-                    }
+                    })
+                  
 
                   </tbody>
                 </Table>
                 <CardFooter className="py-4">
                   <nav aria-label="...">
-                    <Pagination
-                      className="pagination justify-content-end mb-0"
-                      listClassName="justify-content-end mb-0"
-                    >
-                      <PaginationItem className="disabled">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          tabIndex="-1"
-                        >
-                          <i className="fas fa-angle-left" />
-                          <span className="sr-only">Previous</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem className="active">
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          1
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          2 <span className="sr-only">(current)</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          3
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <i className="fas fa-angle-right" />
-                          <span className="sr-only">Next</span>
-                        </PaginationLink>
-                      </PaginationItem>
-                    </Pagination>
+                  <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={this.state.itemsCountPerPage}
+                      totalItemsCount={this.state.totalItemsCount}
+                      pageRangeDisplayed={this.state.pageRangeDisplayed}
+                      onChange={this.handlePageChange}
+                      itemClass='page-item'
+                      linkClass='page-link'
+                    />
                   </nav>
                 </CardFooter>
               </Card>
@@ -204,6 +229,5 @@ const Listing = () => {
         </Container>
         </>
     )
+  }
 }
-
-export default Listing;
