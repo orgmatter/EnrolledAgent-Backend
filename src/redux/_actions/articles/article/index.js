@@ -20,7 +20,7 @@ export const getArticles = () => async dispatch =>{
     };
 
     try{
-      const res = await axios.get('/article');
+      const res = await axios.get('/news');
       dispatch ({ 
           type : GET_ARTICLES,
           payload : res.data.data,
