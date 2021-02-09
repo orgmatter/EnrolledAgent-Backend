@@ -1,5 +1,5 @@
-// import axios from '../../../axios';
-import axios from '../../../axios/index';
+// import axiosInstance from '../../../axiosInstance';
+import axiosInstance from '../../../axiosInstance/';
 import {
     GET_ARTICLE_CATEGORIES, 
     CREATE_ARTICLE_CATEGORY,
@@ -18,7 +18,7 @@ export const getArticleCategories = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-  const res = await axios.get('/category/article',config);
+  const res = await axiosInstance.get('/category/article',config);
   dispatch ({ 
       type : GET_ARTICLE_CATEGORIES,
       payload : res.data.data,
@@ -35,7 +35,7 @@ export const addArticleCategory = (category) => async dispatch => {
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.post('/category/article', category, config);
+    const res = await axiosInstance.post('/category/article', category, config);
     dispatch ({
         type: CREATE_ARTICLE_CATEGORY,
         payload: res.data
@@ -52,7 +52,7 @@ export const updateArticleCategory = article => async dispatch => {
       }
   };
   try{
-    const res = await axios.put(`/category/article/${article.get("id")}`, article, config);
+    const res = await axiosInstance.put(`/category/article/${article.get("id")}`, article, config);
     dispatch ({
         type: UPDATE_ARTICLE_CATEGORY,
         payload: res.data
@@ -75,7 +75,7 @@ export const deleteArticleCategory = (id) => async dispatch => {
       }
   };
   try{
-    const res = await axios.delete(`/category/article/${id}`, config);
+    const res = await axiosInstance.delete(`/category/article/${id}`, config);
     dispatch({
         type: DELETE_ARTICLE_CATEGORY,
         payload: id

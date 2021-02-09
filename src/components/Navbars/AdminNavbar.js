@@ -4,7 +4,7 @@ import { Link, useHistory, Redirect } from "react-router-dom";
 import {userLogout} from '../../redux/_actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from "../../redux/axios";
+import axios from "../../redux/axiosInstance";
 import Avatar from "../../assets/img/avatar.png"
 // reactstrap components 
 import {
@@ -96,7 +96,7 @@ const AdminNavbar = (props,{logout}) => {
               </DropdownItem>
            
               <DropdownItem divider />
-              <DropdownItem onClick={logoutUser} href="#!">
+              <DropdownItem onClick={logoutUser} href="JavaScript:void(0);">
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
               </DropdownItem>

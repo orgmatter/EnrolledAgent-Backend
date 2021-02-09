@@ -4,7 +4,7 @@ import ArticleService from "./ArticleService"
 import {Link} from 'react-router-dom'
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../../redux/axios/index';
+import axiosInstance from '../../../redux/axiosInstance';
 import Pagination from "react-js-pagination";
 
 // reactstrap components
@@ -53,7 +53,7 @@ export default class ListArticles extends Component {
   }
    
   componentDidMount() {
-    axios.get('article')
+    axiosInstance.get('news')
       .then(response => {
         this.setState({
           articles: response.data.data,
@@ -66,7 +66,7 @@ export default class ListArticles extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
-    axios.get('article?page=' + pageNumber)
+    axiosInstance.get('news?page=' + pageNumber)
         .then(response => {
             this.setState({
                 articles: response.data.data,

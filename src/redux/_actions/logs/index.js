@@ -1,4 +1,4 @@
-import axios from '../../axios/'
+import axiosInstance from '../../axiosInstance'
 import {
     GET_LOGS,
     DELETE_LOG
@@ -14,14 +14,14 @@ export const getLogs = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.get('/log', config);
+    const res = await axiosInstance.get('/log', config);
     dispatch ({ 
         type : GET_LOGS,
         payload : res.data.data
     });   
 }
 export const deleteLog = (_id) => dispatch => {
-    axios.delete(`/log/${_id}`)
+    axiosInstance.delete(`/log/${_id}`)
     .then(res => {
         dispatch({
             type : DELETE_LOG,

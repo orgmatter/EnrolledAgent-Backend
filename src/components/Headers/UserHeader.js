@@ -1,7 +1,7 @@
 
 import React,{useState, useEffect} from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
-import axios from "../../redux/axios";
+import axios from "../../redux/axiosInstance";
 
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";

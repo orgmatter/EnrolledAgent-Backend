@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../../redux/axios/index';
+import axiosInstance from '../../../redux/axiosInstance/';
 import Pagination from "react-js-pagination";
 import moment from 'moment';
 import {Link} from 'react-router-dom'
@@ -53,7 +53,7 @@ import RoleService from './RoleService';
     }
      
     componentDidMount() {
-      axios.get('role')
+      axiosInstance.get('role')
         .then(response => {
           this.setState({
             roles: response.data.data,
@@ -66,7 +66,7 @@ import RoleService from './RoleService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axios.get('role?page=' + pageNumber)
+      axiosInstance.get('role?page=' + pageNumber)
           .then(response => {
               this.setState({
                   roles: response.data.data,

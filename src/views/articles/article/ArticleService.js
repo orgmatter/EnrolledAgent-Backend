@@ -1,9 +1,9 @@
-import axios from '../../../redux/axios/index';
+import axiosInstance from '../../../redux/axiosInstance';
 
 class ArticleService {
 
     deleteArticle(articleId){
-        return axios.delete("article" + '/' + articleId);
+        return axiosInstance.delete("article" + '/' + articleId);
     }
 }
 

@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance/';
 import Pagination from "react-js-pagination";
 
 // reactstrap components
@@ -69,7 +69,7 @@ import ListingService from './ListingService';
     
      
     componentDidMount() {
-      axios.get('/listing-request')
+      axiosInstance.get('/listing-request')
         .then(response => {
           this.setState({
             requests: response.data.data,
@@ -82,7 +82,7 @@ import ListingService from './ListingService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axios.get('/listing-request/?page=' + pageNumber)
+      axiosInstance.get('/listing-request/?page=' + pageNumber)
           .then(response => {
               this.setState({
                   requests: response.data.data,

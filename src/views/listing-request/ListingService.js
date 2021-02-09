@@ -1,13 +1,13 @@
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance/';
 
 class ListingService {
 
   rejectListing(userId){
-    return axios.post("/listing-request/reject" + '/' + userId);
+    return axiosInstance.post("/listing-request/reject" + '/' + userId);
   }
 
   approveListing(userId){
-    return axios.post("/listing-request/approve" + '/' + userId)
+    return axiosInstance.post("/listing-request/approve" + '/' + userId)
   }
 }
 

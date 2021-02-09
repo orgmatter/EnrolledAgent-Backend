@@ -1,5 +1,5 @@
-// import axios from '../../../axios';
-import axios from '../../../axios/index';
+// import axiosInstance from '../../../axiosInstance';
+import axiosInstance from '../../../axiosInstance';
 import {
     GET_ALL_ROLE, 
     CREATE_ROLE,
@@ -18,7 +18,7 @@ export const getRoles = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-  const res = await axios.get('/role',config);
+  const res = await axiosInstance.get('/role',config);
   dispatch ({ 
       type : GET_ALL_ROLE,
       payload : res.data.data,
@@ -37,7 +37,7 @@ export const addRole = (role) => async dispatch => {
     };
     try{
 
-        const res = await axios.post('/role', role, config);
+        const res = await axiosInstance.post('/role', role, config);
         dispatch ({
             type: CREATE_ROLE,
             payload: res.data
@@ -60,7 +60,7 @@ export const updateRole = role => async dispatch => {
       }
   };
   try{
-    const res = await axios.put(`/role/${role.get("id")}`, role, config);
+    const res = await axiosInstance.put(`/role/${role.get("id")}`, role, config);
     dispatch ({
         type: UPDATE_ROLE,
         payload: res.data
@@ -83,7 +83,7 @@ export const deleteRole = (id) => async dispatch => {
       }
   };
   try{
-    const res = await axios.delete(`/role/${id}`, config);
+    const res = await axiosInstance.delete(`/role/${id}`, config);
     dispatch({
         type: DELETE_ROLE,
         payload: id

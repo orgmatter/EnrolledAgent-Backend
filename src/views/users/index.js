@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import moment from "moment"
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance';
 import Pagination from "react-js-pagination";
 // reactstrap components
 import { 
@@ -61,7 +61,7 @@ export default class ListUsers extends Component {
     
      
     componentDidMount() {
-      axios.get('/user')
+      axiosInstance.get('/user')
         .then(response => {
           this.setState({
             users: response.data.data,
@@ -74,7 +74,7 @@ export default class ListUsers extends Component {
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axios.get('/user/?page=' + pageNumber)
+      axiosInstance.get('/user/?page=' + pageNumber)
           .then(response => {
               this.setState({
                   users: response.data.data,

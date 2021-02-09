@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../../redux/axios/index';
+import axiosInstance from '../../../redux/axiosInstance/';
 import Pagination from "react-js-pagination";
 import moment from 'moment';
 import {Link} from 'react-router-dom'
@@ -53,7 +53,7 @@ import StaffService from './StaffService';
     }
      
     componentDidMount() {
-      axios.get('staff')
+      axiosInstance.get('staff')
         .then(response => {
           this.setState({
             staffs: response.data.data,
@@ -66,7 +66,7 @@ import StaffService from './StaffService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axios.get('staff?page=' + pageNumber)
+      axiosInstance.get('staff?page=' + pageNumber)
           .then(response => {
               this.setState({
                   staffs: response.data.data,

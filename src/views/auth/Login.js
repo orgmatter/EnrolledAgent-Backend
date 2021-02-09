@@ -1,11 +1,9 @@
 import React,{useState} from 'react'
-import {Link} from 'react-router-dom';
+import { useHistory, useLocation, Redirect, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
-  useLocation, 
-  Redirect
 } from "react-router-dom";
 import PropTypes from 'prop-types';
 import {login} from '../../redux/_actions/auth';
@@ -29,30 +27,69 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 const Login = ({login, isAuthenticated}) => {
-      const [formData, setFormData] = useState({
-        email: '', 
-        password: ''
-      });
-      const [passwordShown, setPasswordShown] = useState(false);
-      const {email, password} = formData;
 
-      const onChange = e => 
-      setFormData({
-          ...formData,
-          [e.target.name]: e.target.value
-      });
-      
-      const onSubmit = async e => {
-          e.preventDefault();
-          login(email,password);
-      }
+      const [passwordShown, setPasswordShown] = useState(false);
+      const [formData, setFormData] = useState({});
+      const loggedIn = !!localStorage.getItem("token");
+    
+      let history = useHistory();
+      let location = useLocation();
+    
+      let { from } = location.state || { from: { pathname: "/" } };
+    
+      const handleChange = e => {
+        e.persist(); 
+        setFormData(prevState => { 
+          return {
+            ...prevState,
+            [e.target.name]: e.target.value
+          };
+        });
+      };
+    
+      const handleSubmit = e => {
+        e.preventDefault();
+        fetch("https://api.enrolledagent.org/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb'
+          }, 
+          credentials: "include",
+          body: JSON.stringify(formData)
+        })
+          .then(res => {
+            if (res.status === 401) {
+              alert("Your session expired or you don't have admin rights");
+              localStorage.removeItem("token");
+              history.push("/");
+            }
+            return res.json();
+          })
+          .then(res => {
+            localStorage.setItem("token", res.token);
+            history.replace(from);
+          }) 
+          .catch(err => {
+            console.error("Login error:", err);
+          });
+       // localStorage.setItem("token", res.data.token );
+        history.replace(from);
+      };
       const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
       };
-      if(isAuthenticated){
-        return <Redirect to="/admin/index" />
-      }
-    return (
+  
+    return loggedIn ? (
+      <Redirect
+        to={{
+          pathname: "/admin/index",
+          state: { from: location }
+        }}
+      />  
+    ) :(
         <>
         <Col lg="5" md="7">
           <Card className="bg-secondary shadow border-0">
@@ -61,7 +98,7 @@ const Login = ({login, isAuthenticated}) => {
               <div className="text-center text-muted mb-4">
                 <small>Sign in with credentials</small>
               </div>
-              <Form role="form" onSubmit={e => onSubmit(e)}>
+              <Form role="form" onSubmit={handleSubmit}>
                 <FormGroup className="mb-3">
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
@@ -71,8 +108,8 @@ const Login = ({login, isAuthenticated}) => {
                     </InputGroupAddon>
                     <Input placeholder="Email" type="email"
                     name="email" 
-                    value={email}
-                    onChange={e => onChange(e)}
+                    value={formData.email || ""}
+                    onChange={handleChange}
                     required
                     />
                    
@@ -87,8 +124,8 @@ const Login = ({login, isAuthenticated}) => {
                     </InputGroupAddon>
                     <Input placeholder="Password"
                     name="password"
-                    value={password}
-                    onChange={e => onChange(e)}
+                    value={formData.password || ""}
+                    onChange={handleChange}
                     type={passwordShown ? "text" : "password"}
                     required
                     />

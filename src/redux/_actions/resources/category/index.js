@@ -1,4 +1,4 @@
-import axios from '../../../axios';
+import axiosInstance from '../../../axiosInstance';
 import { GET_RESOURCE_CATEGORIES, CREATE_RESOURCE_CATEGORY, UPDATE_RESOURCE_CATEGORY, DELETE_RESOURCE_CATEGORY } from '../../types';
 
 // React Notification
@@ -14,7 +14,7 @@ export const getResourcesCategories = () => async dispatch =>{
     }
   };
 
-  const res = await axios.get('/category/resource', config);
+  const res = await axiosInstance.get('/category/resource', config);
   dispatch ({ 
       type : GET_RESOURCE_CATEGORIES,
       payload : res.data.data
@@ -23,7 +23,7 @@ export const getResourcesCategories = () => async dispatch =>{
 
 
 export const addResourceCategory = (category) => async dispatch => {
-    const res = await axios.post('/category/resource', category);
+    const res = await axiosInstance.post('/category/resource', category);
     dispatch ({
         type: CREATE_RESOURCE_CATEGORY,
         payload: res.data
@@ -40,7 +40,7 @@ export const updateResourceCat = category => async dispatch => {
       }
   };
   try{
-    const res = await axios.put(`/category/resource/${category.get("id")}`, category, config);
+    const res = await axiosInstance.put(`/category/resource/${category.get("id")}`, category, config);
     dispatch ({
         type: UPDATE_RESOURCE_CATEGORY,
         payload: res.data
@@ -63,7 +63,7 @@ export const deleteResourceCat = (id) => async dispatch => {
       }
   };
   try{
-    const res = await axios.delete(`/category/resource/${id}`, config);
+    const res = await axiosInstance.delete(`/category/resource/${id}`, config);
     dispatch({
         type: DELETE_RESOURCE_CATEGORY,
         payload: id

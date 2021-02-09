@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import moment from 'moment';
-import axios from '../../redux/axios'
+import axiosInstance from '../../redux/axiosInstance'
 import {useHistory} from 'react-router-dom';
 // reactstrap components
 import { 
@@ -28,7 +28,7 @@ const Subscribers = () => {
     const [subscribers, setSub] = useState([]);
 
   useEffect(() => { 
-    axios.get("email-list")
+    axiosInstance.get("email-list")
       .then(res => {
         const subscribers = res.data.data;
         setSub(subscribers);

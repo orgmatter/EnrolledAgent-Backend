@@ -1,9 +1,9 @@
-import axios from '../../../redux/axios/index';
+import axiosInstance from '../../../redux/axiosInstance/';
 
 class RoleService {
 
     deleteRole(roleId){
-        return axios.delete("/role" + '/' + roleId);
+        return axiosInstance.delete("/role" + '/' + roleId);
     }
 }
 

@@ -1,4 +1,4 @@
-import axios from '../../axios/'
+import axiosInstance from '../../axiosInstance'
 import {
     GET_ALL_USERS,
     DEACTIVATE_USER,
@@ -17,7 +17,7 @@ export const getUsers = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.get('/user', config);
+    const res = await axiosInstance.get('/user', config);
     dispatch ({ 
         type : GET_ALL_USERS,
         payload : res.data.data
@@ -33,7 +33,7 @@ export const deactivateUser = (id) => async dispatch => {
         }
     };
     try{
-      const res = await axios.post(`/user/deactivate/${id}`, config);
+      const res = await axiosInstance.post(`/user/deactivate/${id}`, config);
       dispatch({
           type: DEACTIVATE_USER,
           payload: id
@@ -59,7 +59,7 @@ export const deactivateUser = (id) => async dispatch => {
         }
     };
     try{
-      const res = await axios.post(`/user/activate/${id}`, config);
+      const res = await axiosInstance.post(`/user/activate/${id}`, config);
       dispatch({
           type: ACTIVATE_USER,
           payload: id,
