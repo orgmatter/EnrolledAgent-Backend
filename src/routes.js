@@ -55,6 +55,9 @@ import AddStaff from "./views/config/staffs/addStaff";
 //Payment
 import Payment from "./views/payment/index";
 
+//Partners
+import ListPartner from "./views/partners/index";
+
 var routes = [
   {
     path: "/index",
@@ -181,6 +184,13 @@ var routes = [
     name: "List Users",
     icon: "ni ni-tv-2 text-primary",
     component: ListUsers,
+    layout: "/admin"
+  },
+  {
+    path: "/partners",
+    name: "List Partners",
+    icon: "ni ni-tv-2 text-primary",
+    component: ListPartner,
     layout: "/admin"
   },
   {
