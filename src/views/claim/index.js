@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import moment from "moment"
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../redux/axios/index';
+import axios from '../../redux/axiosInstance/index';
 import Pagination from "react-js-pagination";
 
 // reactstrap components

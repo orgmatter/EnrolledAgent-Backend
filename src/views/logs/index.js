@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance';
 import Pagination from "react-js-pagination";
 import moment from 'moment';
 // reactstrap components
@@ -47,7 +47,7 @@ export default class Log extends Component {
   }
    
   componentDidMount() {
-    axios.get('log')
+    axiosInstance.get('log')
       .then(response => {
         this.setState({
           logs: response.data.data,
@@ -60,7 +60,7 @@ export default class Log extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
-    axios.get('log?page=' + pageNumber)
+    axiosInstance.get('log?page=' + pageNumber)
         .then(response => {
             this.setState({
                 logs: response.data.data,

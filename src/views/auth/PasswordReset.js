@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import axios from 'redux/axios/index'
+import axiosInstance from 'redux/axiosInstance/'
 
 // reactstrap components
 import {
@@ -41,7 +41,7 @@ class PasswordReset extends Component {
           message: '',
         });
       } else{
-        axios
+        axiosInstance
         .post('/send-reset', {
           email: this.state.email
         })

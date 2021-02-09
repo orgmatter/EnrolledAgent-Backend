@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance/';
 import Pagination from "react-js-pagination";
 import moment from "moment";
 
@@ -49,7 +49,7 @@ export default class ListFaq extends Component {
   }
    
   componentDidMount() {
-    axios.get('/faq')
+    axiosInstance.get('/faq')
       .then(response => {
         this.setState({
           faqs: response.data.data,
@@ -62,7 +62,7 @@ export default class ListFaq extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
-    axios.get('/faq/?page=' + pageNumber)
+    axiosInstance.get('/faq/?page=' + pageNumber)
         .then(response => {
             this.setState({
                 faqs: response.data.data,

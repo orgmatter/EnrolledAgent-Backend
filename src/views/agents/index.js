@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import moment from "moment"
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance/';
 import Pagination from "react-js-pagination";
 // reactstrap components
 import {
@@ -51,7 +51,7 @@ import AgentService from './AgentService';
     }
      
     componentDidMount() {
-      axios.get('/agent')
+      axiosInstance.get('/agent')
         .then(response => {
           this.setState({
             agents: response.data.data,
@@ -64,7 +64,7 @@ import AgentService from './AgentService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axios.get('/agent/?page=' + pageNumber)
+      axiosInstance.get('/agent/?page=' + pageNumber)
           .then(response => {
               this.setState({
                   agents: response.data.data,
@@ -136,9 +136,9 @@ import AgentService from './AgentService';
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
                               href="#!"
-                              onClick={e => {
-                                this.showModal(e);
-                              }}
+                              // onClick={e => {
+                              //   this.showModal(e);
+                              // }}
                             >
                               
                             

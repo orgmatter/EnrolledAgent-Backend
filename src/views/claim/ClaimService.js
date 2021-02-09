@@ -1,13 +1,13 @@
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance/';
 
 class ClaimService {
 
   rejectClaim(userId){
-    return axios.post("/reject-claim" + '/' + userId);
+    return axiosInstance.post("/reject-claim" + '/' + userId);
   }
 
   approveClaim(userId){
-    return axios.post("/approve-claim" + '/' + userId)
+    return axiosInstance.post("/approve-claim" + '/' + userId)
   }
 }
 

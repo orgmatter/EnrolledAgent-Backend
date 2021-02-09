@@ -1,13 +1,13 @@
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance';
 
 class UserService {
 
   deactivateUser(userId){
-    return axios.post("/user/deactivate" + '/' + userId);
+    return axiosInstance.post("/user/deactivate" + '/' + userId);
   }
 
   activateUser(userId){
-    return axios.post("/user/activate" + '/' + userId)
+    return axiosInstance.post("/user/activate" + '/' + userId)
   }
 }
 

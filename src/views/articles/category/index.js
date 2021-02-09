@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import ArticleCategoryService from "./ArticleCategoryService"
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../../redux/axios/index';
+import axiosInstance from '../../../redux/axiosInstance/';
 import Pagination from "react-js-pagination";
 
 // reactstrap components
@@ -49,7 +49,7 @@ export default class ListCategories extends Component {
   }
    
   componentDidMount() {
-    axios.get('category/article')
+    axiosInstance.get('category/article')
       .then(response => {
         this.setState({
           categories: response.data.data,
@@ -62,7 +62,7 @@ export default class ListCategories extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
-    axios.get('category/article?page=' + pageNumber)
+    axiosInstance.get('category/article?page=' + pageNumber)
         .then(response => {
             this.setState({
                 categories: response.data.data,

@@ -1,4 +1,4 @@
-import axios from '../../../axios';
+import axiosInstance from '../../../axiosInstance';
 import { GET_ALL_QUESTION_CATEGORIES, CREATE_QUESTION_CATEGORY } from '../../types';
 
 // React Notification
@@ -14,7 +14,7 @@ export const getQuestionsCategories = () => async dispatch =>{
     }
   };
 
-  const res = await axios.get('/category/question', config);
+  const res = await axiosInstance.get('/category/question', config);
   dispatch ({ 
       type : GET_ALL_QUESTION_CATEGORIES,
       payload : res.data.data
@@ -23,7 +23,7 @@ export const getQuestionsCategories = () => async dispatch =>{
 
 
 export const addQuestionCategory = (category) => async dispatch => {
-    const res = await axios.post('/category/question', category);
+    const res = await axiosInstance.post('/category/question', category);
     dispatch ({
         type: CREATE_QUESTION_CATEGORY,
         payload: res.data
@@ -31,7 +31,7 @@ export const addQuestionCategory = (category) => async dispatch => {
 } 
 
 // export const deleteBlogCategory = (id) => dispatch => {
-//     axios.delete(`/blog-category/${id}`)
+//     axiosInstance.delete(`/blog-category/${id}`)
 //     .then(res => {
 //         dispatch({
 //             type : 'DELETE_category',
@@ -49,7 +49,7 @@ export const addQuestionCategory = (category) => async dispatch => {
 
 //     try {
 
-//         const res = await axios.get('/blog-category/'+id);
+//         const res = await axiosInstance.get('/blog-category/'+id);
 //         dispatch({
 //           type : 'GET_category',
 //           payload : res.data 
@@ -63,7 +63,7 @@ export const addQuestionCategory = (category) => async dispatch => {
 // export const updateBlogCategory = (category) =>async dispatch => {
 
 //     try {
-//         const res = await axios.put(`/blog-category/${category.id}`, category);
+//         const res = await axiosInstance.put(`/blog-category/${category.id}`, category);
 
 //      dispatch({
 //         type : 'UPDATE_category',

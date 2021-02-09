@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import moment from 'moment';
-import axios from '../../redux/axios'
+import axiosInstance from '../../redux/axiosInstance'
 import {useHistory} from 'react-router-dom';
 import { CSVLink } from "react-csv";
 import Pagination from "./Pagination";
@@ -28,7 +28,7 @@ const License = () => {
     const [dataPerPage] = useState(10)
 
   useEffect(() => { 
-    axios.get("verification")
+    axiosInstance.get("verification")
       .then(res => {
         const license = res.data.data;
         setLicense(license);

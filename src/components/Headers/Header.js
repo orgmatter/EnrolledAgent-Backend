@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import axios from "../../redux/axios";
+import axios from "axios";
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 
@@ -7,7 +7,13 @@ const Header = () => {
   const [analytic, setAnalytic] = useState([]);
 
   useEffect(() => { 
-    axios.get("/analytic")
+    axios.get("https://api.enrolledagent.org/analytic",{
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then(res => {
         const analytic = res.data.data;
         setAnalytic(analytic);
