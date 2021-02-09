@@ -1,4 +1,4 @@
-import axios from '../../axios/index';
+import axiosInstance from '../../axiosInstance/';
 import { GET_RESOURCES, CREATE_RESOURCE, UPDATE_RESOURCE, DELETE_RESOURCE } from '../types';
 
 // React Notification
@@ -14,7 +14,7 @@ export const getResources = () => async dispatch =>{
       }
     };
 
-    const res = await axios.get('/resource', config);
+    const res = await axiosInstance.get('/resource', config);
     dispatch ({ 
         type : GET_RESOURCES,
         payload : res.data.data
@@ -31,7 +31,7 @@ export const addResource = resource => async dispatch => {
       }
   };
   try{
-    const res = await axios.post('/resource', resource, config);
+    const res = await axiosInstance.post('/resource', resource, config);
     dispatch ({
         type: CREATE_RESOURCE,
         payload: res.data 
@@ -54,7 +54,7 @@ export const updateResource = resource => async dispatch => {
       }
   };
   try{
-    const res = await axios.put(`/resource/${resource.get("id")}`, resource, config);
+    const res = await axiosInstance.put(`/resource/${resource.get("id")}`, resource, config);
     dispatch ({
         type: UPDATE_RESOURCE,
         payload: res.data
@@ -77,7 +77,7 @@ export const deleteResource = (id) => async dispatch => {
       }
   };
   try{
-    const res = await axios.delete(`/resource/${id}`, config);
+    const res = await axiosInstance.delete(`/resource/${id}`, config);
     dispatch({
         type: DELETE_RESOURCE,
         payload: id

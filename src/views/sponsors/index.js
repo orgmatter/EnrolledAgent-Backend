@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import moment from "moment"
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance';
 import Pagination from "react-js-pagination";
 
 // reactstrap components
@@ -50,7 +50,7 @@ import SponsorService from './SponsorService';
     }
      
     componentDidMount() {
-      axios.get('/sponsor')
+      axiosInstance.get('/sponsor')
         .then(response => {
           this.setState({
             sponsors: response.data.data,
@@ -63,7 +63,7 @@ import SponsorService from './SponsorService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axios.get('/sponsor/?page=' + pageNumber)
+      axiosInstance.get('/sponsor/?page=' + pageNumber)
           .then(response => {
               this.setState({
                   sponsors: response.data.data,

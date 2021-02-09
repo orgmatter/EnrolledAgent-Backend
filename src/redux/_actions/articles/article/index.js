@@ -1,4 +1,4 @@
-import axios from '../../../axios';
+import axiosInstance from '../../../axiosInstance';
 import {
     GET_ARTICLES,
     DELETE_ARTICLE,
@@ -20,7 +20,7 @@ export const getArticles = () => async dispatch =>{
     };
 
     try{
-      const res = await axios.get('/news');
+      const res = await axiosInstance.get('/news');
       dispatch ({ 
           type : GET_ARTICLES,
           payload : res.data.data,
@@ -28,8 +28,8 @@ export const getArticles = () => async dispatch =>{
       }); 
       
     }
-    catch(err){
-      console.log("error", err)
+    catch(error){
+      console.log("error", error)
     }
 }
 
@@ -43,7 +43,7 @@ export const addArticle = article => async dispatch => {
       }
   };
   try{
-    const res = await axios.post('/article', article, config);
+    const res = await axiosInstance.post('/article', article, config);
     dispatch ({
         type: CREATE_ARTICLE,
         payload: res.data 
@@ -66,7 +66,7 @@ export const updateArticle = article => async dispatch => {
       }
   };
   try{
-    const res = await axios.put(`/article/${article.get("id")}`, article, config);
+    const res = await axiosInstance.put(`/article/${article.get("id")}`, article, config);
     dispatch ({
         type: UPDATE_ARTICLE,
         payload: res.data
@@ -89,7 +89,7 @@ export const deleteArticle = (id) => async dispatch => {
       }
   };
   try{
-    const res = await axios.delete(`/article/${id}`, config);
+    const res = await axiosInstance.delete(`/article/${id}`, config);
     dispatch({
         type: DELETE_ARTICLE,
         payload: id
@@ -111,7 +111,7 @@ export const approveArticle = article => async dispatch => {
       }
   };
   try{
-    const res = await axios.post(`/article/status/${article.get("id")}`, article, config);
+    const res = await axiosInstance.post(`/article/status/${article.get("id")}`, article, config);
     dispatch({
         type: APPROVE_ARTICLE,
         payload: res.data

@@ -1,4 +1,4 @@
-import axios from '../../axios';
+import axiosInstance from '../../axiosInstance';
 import {
     GET_FAQS,
     DELETE_FAQ,
@@ -21,7 +21,7 @@ export const getFaqs = () => async dispatch =>{
     };
 
     try{
-      const res = await axios.get('/faq');
+      const res = await axiosInstance.get('/faq');
       dispatch ({ 
           type : GET_FAQS,
           payload : res.data.data,
@@ -44,7 +44,7 @@ export const addFaq = faq => async dispatch => {
       }
   };
   try{
-    const res = await axios.post('/faq', faq, config);
+    const res = await axiosInstance.post('/faq', faq, config);
     dispatch ({
         type: CREATE_FAQ,
         payload: res.data 
@@ -67,7 +67,7 @@ export const updateFaq = faq => async dispatch => {
       }
   };
   try{
-    const res = await axios.put(`/faq/${faq.get("id")}`, faq, config);
+    const res = await axiosInstance.put(`/faq/${faq.get("id")}`, faq, config);
     dispatch ({
         type: UPDATE_FAQ,
         payload: res.data
@@ -90,7 +90,7 @@ export const deleteFaq = (id) => async dispatch => {
       }
   };
   try{
-    const res = await axios.delete(`/faq/${id}`, config);
+    const res = await axiosInstance.delete(`/faq/${id}`, config);
     dispatch({
         type: DELETE_FAQ
     })

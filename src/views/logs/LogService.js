@@ -1,9 +1,9 @@
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance';
 
 class LogService {
 
     deleteLog(logId){
-        return axios.delete("log" + '/' + logId);
+        return axiosInstance.delete("log" + '/' + logId);
     }
 }
 

@@ -1,9 +1,9 @@
-import axios from '../../redux/axios/index';
+import axiosInstance from '../../redux/axiosInstance/';
 
 class AgentService {
 
     deleteAgent(agentId){
-        return axios.delete("/agent" + '/' + agentId);
+        return axiosInstance.delete("/agent" + '/' + agentId);
     }
 }
 

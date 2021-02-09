@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {updatePaymentData} from '../../../redux/_actions/config/payment/';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import PropTypes from 'prop-types';
-import axios from '../../../redux/axios/index';
+import axiosInstance from '../../../redux/axiosInstance';
 // reactstrap components
 // reactstrap components
 import {
@@ -25,7 +25,7 @@ const Payment = (props) => {
   const [payment, setPayment] = useState({});
 
   useEffect(() => { 
-    axios.get("/config")
+    axiosInstance.get("/config")
       .then(res => {
         const payment = res.data.data;
         setPayment(payment);

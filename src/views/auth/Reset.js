@@ -1,5 +1,5 @@
 import React,{useState, useEffect, useRef} from 'react'
-import axios from 'redux/axios/index'
+import axiosInstance from 'redux/axiosInstance/'
 import {
   BrowserRouter as Router,
   Switch,
@@ -71,7 +71,7 @@ const Login = (props) => {
     }
       const handleSubmit = e => {
         e.preventDefault();
-        axios.post("/reset-password", body, config )
+        axiosInstance.post("/reset-password", body, config )
           .then(res => {
             if (res.status === 200) {
               history.push("/");

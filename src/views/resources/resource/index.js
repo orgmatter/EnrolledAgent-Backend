@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import ResourceService from "./ResourceService"
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../../redux/axios/index';
+import axiosInstance from '../../../redux/axiosInstance';
 import Pagination from "react-js-pagination";
 // reactstrap components
 import {
@@ -50,7 +50,7 @@ export default class ListResource extends Component {
   }
    
   componentDidMount() {
-    axios.get('resource')
+    axiosInstance.get('resource')
       .then(response => {
         this.setState({
           resources: response.data.data,
@@ -63,7 +63,7 @@ export default class ListResource extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
-    axios.get('resource?page=' + pageNumber)
+    axiosInstance.get('resource?page=' + pageNumber)
         .then(response => {
             this.setState({
                 resources: response.data.data,

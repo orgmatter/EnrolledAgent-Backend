@@ -1,4 +1,4 @@
-import axios from '../../axios'
+import axiosInstance from '../../axiosInstance'
 import {
     GET_ALL_SPONSORS, DELETE_SPONSOR, UPDATE_SPONSOR
 } from '../types'
@@ -15,7 +15,7 @@ export const getAllSponsors = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.get('/sponsor', config);
+    const res = await axiosInstance.get('/sponsor', config);
     dispatch ({ 
         type : GET_ALL_SPONSORS,
         payload : res.data.data 
@@ -23,7 +23,7 @@ export const getAllSponsors = () => async dispatch =>{
 }
 
 export const sponsorAdd = (sponsor) => async dispatch => {
-    const res = await axios.post('/sponsor', sponsor);
+    const res = await axiosInstance.post('/sponsor', sponsor);
     dispatch ({
         type: 'ADD_sponsor',
         payload: res.data
@@ -41,7 +41,7 @@ export const updateSponsor = sponsor => async dispatch => {
   };
 
   try{
-    const res = await axios.put(`/sponsor/${sponsor.get("id")}`, sponsor, config);
+    const res = await axiosInstance.put(`/sponsor/${sponsor.get("id")}`, sponsor, config);
     dispatch ({
         type: UPDATE_SPONSOR,
         payload: res.data
@@ -65,7 +65,7 @@ export const deleteSponsor = (id) => async dispatch => {
       }
   };
   try{
-    const res = await axios.delete(`/sponsor/${id}`, config);
+    const res = await axiosInstance.delete(`/sponsor/${id}`, config);
     dispatch({
         type: DELETE_SPONSOR,
         payload: id

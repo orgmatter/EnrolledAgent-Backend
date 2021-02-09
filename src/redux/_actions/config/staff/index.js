@@ -1,4 +1,4 @@
-import axios from '../../../axios/index'
+import axiosInstance from '../../../axiosInstance/'
 import {
     GET_ALL_STAFFS, CREATE_STAFF, GET_STAFF_DETAILS, DELETE_STAFF, UPDATE_STAFF
 } from '../../types'
@@ -15,7 +15,7 @@ export const getAllStaffs = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.get('/staff/', config);
+    const res = await axiosInstance.get('/staff/', config);
     dispatch ({ 
         type : GET_ALL_STAFFS,
         payload : res.data.data 
@@ -23,7 +23,7 @@ export const getAllStaffs = () => async dispatch =>{
 }
 
 export const addStaff = (staff) => async dispatch => {
-    const res = await axios.post('/staff', staff);
+    const res = await axiosInstance.post('/staff', staff);
     try{
         
         dispatch ({
@@ -50,7 +50,7 @@ export const deleteStaff = (id) => async dispatch => {
         }
     };
     try{
-      const res = await axios.delete(`/staff/${id}`, config);
+      const res = await axiosInstance.delete(`/staff/${id}`, config);
       dispatch({
           type: DELETE_STAFF,
           payload: id

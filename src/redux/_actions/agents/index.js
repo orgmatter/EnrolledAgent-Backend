@@ -1,4 +1,4 @@
-import axios from '../../axios/'
+import axiosInstance from '../../axiosInstance/'
 import {
     GET_ALL_AGENTS,
     UPLOAD_AGENT,
@@ -22,7 +22,7 @@ export const getAgents = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.get('/agent', config);
+    const res = await axiosInstance.get('/agent', config);
     dispatch ({ 
         type : GET_ALL_AGENTS,
         payload : res.data.data
@@ -30,7 +30,7 @@ export const getAgents = () => async dispatch =>{
 }
  
 export const agentUpload = (agent) => async dispatch => {
-  const res = await axios.post('/agent/upload', agent);
+  const res = await axiosInstance.post('/agent/upload', agent);
   dispatch ({
       type: UPLOAD_AGENT, 
       payload: res.data
@@ -48,7 +48,7 @@ export const getClaims = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.get('/claim', config);
+    const res = await axiosInstance.get('/claim', config);
     dispatch ({ 
         type : GET_ALL_CLAIM_LISTING,
         payload : res.data.data
@@ -65,7 +65,7 @@ export const rejectClaim = (id) => async dispatch => {
         }
     };
     try{
-      const res = await axios.post(`/reject-claim/${id}`, config);
+      const res = await axiosInstance.post(`/reject-claim/${id}`, config);
       dispatch({
           type: CANCEL_CLAIM_LISTING,
           payload: id
@@ -91,7 +91,7 @@ export const rejectClaim = (id) => async dispatch => {
         }
     };
     try{
-      const res = await axios.post(`/approve-claim/${id}`, config);
+      const res = await axiosInstance.post(`/approve-claim/${id}`, config);
       dispatch({
           type: APPROVE_CLAIM_LISTING,
           payload: id,
@@ -118,7 +118,7 @@ export const addAgent = agent => async dispatch => {
         }
     };
     try{
-      const res = await axios.post('/agent', agent, config);
+      const res = await axiosInstance.post('/agent', agent, config);
       dispatch ({
           type: ADD_AGENT,
           payload: res.data 
@@ -147,7 +147,7 @@ export const getListing = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.get('/listing-request', config);
+    const res = await axiosInstance.get('/listing-request', config);
     dispatch ({ 
         type : GET_ALL_LISTING_REQUEST,
         payload : res.data.data
@@ -164,7 +164,7 @@ export const rejectListing = (id) => async dispatch => {
         }
     };
     try{
-      const res = await axios.post(`/listing-request/reject/${id}`, config);
+      const res = await axiosInstance.post(`/listing-request/reject/${id}`, config);
       dispatch({
           type: REJECT_LISTING_REQUEST,
           payload: id
@@ -190,7 +190,7 @@ export const rejectListing = (id) => async dispatch => {
         }
     };
     try{
-      const res = await axios.post(`/listing-request/approve/${id}`, config);
+      const res = await axiosInstance.post(`/listing-request/approve/${id}`, config);
       dispatch({
           type: APPROVE_LISTING_REQUEST,
           payload: id,

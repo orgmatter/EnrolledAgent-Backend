@@ -1,4 +1,4 @@
-import axios from '../../axios/'
+import axiosInstance from '../../axiosInstance'
 import {
   GET_ALL_QUESTIONS
 } from '../types'
@@ -13,7 +13,7 @@ export const getQuestions = () => async dispatch =>{
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
     };
-    const res = await axios.get('/question', config);
+    const res = await axiosInstance.get('/question', config);
     dispatch ({ 
         type : GET_ALL_QUESTIONS,
         payload : res.data.data
@@ -22,7 +22,7 @@ export const getQuestions = () => async dispatch =>{
  
 
 // export const agentAdd = (agent) => async dispatch => {
-//     const res = await axios.post('/agent', agent);
+//     const res = await axiosInstance.post('/agent', agent);
 //     dispatch ({
 //         type: 'ADD_agent',
 //         payload: res.data
@@ -30,7 +30,7 @@ export const getQuestions = () => async dispatch =>{
 // } 
 
 // export const deleteagent = (id) => dispatch => {
-//     axios.delete(`/agent/${id}`)
+//     axiosInstance.delete(`/agent/${id}`)
 //     .then(res => {
 //         dispatch({
 //             type : 'DELETE_agent',
@@ -48,7 +48,7 @@ export const getQuestions = () => async dispatch =>{
 
 //     try {
 
-//         const res = await axios.get('/blog-category/'+id);
+//         const res = await axiosInstance.get('/blog-category/'+id);
 //         dispatch({
 //           type : 'GET_category',
 //           payload : res.data 
@@ -62,7 +62,7 @@ export const getQuestions = () => async dispatch =>{
 // export const updateagent = (category) =>async dispatch => {
 
 //     try {
-//         const res = await axios.put(`/blog-category/${category.id}`, category);
+//         const res = await axiosInstance.put(`/blog-category/${category.id}`, category);
 
 //      dispatch({
 //         type : 'UPDATE_category',
