@@ -252,6 +252,10 @@ class Sidebar extends React.Component {
                 <i className="ni ni-single-02 text-primary"></i>Agents</Link>
                 </li>
                 <li className="nav-item">
+              <Link className="nav-link" to="/admin/partners">
+                <i className="ni ni-single-02 text-primary"></i>Partners</Link>
+                </li>
+                <li className="nav-item">
               <Link className="nav-link" to="/admin/users">
                 <i className="ni ni-circle-08 text-primary"></i>Users</Link>
                 </li>
