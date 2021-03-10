@@ -11,6 +11,7 @@ import setAuthToken from '../../Utils/setAuthToken';
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
+import { ADMIN_URL } from '../../config';
 
 //Admin Login
 export const login = (email, password) => async dispatch => {
@@ -23,7 +24,7 @@ export const login = (email, password) => async dispatch => {
 
     const body = JSON.stringify({email, password});
     try {
-        const res = await axios.post('https://api.enrolledagent.org/login',body,config);
+        const res = await axios.post(`${ADMIN_URL}/login`,body,config);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
@@ -43,7 +44,7 @@ export const loadUser = () => async dispatch => {
         setAuthToken(localStorage.token);
     }
     try {
-        const res = await axios.get('https://api.enrolledagent.org/login');
+        const res = await axios.get(`${ADMIN_URL}/login`);
         dispatch({
             type: LOAD_USER,
             payload: res.data

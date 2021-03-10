@@ -19,13 +19,14 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+import { ADMIN_URL } from "../../config";
 //import {updateProfile} from '';
 
 const Profile = () => {
   const [profile, setProfile] = useState([]);
 
   useEffect(() => { 
-    axios.get("https://api.enrolledagent.org/user/profile",{
+    axios.get(`${ADMIN_URL}/user/profile`,{
       headers: {
         'Content-Type': 'application/json',
         'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',

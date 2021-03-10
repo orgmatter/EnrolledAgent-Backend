@@ -31,6 +31,7 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
+import { ADMIN_URL } from "../config";
 
 const Index = (props) => {
 
@@ -56,7 +57,7 @@ const Index = (props) => {
   
 
   useEffect(() => { 
-    axios.get("https://api.enrolledagent.org/page",{
+    axios.get(`${ADMIN_URL}/page`,{
       headers: {
         'Content-Type': 'application/json',
         'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',

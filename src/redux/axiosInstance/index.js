@@ -1,7 +1,8 @@
 import axios from "axios";
+import { ADMIN_URL } from "../../config";
 
 const axiosInstance = axios.create({
-  baseURL: "https://api.enrolledagent.org",
+  baseURL: `${ADMIN_URL}`,
   headers: {
     'Content-Type': 'application/json',
     'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',

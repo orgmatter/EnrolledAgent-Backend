@@ -2,12 +2,12 @@ import React,{useState, useEffect} from "react";
 import axios from "axios";
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
+import { ADMIN_URL } from "../../config";
 
 const Header = () => {
   const [analytic, setAnalytic] = useState([]);
-
   useEffect(() => { 
-    axios.get("https://api.enrolledagent.org/analytic",{
+    axios.get(`${ADMIN_URL}/analytic`,{
       headers: {
         'Content-Type': 'application/json',
         'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
