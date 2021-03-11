@@ -51,23 +51,16 @@ const Login = ({login, isAuthenticated}) => {
       const handleSubmit = e => {
         e.preventDefault();
         axiosInstance.post("/login", formData)
+          .then(res => res.data)
           .then(res => {
-            if (res.status === 200) {
-              console.log(res)
-              NotificationManager.success("Logging in",'Success!', 2000);
-            }
-          })
-          .then(res => {
-            console.log(res)
-            localStorage.setItem("token", res.token);
-            // history.replace(from);
-          })
+              NotificationManager.success(`Welcome ${formData.email}`,'Success!', 2000);
+              localStorage.setItem("token", res.token);
+              history.replace(from);
+           })
           .catch(error => {
-            console.error("Login error:", error.response);
             NotificationManager.error(`${error?.response?.data?.error?.message ??  'An error occured, please try again later.'}`,'Error!', 2000);
           });
-       // localStorage.setItem("token", res.data.token );
-        history.replace(from);
+       
       };
       const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
