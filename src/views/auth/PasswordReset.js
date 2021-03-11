@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
 import axiosInstance from 'redux/axiosInstance/'
+import {NotificationManager} from 'react-notifications'
 
 // reactstrap components
 import {
@@ -45,22 +46,15 @@ class PasswordReset extends Component {
         .post('/send-reset', {
           email: this.state.email
         })
+        .then(res => res.data)
         .then(response => {
           console.log(response.data);
-          if (response.data == 'Email not in Db') {
-            this.setState({
-              error: true,
-              message: '',
-            })
-          } else if (response.data == 'Recovery Email Sent') {
-            this.setState({
-              error: false,
-              message: 'Recovery Email Sent',
-            });
-          }
+          NotificationManager.success(response.data.message,'Success!', 2000);
         })
         .catch(error => {
-          console.log(error.data);
+          let message  = error.response.data.error ?  error.response.data.error.message : 'An error occured, please try again later.';
+          NotificationManager.error(message,'Error!', 2000);
+          console.log(error.response.data.error);
         });
       }
     };
