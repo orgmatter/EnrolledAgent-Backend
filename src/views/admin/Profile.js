@@ -19,14 +19,14 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-import { ADMIN_URL } from "../../config";
+import { API_URL } from "../../config";
 //import {updateProfile} from '';
 
 const Profile = () => {
   const [profile, setProfile] = useState([]);
 
   useEffect(() => { 
-    axios.get(`${ADMIN_URL}/user/profile`,{
+    axios.get(`${API_URL}/user/profile`,{
       headers: {
         'Content-Type': 'application/json',
         'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',

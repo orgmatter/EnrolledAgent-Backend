@@ -1,11 +1,11 @@
 import axios from "axios";
-import { ADMIN_URL } from "../../config";
+import { API_KEY, API_URL } from "../../config";
 
 const axiosInstance = axios.create({
-  baseURL: `${ADMIN_URL}`,
+  baseURL: `${API_URL}`,
   headers: {
     'Content-Type': 'application/json',
-    'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
+    'apikey': `${API_KEY}`,
     "Authorization": `Bearer ${localStorage.getItem("token")}`
 }
 });
@@ -22,8 +22,9 @@ axiosInstance.interceptors.response.use(
       })
     }
     if(error.response.status === 401){
+      alert(73)
       localStorage.removeItem("token");
-      window.location = "auth/login";
+      window.location = "/";
     }else{
       return new Promise((resolve, reject) => {
         reject(error);

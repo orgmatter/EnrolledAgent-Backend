@@ -1,2 +1,3 @@
-exports.APP_URL = process.env.REACT_APP_URL
-exports.ADMIN_URL = process.env.REACT_ADMIN_URL
+export const API_URL = process.env.REACT_APP_API_URL
+export const BASE_URL = process.env.REACT_APP_BASE_URL
+export const API_KEY = process.env.REACT_APP_API_KEY

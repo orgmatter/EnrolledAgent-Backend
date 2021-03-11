@@ -24,7 +24,7 @@ import {
   } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { ADMIN_URL } from '../../config';
+import { API_URL } from '../../config';
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 const Login = ({login, isAuthenticated}) => {
@@ -50,7 +50,7 @@ const Login = ({login, isAuthenticated}) => {
     
       const handleSubmit = e => {
         e.preventDefault();
-        fetch(`${ADMIN_URL}/login`, {
+        fetch(`${API_URL}/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
