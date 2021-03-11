@@ -13,6 +13,7 @@ import {
   Row,
   Col
 } from "reactstrap";
+import { ADMIN_URL } from "../../config";
 import logo from '../../assets/img/logo.png'
 class AdminNavbar extends React.Component {
   render() {
@@ -53,7 +54,7 @@ class AdminNavbar extends React.Component {
               </div>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink className="nav-link-icon" href="https://enrolledagent.org">
+                  <NavLink className="nav-link-icon" href={ADMIN_URL}>
                     <i className="ni ni-planet" />
                     <span className="nav-link-inner--text">Main Website</span>
                   </NavLink>
