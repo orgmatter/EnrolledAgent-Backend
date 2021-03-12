@@ -6,15 +6,7 @@ import { NotificationManager } from 'react-notifications';
 
 export const getQuestionsCategories = () => async dispatch =>{
 
-  const config = {
-    headers: {
-        'Content-Type': 'application/json',
-        'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-    }
-  };
-
-  const res = await axiosInstance.get('/category/question', config);
+  const res = await axiosInstance.get('/category/question');
   dispatch ({ 
       type : GET_ALL_QUESTION_CATEGORIES,
       payload : res.data.data

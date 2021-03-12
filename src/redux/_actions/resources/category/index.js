@@ -6,15 +6,7 @@ import { NotificationManager } from 'react-notifications';
 
 export const getResourcesCategories = () => async dispatch =>{
 
-  const config = {
-    headers: {
-        'Content-Type': 'application/json',
-        'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-    }
-  };
-
-  const res = await axiosInstance.get('/category/resource', config);
+  const res = await axiosInstance.get('/category/resource');
   dispatch ({ 
       type : GET_RESOURCE_CATEGORIES,
       payload : res.data.data
@@ -32,15 +24,9 @@ export const addResourceCategory = (category) => async dispatch => {
 
 // Update Resource category Action
 export const updateResourceCat = category => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.put(`/category/resource/${category.get("id")}`, category, config);
+    const res = await axiosInstance.put(`/category/resource/${category.get("id")}`, category);
     dispatch ({
         type: UPDATE_RESOURCE_CATEGORY,
         payload: res.data
@@ -55,15 +41,9 @@ export const updateResourceCat = category => async dispatch => {
 
 // Delete Resource Category
 export const deleteResourceCat = (id) => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.delete(`/category/resource/${id}`, config);
+    const res = await axiosInstance.delete(`/category/resource/${id}`);
     dispatch({
         type: DELETE_RESOURCE_CATEGORY,
         payload: id

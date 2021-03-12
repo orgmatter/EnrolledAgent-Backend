@@ -10,14 +10,7 @@ import { NotificationManager } from 'react-notifications';
 
 
 export const getUsers = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-    const res = await axiosInstance.get('/user', config);
+    const res = await axiosInstance.get('/user');
     dispatch ({ 
         type : GET_ALL_USERS,
         payload : res.data.data
@@ -25,15 +18,9 @@ export const getUsers = () => async dispatch =>{
 }
 
 export const deactivateUser = (id) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
+    
     try{
-      const res = await axiosInstance.post(`/user/deactivate/${id}`, config);
+      const res = await axiosInstance.post(`/user/deactivate/${id}`);
       dispatch({
           type: DEACTIVATE_USER,
           payload: id
@@ -51,15 +38,8 @@ export const deactivateUser = (id) => async dispatch => {
   }
 
   export const activateUser = (id) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
     try{
-      const res = await axiosInstance.post(`/user/activate/${id}`, config);
+      const res = await axiosInstance.post(`/user/activate/${id}`);
       dispatch({
           type: ACTIVATE_USER,
           payload: id,

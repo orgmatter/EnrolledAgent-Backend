@@ -11,14 +11,8 @@ import {
 import { NotificationManager } from 'react-notifications';
 
 export const getArticleCategories = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-  const res = await axiosInstance.get('/category/article',config);
+    
+  const res = await axiosInstance.get('/category/article');
   dispatch ({ 
       type : GET_ARTICLE_CATEGORIES,
       payload : res.data.data,
@@ -28,14 +22,8 @@ export const getArticleCategories = () => async dispatch =>{
 
 
 export const addArticleCategory = (category) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-    const res = await axiosInstance.post('/category/article', category, config);
+    
+    const res = await axiosInstance.post('/category/article', category);
     dispatch ({
         type: CREATE_ARTICLE_CATEGORY,
         payload: res.data
@@ -44,15 +32,9 @@ export const addArticleCategory = (category) => async dispatch => {
 
 // Update Article Category Action
 export const updateArticleCategory = article => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+ 
   try{
-    const res = await axiosInstance.put(`/category/article/${article.get("id")}`, article, config);
+    const res = await axiosInstance.put(`/category/article/${article.get("id")}`, article);
     dispatch ({
         type: UPDATE_ARTICLE_CATEGORY,
         payload: res.data
@@ -67,15 +49,8 @@ export const updateArticleCategory = article => async dispatch => {
 
 // Delete Article Category
 export const deleteArticleCategory = (id) => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
   try{
-    const res = await axiosInstance.delete(`/category/article/${id}`, config);
+    const res = await axiosInstance.delete(`/category/article/${id}`);
     dispatch({
         type: DELETE_ARTICLE_CATEGORY,
         payload: id

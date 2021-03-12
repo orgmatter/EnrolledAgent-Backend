@@ -2,7 +2,6 @@ import axiosInstance from '../../axiosInstance';
 import {
     GET_FAQS,
     DELETE_FAQ,
-    GET_FAQ,
     CREATE_FAQ,
     UPDATE_FAQ,
 
@@ -12,14 +11,7 @@ import {
 import { NotificationManager } from 'react-notifications';
 
 export const getFaqs = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-
+    
     try{
       const res = await axiosInstance.get('/faq');
       dispatch ({ 
@@ -36,15 +28,9 @@ export const getFaqs = () => async dispatch =>{
 
 // Add New Faq Action
 export const addFaq = faq => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.post('/faq', faq, config);
+    const res = await axiosInstance.post('/faq', faq);
     dispatch ({
         type: CREATE_FAQ,
         payload: res.data 
@@ -59,15 +45,9 @@ export const addFaq = faq => async dispatch => {
 
 // Update Faq Action
 export const updateFaq = faq => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.put(`/faq/${faq.get("id")}`, faq, config);
+    const res = await axiosInstance.put(`/faq/${faq.get("id")}`, faq);
     dispatch ({
         type: UPDATE_FAQ,
         payload: res.data
@@ -82,15 +62,9 @@ export const updateFaq = faq => async dispatch => {
 
 // Delete Faq
 export const deleteFaq = (id) => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.delete(`/faq/${id}`, config);
+    const res = await axiosInstance.delete(`/faq/${id}`);
     dispatch({
         type: DELETE_FAQ
     })

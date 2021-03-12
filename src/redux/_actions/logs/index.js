@@ -7,14 +7,8 @@ import {
 import { NotificationManager } from 'react-notifications';
 
 export const getLogs = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-    const res = await axiosInstance.get('/log', config);
+    
+    const res = await axiosInstance.get('/log');
     dispatch ({ 
         type : GET_LOGS,
         payload : res.data.data

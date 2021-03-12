@@ -6,15 +6,7 @@ import { NotificationManager } from 'react-notifications';
 
 export const getResources = () => async dispatch =>{
 
-    const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-    };
-
-    const res = await axiosInstance.get('/resource', config);
+    const res = await axiosInstance.get('/resource');
     dispatch ({ 
         type : GET_RESOURCES,
         payload : res.data.data
@@ -23,15 +15,9 @@ export const getResources = () => async dispatch =>{
 
 // Add New Resource Action
 export const addResource = resource => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.post('/resource', resource, config);
+    const res = await axiosInstance.post('/resource', resource);
     dispatch ({
         type: CREATE_RESOURCE,
         payload: res.data 
@@ -46,15 +32,9 @@ export const addResource = resource => async dispatch => {
 
 // Update Resource Action
 export const updateResource = resource => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.put(`/resource/${resource.get("id")}`, resource, config);
+    const res = await axiosInstance.put(`/resource/${resource.get("id")}`, resource);
     dispatch ({
         type: UPDATE_RESOURCE,
         payload: res.data
@@ -69,15 +49,9 @@ export const updateResource = resource => async dispatch => {
 
 // Delete Resource
 export const deleteResource = (id) => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.delete(`/resource/${id}`, config);
+    const res = await axiosInstance.delete(`/resource/${id}`, );
     dispatch({
         type: DELETE_RESOURCE,
         payload: id
