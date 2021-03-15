@@ -1,5 +1,6 @@
 
 /*eslint-disable*/
+import { BASE_URL } from "../../config";
 import React from "react";
 
 // reactstrap components
@@ -15,7 +16,7 @@ class Footer extends React.Component {
               © 2020{" "}
               <a
                 className="font-weight-bold ml-1"
-                href="https://enrolledagent.org"
+                href={BASE_URL}
                 rel="noopener noreferrer"
                 target="_blank"
               >

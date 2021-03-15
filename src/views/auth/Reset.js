@@ -63,15 +63,9 @@ const Login = (props) => {
       };
       
     const body = JSON.stringify(formData);
-    const config = {
-        headers: { 
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb'
-        }
-    }
-      const handleSubmit = e => {
+    const handleSubmit = e => {
         e.preventDefault();
-        axiosInstance.post("/reset-password", body, config )
+        axiosInstance.post("/reset-password", body )
           .then(res => {
             if (res.status === 200) {
               history.push("/");
@@ -82,8 +76,8 @@ const Login = (props) => {
             history.replace(from);
           })
           .catch(error => {
-            console.error("Password Reset error:", error);
-            NotificationManager.error(`${error?.response?.data?.error.message ?? error.message}`,'Error!', 2000);
+            console.error("Password Reset error:", error.response);
+            NotificationManager.error(`${error?.response?.data?.error?.message ??  'An error occured, please try again later.'}`,'Error!', 2000);
           });
       };
     return (

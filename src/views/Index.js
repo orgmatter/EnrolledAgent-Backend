@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import axios from "axios";
+import axios from "redux/axiosInstance";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -31,6 +31,7 @@ import {
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
+import { API_URL } from "../config";
 
 const Index = (props) => {
 
@@ -56,13 +57,7 @@ const Index = (props) => {
   
 
   useEffect(() => { 
-    axios.get("https://api.enrolledagent.org/page",{
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-    })
+    axios.get(`${API_URL}/page`)
       .then(res => {
         const pages = res.data.data;
         setPages(pages);

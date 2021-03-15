@@ -2,7 +2,7 @@
 import React,{useEffect, useState} from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import {useDispatch} from 'react-redux';
-import axios from "axios";
+import axios from "redux/axiosInstance";
 import Avatar from "../../assets/img/avatar.png"
 // reactstrap components
 import {
@@ -19,23 +19,19 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+import { API_URL } from "../../config";
 //import {updateProfile} from '';
 
 const Profile = () => {
   const [profile, setProfile] = useState([]);
 
   useEffect(() => { 
-    axios.get("https://api.enrolledagent.org/user/profile",{
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-    })
+    axios.get(`${API_URL}/user/profile`)
+      .then(res => res.data)
       .then(res => {
-        const profile = res.data.data;
+        const profile = res.data;
         setProfile(profile);
-        console.log(res.data.data)
+        console.log(res.data)
       })
   }, []);
   let history = useHistory();

@@ -11,14 +11,8 @@ import {
 import { NotificationManager } from 'react-notifications';
 
 export const getRoles = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-  const res = await axiosInstance.get('/role',config);
+    
+  const res = await axiosInstance.get('/role');
   dispatch ({ 
       type : GET_ALL_ROLE,
       payload : res.data.data,
@@ -28,16 +22,10 @@ export const getRoles = () => async dispatch =>{
 
 
 export const addRole = (role) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
+    
     try{
 
-        const res = await axiosInstance.post('/role', role, config);
+        const res = await axiosInstance.post('/role', role);
         dispatch ({
             type: CREATE_ROLE,
             payload: res.data
@@ -52,15 +40,9 @@ export const addRole = (role) => async dispatch => {
 
 // Update Role Action
 export const updateRole = role => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.put(`/role/${role.get("id")}`, role, config);
+    const res = await axiosInstance.put(`/role/${role.get("id")}`, role);
     dispatch ({
         type: UPDATE_ROLE,
         payload: res.data
@@ -75,15 +57,9 @@ export const updateRole = role => async dispatch => {
 
 // Delete Role
 export const deleteRole = (id) => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.delete(`/role/${id}`, config);
+    const res = await axiosInstance.delete(`/role/${id}`);
     dispatch({
         type: DELETE_ROLE,
         payload: id

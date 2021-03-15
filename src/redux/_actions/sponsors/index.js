@@ -8,14 +8,8 @@ import { NotificationManager } from 'react-notifications';
 
 export const getAllSponsors = () => async dispatch =>{
 
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-    const res = await axiosInstance.get('/sponsor', config);
+    
+    const res = await axiosInstance.get('/sponsor');
     dispatch ({ 
         type : GET_ALL_SPONSORS,
         payload : res.data.data 
@@ -23,7 +17,7 @@ export const getAllSponsors = () => async dispatch =>{
 }
 
 export const sponsorAdd = (sponsor) => async dispatch => {
-    const res = await axiosInstance.post('/sponsor', sponsor);
+    const res = await axiosInstance.post('/sponsor');
     dispatch ({
         type: 'ADD_sponsor',
         payload: res.data
@@ -32,16 +26,9 @@ export const sponsorAdd = (sponsor) => async dispatch => {
 
 //Update Sponsor Action
 export const updateSponsor = sponsor => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
-
+  
   try{
-    const res = await axiosInstance.put(`/sponsor/${sponsor.get("id")}`, sponsor, config);
+    const res = await axiosInstance.put(`/sponsor/${sponsor.get("id")}`, sponsor);
     dispatch ({
         type: UPDATE_SPONSOR,
         payload: res.data
@@ -57,15 +44,9 @@ export const updateSponsor = sponsor => async dispatch => {
 
 // Delete Sponsor
 export const deleteSponsor = (id) => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+ 
   try{
-    const res = await axiosInstance.delete(`/sponsor/${id}`, config);
+    const res = await axiosInstance.delete(`/sponsor/${id}`);
     dispatch({
         type: DELETE_SPONSOR,
         payload: id

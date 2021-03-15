@@ -1,5 +1,6 @@
 
 /*eslint-disable*/
+import { BASE_URL } from "../../config";
 import React from "react";
 
 // reactstrap components
@@ -17,7 +18,7 @@ class Login extends React.Component {
                   © 2020{" "}
                   <a
                     className="font-weight-bold ml-1"
-                    href="https://enrolledagent.org"
+                    href={BASE_URL}
                     target="_blank"
                   >
                     Enrolled Agents

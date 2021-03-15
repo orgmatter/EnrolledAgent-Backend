@@ -1,13 +1,13 @@
 import React,{useState} from 'react'
 import { useHistory, useLocation, Redirect, Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Switch,
-} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {login} from '../../redux/_actions/auth';
 
+import axiosInstance from 'redux/axiosInstance/'
+
+// React Notification
+import { NotificationManager } from 'react-notifications';
 // reactstrap components
 import {
     Card,
@@ -24,6 +24,7 @@ import {
   } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { API_URL } from '../../config';
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 const Login = ({login, isAuthenticated}) => {
@@ -49,34 +50,17 @@ const Login = ({login, isAuthenticated}) => {
     
       const handleSubmit = e => {
         e.preventDefault();
-        fetch("https://api.enrolledagent.org/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb'
-          }, 
-          credentials: "include",
-          body: JSON.stringify(formData)
-        })
+        axiosInstance.post("/login", formData)
+          .then(res => res.data)
           .then(res => {
-            if (res.status === 401) {
-              alert("Your session expired or you don't have admin rights");
-              localStorage.removeItem("token");
-              history.push("/");
-            }
-            return res.json();
-          })
-          .then(res => {
-            localStorage.setItem("token", res.token);
-            history.replace(from);
-          }) 
-          .catch(err => {
-            console.error("Login error:", err);
+              NotificationManager.success(`Welcome ${formData.email}`,'Success!', 2000);
+              localStorage.setItem("token", res.token);
+              history.replace(from);
+           })
+          .catch(error => {
+            NotificationManager.error(`${error?.response?.data?.error?.message ??  'An error occured, please try again later.'}`,'Error!', 2000);
           });
-       // localStorage.setItem("token", res.data.token );
-        history.replace(from);
+       
       };
       const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);

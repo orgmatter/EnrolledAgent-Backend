@@ -6,7 +6,6 @@ import {
     APPROVE_CLAIM_LISTING,
     CANCEL_CLAIM_LISTING,
     GET_ALL_LISTING_REQUEST,
-    GET_LISTING_REQUEST,
     APPROVE_LISTING_REQUEST,
     REJECT_LISTING_REQUEST,
     ADD_AGENT
@@ -15,14 +14,8 @@ import {
 import { NotificationManager } from 'react-notifications';
 
 export const getAgents = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-    const res = await axiosInstance.get('/agent', config);
+    
+    const res = await axiosInstance.get('/agent');
     dispatch ({ 
         type : GET_ALL_AGENTS,
         payload : res.data.data
@@ -41,14 +34,8 @@ export const agentUpload = (agent) => async dispatch => {
 //Account claims
 
 export const getClaims = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-    const res = await axiosInstance.get('/claim', config);
+    
+    const res = await axiosInstance.get('/claim');
     dispatch ({ 
         type : GET_ALL_CLAIM_LISTING,
         payload : res.data.data
@@ -57,15 +44,9 @@ export const getClaims = () => async dispatch =>{
 
 // Delete Article
 export const rejectClaim = (id) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
+   
     try{
-      const res = await axiosInstance.post(`/reject-claim/${id}`, config);
+      const res = await axiosInstance.post(`/reject-claim/${id}`);
       dispatch({
           type: CANCEL_CLAIM_LISTING,
           payload: id
@@ -83,15 +64,9 @@ export const rejectClaim = (id) => async dispatch => {
   }
 
   export const approveClaim = (id) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
+    
     try{
-      const res = await axiosInstance.post(`/approve-claim/${id}`, config);
+      const res = await axiosInstance.post(`/approve-claim/${id}`);
       dispatch({
           type: APPROVE_CLAIM_LISTING,
           payload: id,
@@ -110,15 +85,9 @@ export const rejectClaim = (id) => async dispatch => {
  
 // Add New Agent 
 export const addAgent = agent => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
+    
     try{
-      const res = await axiosInstance.post('/agent', agent, config);
+      const res = await axiosInstance.post('/agent', agent);
       dispatch ({
           type: ADD_AGENT,
           payload: res.data 
@@ -140,14 +109,8 @@ export const addAgent = agent => async dispatch => {
   //Account listing
 
 export const getListing = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-    const res = await axiosInstance.get('/listing-request', config);
+    
+    const res = await axiosInstance.get('/listing-request');
     dispatch ({ 
         type : GET_ALL_LISTING_REQUEST,
         payload : res.data.data
@@ -156,15 +119,9 @@ export const getListing = () => async dispatch =>{
 
 // Reject Listing
 export const rejectListing = (id) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
+    
     try{
-      const res = await axiosInstance.post(`/listing-request/reject/${id}`, config);
+      const res = await axiosInstance.post(`/listing-request/reject/${id}`);
       dispatch({
           type: REJECT_LISTING_REQUEST,
           payload: id
@@ -182,15 +139,9 @@ export const rejectListing = (id) => async dispatch => {
   }
 
   export const approveListing = (id) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
+    
     try{
-      const res = await axiosInstance.post(`/listing-request/approve/${id}`, config);
+      const res = await axiosInstance.post(`/listing-request/approve/${id}`);
       dispatch({
           type: APPROVE_LISTING_REQUEST,
           payload: id,

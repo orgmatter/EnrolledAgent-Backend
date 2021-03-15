@@ -1,6 +1,6 @@
 import axiosInstance from '../../../axiosInstance/'
 import {
-    GET_ALL_STAFFS, CREATE_STAFF, GET_STAFF_DETAILS, DELETE_STAFF, UPDATE_STAFF
+    GET_ALL_STAFFS, CREATE_STAFF, DELETE_STAFF
 } from '../../types'
 
 // React Notification
@@ -8,14 +8,8 @@ import { NotificationManager } from 'react-notifications';
 
 export const getAllStaffs = () => async dispatch =>{
 
-    const config = {
-        headers: { 
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-    const res = await axiosInstance.get('/staff/', config);
+    
+    const res = await axiosInstance.get('/staff/');
     dispatch ({ 
         type : GET_ALL_STAFFS,
         payload : res.data.data 
@@ -42,15 +36,9 @@ export const addStaff = (staff) => async dispatch => {
 
 // Reject Listing
 export const deleteStaff = (id) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
+    
     try{
-      const res = await axiosInstance.delete(`/staff/${id}`, config);
+      const res = await axiosInstance.delete(`/staff/${id}`);
       dispatch({
           type: DELETE_STAFF,
           payload: id

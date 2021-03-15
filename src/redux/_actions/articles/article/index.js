@@ -11,14 +11,7 @@ import {
 import { NotificationManager } from 'react-notifications';
 
 export const getArticles = () => async dispatch =>{
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
-    };
-
+    
     try{
       const res = await axiosInstance.get('/news');
       dispatch ({ 
@@ -35,15 +28,9 @@ export const getArticles = () => async dispatch =>{
 
 // Add New Article Action
 export const addArticle = article => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+ 
   try{
-    const res = await axiosInstance.post('/article', article, config);
+    const res = await axiosInstance.post('/article', article);
     dispatch ({
         type: CREATE_ARTICLE,
         payload: res.data 
@@ -58,15 +45,9 @@ export const addArticle = article => async dispatch => {
 
 // Update Article Action
 export const updateArticle = article => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.put(`/article/${article.get("id")}`, article, config);
+    const res = await axiosInstance.put(`/article/${article.get("id")}`, article);
     dispatch ({
         type: UPDATE_ARTICLE,
         payload: res.data
@@ -81,15 +62,9 @@ export const updateArticle = article => async dispatch => {
 
 // Delete Article
 export const deleteArticle = (id) => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.delete(`/article/${id}`, config);
+    const res = await axiosInstance.delete(`/article/${id}`);
     dispatch({
         type: DELETE_ARTICLE,
         payload: id
@@ -103,15 +78,9 @@ export const deleteArticle = (id) => async dispatch => {
 }
 
 export const approveArticle = article => async dispatch => {
-  const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'fsdjkahdgjknsdfhvbjknsdjfbglksvajkbhdkgncvb',
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-  };
+  
   try{
-    const res = await axiosInstance.post(`/article/status/${article.get("id")}`, article, config);
+    const res = await axiosInstance.post(`/article/status/${article.get("id")}`, article);
     dispatch({
         type: APPROVE_ARTICLE,
         payload: res.data
