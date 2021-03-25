@@ -1,6 +1,8 @@
 import {
   CREATE_QUESTION_CATEGORY,
+  DELETE_QUESTION_CATEGORY,
   GET_ALL_QUESTION_CATEGORIES,
+  UPDATE_QUESTION_CATEGORY
 } from '../../../_actions/types';
 
 const initState = {
@@ -35,12 +37,12 @@ export default function (state = initState, action) {
               quecategories: [action.payload, ...state.quecategories]
           } 
 
-      case 'DELETE_category' :
+      case DELETE_QUESTION_CATEGORY :
           return{
               ...state,
-              quecategories: state.quecategories.filter(category => category.id !==action.payload)
+              quecategories: state.quecategories.filter(cat => cat.id !==action.payload)
           }
-      case 'UPDATE_category':
+      case UPDATE_QUESTION_CATEGORY:
         return {
           ...state,
           quecategories : state.quecategories.map(category => category.id === action.payload.id ? (category = action.payload) : category )
