@@ -107,6 +107,7 @@ export default class ListArticles extends Component {
                 
                       <th scope="col">Title</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Category</th>
                       <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
@@ -119,6 +120,7 @@ export default class ListArticles extends Component {
                         <tr key={article._id}>
                         <td>{article.title}</td>
                         <td>{article.status}</td>
+                        <td>{article.category.name}</td>
                         <td>{moment(article.createdAt).format('MMM-DD-YYYY')}</td>
                       
                           

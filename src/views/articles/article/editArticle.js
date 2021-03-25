@@ -45,11 +45,16 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
     // Categories select options
     const catOptions = categories?.map((cat, i) => <option 
                                                     key={`opt-${i}`} 
-                                                    // selected={article?.category === cat._id} 
+                                                    selected={article?.category === cat._id} 
                                                     value={cat._id}>
                                                       {cat.name}
                                                     </option>);
     
+      // Description field update
+      const handleEditorChange = content => {
+        body.current = content;
+      }
+
     /* Submit New Article */
     const handleSubmit = e =>  {
       e.preventDefault();
@@ -67,10 +72,7 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
         props.history.push("/admin/articles/");
       }
     }
-    // Description field update
-    const handleEditorChange = content => {
-      body.current = content;
-    }
+  
     return (
         <>
         <Header />
@@ -87,7 +89,7 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
                   <FormGroup>
                     <Col sm={12}>
                       <Label for="Title">Title</Label>
-                      <Input type="text" name="title" required  id="title" defaultValue={article?.title} />
+                      <Input type="text" name="title"  id="title" defaultValue={article?.title} />
                     </Col>
                   </FormGroup>
                   <FormGroup>
@@ -95,7 +97,7 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
                       <Label for="category">Category</Label>
 
                         <Input type="select"  id="exampleSelect"
-                            required
+                            
                             className="mr-sm-2"
                             name="category"
                             defaultValue={typeof(article?.category) === "object" ? article?.category._id : article?.category }
@@ -110,7 +112,7 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
                       <Label for="category">Status</Label>
 
                         <Input type="select"  id="exampleSelect"
-                            required
+                            
                             className="mr-sm-2"
                             name="status"
                             id="status"
@@ -165,6 +167,14 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
                 </div>
               
                     </Col>
+                  </FormGroup>
+                  <FormGroup>
+                  <Col sm={12}>
+                  <Label for="exampleFile">Current Image</Label>
+                  <div className="current_image" style={{ width: '500px', objectFit: 'cover'  }}>
+                            <img src={article?.imageUrl} alt="" style={{ width: '100%'}}/>
+                  </div>
+                  </Col>
                   </FormGroup>
                   <FormGroup>
                   <Col sm={12}>
