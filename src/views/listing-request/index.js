@@ -111,8 +111,6 @@ import ListingService from './ListingService';
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
                       <th scope="col">Agent Name </th>
                       <th scope="col">Agent Email </th>
                       <th scope="col">Agent Phone </th>
@@ -132,9 +130,7 @@ import ListingService from './ListingService';
                         return(
                           
                         <tr key={request._id}>
-                          <td>{request.user.firstName} {request.user.lastName}</td>
-                          <td>{request.user.email}</td>
-                          <td>{request.firstName} {request.lasttName}</td>
+                          <td>{request.firstName} {request.lastName}</td>
                           <td>{request.email}</td>
                           <td>{request.phone}</td>
                             <td>{request.city}</td>
@@ -204,7 +200,7 @@ import ListingService from './ListingService';
                      )})
                      :
                      <div>No Data</div>
-                    })
+                    }
                   
 
                   </tbody>

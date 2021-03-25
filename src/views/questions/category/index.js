@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
-import {getQuestionsCategories} from '../../../redux/_actions/questions/category/index'
+import {getQuestionsCategories, deleteQuestionCategory} from '../../../redux/_actions/questions/category/index'
 // reactstrap components
 import {
     Badge,
@@ -30,6 +30,9 @@ const ListQuestionCategories = () => {
   useEffect(() => {
     dispatch(getQuestionsCategories());
   }, [dispatch]);
+
+
+ 
     return (
         <>
         <Header />
@@ -76,29 +79,26 @@ const ListQuestionCategories = () => {
                             role="button"
                             size="sm"
                             color=""
-                            onClick={e => e.preventDefault()}
+                            onClick={e => e.preventDefault()}  
                           >
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
+                          <Link  to={`/admin/question/category/edit/${category._id}`}>
                             <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Action
+                            >        
+                             
+                              Edit
+                                
                             </DropdownItem>
+                            </Link>
                             <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
+                              
+                              onClick={() => dispatch(deleteQuestionCategory(category._id))}
                             >
-                              Another action
+                              Delete
                             </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Something else here
-                            </DropdownItem>
+                         
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
