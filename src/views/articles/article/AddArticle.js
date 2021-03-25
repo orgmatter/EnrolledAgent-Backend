@@ -40,7 +40,7 @@ import { addArticle } from 'redux/_actions/articles/article/index.js';
     const handleEditorChange = content => {
       body.current = content;
     }
-
+ 
   /* Submit New Article */
   const handleSubmit = e =>  {
     e.preventDefault();
