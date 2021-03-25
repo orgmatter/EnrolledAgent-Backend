@@ -5,7 +5,7 @@ import PasswordReset from "./views/auth/PasswordReset";
 import Reset from "./views/auth/Reset";
 import Icons from "./views/examples/Icons.js";
 
-import ListCategories from "./views/articles/category";
+import ListCategories from "./views/articles//article";
 import editCategory from "./views/articles/category/editCategory";
 import addCategory from "./views/articles/category/addCategory";
 
@@ -33,7 +33,7 @@ import ListUsers from "./views/users/index";
 import ListQuestions from "./views/questions/index";
 import ListQuestionCategories from "./views/questions/category/index";
 import addCategoryQuestion from "./views/questions/category/addCategory";
-
+import EditCategoryQuestion from "./views/questions/category/editCategory";
 //Faq
 import ListFaq from "./views/faq/index";
 import addFaq from "./views/faq/addFaq";
@@ -219,6 +219,13 @@ var routes = [
     name: "Create Queestion Category",
     icon: "ni ni-tv-2 text-primary", 
     component: addCategoryQuestion,
+    layout: "/admin"
+  },
+  {
+    path: "/question/category/edit/:id",
+    name: "Create Queestion Category",
+    icon: "ni ni-tv-2 text-primary", 
+    component: EditCategoryQuestion,
     layout: "/admin"
   },
   //Claim Listing

@@ -35,7 +35,7 @@ export default class ListFaq extends Component {
         itemsCountPerPage: 1,
         totalItemsCount: 1,
         pageRangeDisplayed: 3
-    }
+    } 
     this.deleteFaq = this.deleteFaq.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
   }
@@ -133,7 +133,7 @@ export default class ListFaq extends Component {
                            
                             <Link  to={`/admin/faq/edit/${faq._id}`}>
                             <DropdownItem
-                            >       
+                            >        
                              
                               Edit
                                 
