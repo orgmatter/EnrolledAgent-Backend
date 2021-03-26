@@ -112,33 +112,7 @@ const Payment = () => {
                          
                          
                           <td className="text-right">
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#!"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={e => e.preventDefault()}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#!"
-                              onClick={e => e.preventDefault()}
-                            >
-                              View
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#!"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Delete
-                            </DropdownItem>
-                           
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
+                        
                       </td>
                       </tr>
                         ))

@@ -3,10 +3,13 @@ import React,{Component} from 'react'
 import { NotificationManager } from 'react-notifications';
 import axiosInstance from '../../redux/axiosInstance/';
 import Pagination from "react-js-pagination";
+import { CSVLink } from "react-csv";
+import Modal from './Modal';
 
 // reactstrap components
 import {
     Badge,
+    Button,
     Card,
     CardHeader,
     CardFooter,
@@ -29,7 +32,11 @@ import ListingService from './ListingService';
     constructor(props) {
       super(props);
       this.state = {
+          isOpen: false,
+          error: null,
           requests: [],
+          requestData: {},  
+          response: {} ,
           activePage: 1,
           itemsCountPerPage: 1,
           totalItemsCount: 1,
@@ -66,6 +73,19 @@ import ListingService from './ListingService';
       })
     }
 
+    toggleModal(_id) { 
+      axiosInstance.get("/listing-request" + '/' + _id).then(response => {
+        this.setState({
+          requestData: response.data.data,
+        });
+      });
+
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+  
+    }
+
     
      
     componentDidMount() {
@@ -78,6 +98,16 @@ import ListingService from './ListingService';
             activePage: response.data.current_page
           });
       });
+    }
+
+    fetchData = () => {
+      axiosInstance.get('/listing-request/'+this.props.id).then(requests => {
+          console.log(requests);
+        this.setState({ requests:requests.data.data, }, () => {
+          // click the CSVLink component to trigger the CSV download
+          this.csvLink.current.link.click()
+        })
+      })
     }
   
     handlePageChange(pageNumber) {
@@ -93,6 +123,8 @@ import ListingService from './ListingService';
         });
       }
     render() {
+
+      
     return (
         <>
             <Header />
@@ -102,9 +134,17 @@ import ListingService from './ListingService';
           <Row>
             <div className="col">
               <Card className="shadow">
+
+              <CardHeader className="border-0">
+                  
+                  <Button onClick={this.fetchData} style={{float: 'right'}} color="info">
+                    <CSVLink data={this.state.requests} ref={this.csvLink} filename={'listing-request.csv'}>Export to CSV</CSVLink>
+                  </Button>
+
+                </CardHeader>
               
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">Agent request Request</h3>
+                  <h3 className="mb-0">Agent Request</h3>
                   
                 </CardHeader>
                
@@ -162,12 +202,12 @@ import ListingService from './ListingService';
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            {/* <DropdownItem
+                            <DropdownItem
                               href="#!"
-                              onClick={e => e.preventDefault()}
+                              onClick={ () => this.toggleModal(request._id)}
                             >
                               View
-                            </DropdownItem> */}
+                            </DropdownItem>
                             {
                               request.status=="pending" || request.status=="rejected" ?
                               <div>
@@ -205,6 +245,74 @@ import ListingService from './ListingService';
 
                   </tbody>
                 </Table>
+                <Modal show={this.state.isOpen}  
+                  onClose={()=>this.toggleModal(this._id)}>  
+                  <Table className="table">  
+                    <thead>  
+                      <tr className="btn-primary"><th colSpan="2">Listing Details</th></tr>  
+                    </thead>  
+                    <tbody>  
+          
+                      <tr>  
+                        <th>First Name </th><td>{this.state.requestData.firstName}</td>  
+                      </tr> <tr>  
+                        <th>Last Name </th><td>{this.state.requestData.lastName}</td>  
+                      </tr> 
+                      <tr>  
+                        <th>Email  </th><td>{this.state.requestData.email}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Phone  </th><td>{this.state.requestData.phone}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Fax  </th><td>{this.state.requestData.fax}</td>  
+                      </tr>
+                      <tr>  
+                        <th>City  </th><td>{this.state.requestData.city}</td>  
+                      </tr>
+                      <tr>  
+                        <th>State  </th><td>{this.state.requestData.state}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Country  </th><td>{this.state.requestData.country}</td>  
+                      </tr>
+                      <tr>  
+                        <th>ZipCode  </th><td>{this.state.requestData.zipcode}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Address 1  </th><td>{this.state.requestData.address1}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Address 2  </th><td>{this.state.requestData.address2}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Title  </th><td>{this.state.requestData.title}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Website  </th><td>{this.state.requestData.website}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Bio  </th><td>{this.state.requestData.bio}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Status  </th><td>{this.state.requestData.status}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Licence  </th><td>{this.state.requestData.licence}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Position  </th><td>{this.state.requestData.position}</td>  
+                      </tr>
+                      <tr>  
+                        <th>State Licenced  </th><td>{this.state.requestData.stateLicenced}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Licence Proof  </th><td>{this.state.requestData.licenceProof}</td>  
+                      </tr>
+                    </tbody>  
+                  </Table>        
+                </Modal>  
+
                 <CardFooter className="py-4">
                   <nav aria-label="...">
                   <Pagination
