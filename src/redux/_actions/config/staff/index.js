@@ -1,6 +1,6 @@
 import axiosInstance from '../../../axiosInstance/'
 import {
-    GET_ALL_STAFFS, CREATE_STAFF, DELETE_STAFF
+    GET_ALL_STAFFS, CREATE_STAFF, DELETE_STAFF, UPDATE_STAFF
 } from '../../types'
 
 // React Notification
@@ -32,6 +32,24 @@ export const addStaff = (staff) => async dispatch => {
         //window.setTimeout(function(){window.location.reload()}, 700);
     }
 } 
+
+// Update Staff
+export const updateStaff = staff => async dispatch => {
+ 
+  try{
+    const res = await axiosInstance.put(`/staff/${staff.get("id")}`, staff);
+    dispatch ({
+        type: UPDATE_STAFF,
+        payload: res.data
+    });
+    NotificationManager.success('Staff Updated successfully !','Success!', 2000);
+      window.setTimeout(function(){window.location.reload()}, 700);
+  }
+  catch(error){
+    console.log(error)
+    alert(error?.response?.data?.error.message ?? error.message)
+  }
+}
 
 
 // Reject Listing

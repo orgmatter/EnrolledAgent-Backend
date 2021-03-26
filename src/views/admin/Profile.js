@@ -42,8 +42,8 @@ const Profile = () => {
     e.preventDefault();
     e.stopPropagation();
     const form = e.currentTarget;
-    if (form.checkValidity()) {
-      const formData = new FormData(form);
+    if (form) {
+      // const formData = new FormData(form);
       //dispatch(updateProfile(formData));
       <Redirect to="/admin/user-profile/" />
     }

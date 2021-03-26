@@ -1,9 +1,10 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router-dom';
 import moment from "moment"
+import Modal from './Modal';
 // React Notification
 import { NotificationManager } from 'react-notifications';
-import axios from '../../redux/axiosInstance/index';
+import axiosInstance from '../../redux/axiosInstance';
 import Pagination from "react-js-pagination";
 
 // reactstrap components
@@ -31,7 +32,11 @@ import ClaimService from './ClaimService';
     constructor(props) {
       super(props);
       this.state = {
+          isOpen: false,
+          error: null,
           listings: [],
+          listingData: {},  
+          response: {} ,
           activePage: 1,
           itemsCountPerPage: 1,
           totalItemsCount: 1,
@@ -58,10 +63,23 @@ import ClaimService from './ClaimService';
       })
     }
 
+    toggleModal(_id) { 
+      axiosInstance.get("/claim" + '/' + _id).then(response => {
+        this.setState({
+          listingData: response.data.data,
+        });
+      });
+
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+  
+    }
+
     
      
     componentDidMount() {
-      axios.get('/claim')
+      axiosInstance.get('/claim')
         .then(response => {
           this.setState({
             listings: response.data.data,
@@ -74,7 +92,7 @@ import ClaimService from './ClaimService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axios.get('/claim/?page=' + pageNumber)
+       axiosInstance.get('/claim/?page=' + pageNumber)
           .then(response => {
               this.setState({
                   listings: response.data.data,
@@ -151,7 +169,7 @@ import ClaimService from './ClaimService';
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
                               href="#!"
-                              onClick={e => e.preventDefault()}
+                              onClick={ () => this.toggleModal(listing._id)}
                             >
                               View
                             </DropdownItem>
@@ -192,6 +210,47 @@ import ClaimService from './ClaimService';
 
                   </tbody>
                 </Table>
+                <Modal show={this.state.isOpen}  
+                  onClose={()=>this.toggleModal(this._id)}>  
+                  <Table className="table">  
+                    <thead>  
+                      <tr className="btn-primary"><th colSpan="2">Listing Details</th></tr>  
+                    </thead>  
+                    <tbody>  
+          
+                      <tr>  
+                        <th>First Name </th><td>{this.state.listingData.firstName}</td>  
+                      </tr> <tr>  
+                        <th>Last Name </th><td>{this.state.listingData.lastName}</td>  
+                      </tr> 
+                      <tr>  
+                        <th>Email  </th><td>{this.state.listingData.email}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Status  </th><td>{this.state.listingData.status}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Job Role  </th><td>{this.state.listingData.jobRole}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Company Size  </th><td>{this.state.listingData.companySize}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Company Name  </th><td>{this.state.listingData.companyName}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Company Revenue  </th><td>{this.state.listingData.companyRevenue}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Organization Type  </th><td>{this.state.listingData.organizationType}</td>  
+                      </tr>
+                      <tr>  
+                        <th>Annual Tax  </th><td>{this.state.listingData.annualTax}</td>  
+                      </tr>
+                    </tbody>  
+                  </Table>        
+                </Modal>  
+
                 <CardFooter className="py-4">
                   <nav aria-label="...">
                   <Pagination

@@ -130,12 +130,15 @@ import RoleService from './RoleService';
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={e => e.preventDefault()}
-                            >
-                              Edit
-                            </DropdownItem>               
+                          
+                              <Link  to={`/admin/role/edit/${role._id}`}>
+                              <DropdownItem
+                              >       
+                              
+                                Edit
+                                  
+                              </DropdownItem>
+                              </Link>               
                             <DropdownItem
                               href="#!"
                               onClick={ () => this.deleteRole(role._id)}

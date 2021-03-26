@@ -1,6 +1,7 @@
 import React, {Component } from 'react';
 import {Link} from 'react-router-dom';
 import moment from "moment"
+import Modal from './Modal';
 // React Notification
 import { NotificationManager } from 'react-notifications';
 import axiosInstance from '../../redux/axiosInstance/';
@@ -32,7 +33,11 @@ import AgentService from './AgentService';
     constructor(props) {
       super(props);
       this.state = {
+          isOpen: false,
+          error: null,
           agents: [],
+          agentData: {},  
+          response: {} ,
           activePage: 1,
           itemsCountPerPage: 1,
           totalItemsCount: 1,
@@ -48,6 +53,19 @@ import AgentService from './AgentService';
         NotificationManager.success('A deleted successfully !','Success!', 2000);
         window.setTimeout(function(){window.location.reload()}, 700);
       });
+    }
+
+    toggleModal(_id) { 
+      axiosInstance.get("/agent" + '/' + _id).then(response => {
+        this.setState({
+          agentData: response.data.data,
+        });
+      });
+
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+  
     }
      
     componentDidMount() {
@@ -74,6 +92,8 @@ import AgentService from './AgentService';
               });
         });
       }
+
+      
     render() {
     return (
         <>
@@ -109,7 +129,7 @@ import AgentService from './AgentService';
                       this.state.agents.map(agent => {
                         return(
                         <tr key={agent._id}>
-                          <td>{agent.id}</td>
+                          <td>{agent._id}</td>
                           <td>{agent.firstName}</td>
                           <td>{agent.lastName}</td>
                           <td>{agent.country}</td>
@@ -134,11 +154,9 @@ import AgentService from './AgentService';
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
+                          <DropdownItem
                               href="#!"
-                              // onClick={e => {
-                              //   this.showModal(e);
-                              // }}
+                              onClick={ () => this.toggleModal(agent._id)}
                             >
                               
                             
@@ -157,6 +175,40 @@ import AgentService from './AgentService';
                     
                   </tbody>
                 </Table>
+                <Modal show={this.state.isOpen}  
+                  onClose={()=>this.toggleModal(this._id)}>  
+                  <Table className="table">  
+                    <thead>  
+                      <tr className="btn-primary"><th colSpan="2">Agent Details</th></tr>  
+                    </thead>  
+                    <tbody>  
+          
+                      <tr>  
+                        <th>First Name </th><td>{this.state.agentData.firstName}</td>  
+                      </tr> <tr>  
+                        <th>Last Name </th><td>{this.state.agentData.lastName}</td>  
+                      </tr> <tr>  
+                        <th>Mobile No  </th><td>{this.state.agentData.phone}</td>  
+                      </tr> <tr>  
+                        <th>Address  </th><td>{this.state.agentData.address1}</td>  
+                      </tr> <tr>  
+                        <th>ZipCode  </th><td>{this.state.agentData.zipcode}</td>  
+                      </tr>  
+                      <tr>  
+                        <th>Company Name  </th><td>{this.state.agentData.CompanyName}</td>  
+                      </tr>   
+                      <tr>  
+                        <th>Country  </th><td>{this.state.agentData.country}</td>  
+                      </tr>  
+                      <tr>  
+                        <th>State  </th><td>{this.state.agentData.state}</td>  
+                      </tr>  
+                      <tr>  
+                        <th>City  </th><td>{this.state.agentData.city}</td>  
+                      </tr>  
+                    </tbody>  
+                  </Table>        
+                </Modal>  
                 <CardFooter className="py-4">
                   <nav aria-label="...">
                   <Pagination
@@ -173,8 +225,8 @@ import AgentService from './AgentService';
               </Card>
             </div>
           </Row>
-         
         </Container>
+
         
       </>
     )
