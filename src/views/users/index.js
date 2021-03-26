@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
 import moment from "moment"
+import Modal from './Modal';
 // React Notification
 import { NotificationManager } from 'react-notifications';
 import axiosInstance from '../../redux/axiosInstance';
@@ -31,7 +32,11 @@ export default class ListUsers extends Component {
     constructor(props) {
       super(props);
       this.state = {
+          isOpen: false,
+          error: null,
           users: [],
+          userData: {},  
+          response: {} ,
           activePage: 1,
           itemsCountPerPage: 1,
           totalItemsCount: 1,
@@ -56,6 +61,19 @@ export default class ListUsers extends Component {
         NotificationManager.success('User activated successfully !','Success!', 2000);
         window.setTimeout(function(){window.location.reload()}, 700);
       })
+    }
+
+    toggleModal(_id) { 
+      axiosInstance.get("/user" + '/' + _id).then(response => {
+        this.setState({
+          userData: response.data.data,
+        });
+      });
+
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+  
     }
 
     
@@ -151,7 +169,7 @@ export default class ListUsers extends Component {
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <DropdownItem
                               href="#!"
-                              onClick={e => e.preventDefault()}
+                              onClick={ () => this.toggleModal(user._id)}
                             >
                               View
                             </DropdownItem>
@@ -187,6 +205,24 @@ export default class ListUsers extends Component {
                     
                   </tbody>
                 </Table>
+                <Modal show={this.state.isOpen}  
+                  onClose={()=>this.toggleModal(this._id)}>  
+                  <Table className="table">  
+                    <thead>  
+                      <tr className="btn-primary"><th colSpan="2">User Details</th></tr>  
+                    </thead>  
+                    <tbody>  
+          
+                      <tr>  
+                        <th>First Name </th><td>{this.state.userData.firstName}</td>  
+                      </tr> <tr>  
+                        <th>Last Name </th><td>{this.state.userData.lastName}</td>  
+                      </tr> <tr>  
+                        <th>Email  </th><td>{this.state.userData.email}</td>  
+                      </tr>
+                    </tbody>  
+                  </Table>        
+                </Modal>  
                 <CardFooter className="py-4">
                   <nav aria-label="...">
                   <Pagination

@@ -132,12 +132,15 @@ import StaffService from './StaffService';
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#pablo"
-                              // onClick={toggle}
-                            >
-                              Edit
-                            </DropdownItem>
+                          
+                              <Link  to={`/admin/staff/edit/${staff._id}`}>
+                              <DropdownItem
+                              >       
+                              
+                                Edit
+                                  
+                              </DropdownItem>
+                              </Link>
                             
                             <DropdownItem
                               href="#pablo"

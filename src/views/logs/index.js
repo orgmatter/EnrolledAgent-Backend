@@ -109,7 +109,7 @@ export default class Log extends Component {
                         <td>{moment(log.createdAt).format('MMM-DD-YYYY')}</td>
                           
                       <td className="text-right">
-                        <UncontrolledDropdown>
+                        {/* <UncontrolledDropdown>
                           <DropdownToggle
                             className="btn-icon-only text-light"
                             href="#pablo"
@@ -129,7 +129,7 @@ export default class Log extends Component {
                               Delete Log
                             </DropdownItem>
                           </DropdownMenu>
-                        </UncontrolledDropdown>
+                        </UncontrolledDropdown> */}
                       </td>
                       </tr>
                        )
