@@ -50,8 +50,11 @@ import License from "./views/license-verification/index";
 
 //Staffs and Roles
 import AddRole from "./views/config/roles/addRole";
+import EditRole from "./views/config/roles/editRole";
 
 import AddStaff from "./views/config/staffs/addStaff";
+import EditStaff from "./views/config/staffs/editStaff";
+
 //Payment
 import Payment from "./views/payment/index";
 
@@ -340,6 +343,13 @@ var routes = [
     component: AddRole,
     layout: "/admin"
   },
+  {
+    path: "/role/edit/:id",
+    name: "Edit Role",
+    icon: "ni ni-tv-2 text-primary", 
+    component: EditRole,
+    layout: "/admin"
+  },
 
   //Staff
   {
@@ -347,6 +357,13 @@ var routes = [
     name: "Add Staff",
     icon: "ni ni-key-25 text-info",
     component: AddStaff,
+    layout: "/admin"
+  },
+  {
+    path: "/staff/edit/:id",
+    name: "Edit Staff",
+    icon: "ni ni-tv-2 text-primary", 
+    component: EditStaff,
     layout: "/admin"
   },
   {
