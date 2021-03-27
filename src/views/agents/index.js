@@ -44,13 +44,23 @@ import AgentService from './AgentService';
           pageRangeDisplayed: 3
       }
       this.deleteAgent = this.deleteAgent.bind(this);
+      this.toggleStatus = this.toggleStatus.bind(this)
       this.handlePageChange = this.handlePageChange.bind(this);
     }
   
     deleteAgent(id){
       AgentService.deleteAgent(id).then( res => {
         this.setState({agents: this.state.agents.filter(agent => agent._id !== id)});
-        NotificationManager.success('A deleted successfully !','Success!', 2000);
+        NotificationManager.success('Agent deleted successfully !','Success!', 2000);
+        window.setTimeout(function(){window.location.reload()}, 700);
+      });
+    }
+
+    toggleStatus(id){
+      // alert(id);return;
+      AgentService.toggleStatus(id).then( res => {
+        this.setState({agents: this.state.agents.filter(agent => agent._id !== id)});
+        NotificationManager.success('Agent status changed successfully !','Success!', 2000);
         window.setTimeout(function(){window.location.reload()}, 700);
       });
     }
@@ -121,6 +131,7 @@ import AgentService from './AgentService';
                       <th scope="col">Country</th>
                       <th scope="col">Zip code</th>
                       <th scope="col">Status</th>
+                      <th scope="col">Active</th>
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -140,7 +151,12 @@ import AgentService from './AgentService';
                             : 
                            <td> <Badge color="danger">Not yet Claimed</Badge></td>
                           }
-
+                          {
+                            agent.isActive==false ?
+                          <td><Badge color="danger">Inactive</Badge></td>  
+                            : 
+                           <td> <Badge color="success">Active</Badge></td>
+                          }
                           <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -162,6 +178,29 @@ import AgentService from './AgentService';
                             
                               View
                             </DropdownItem>
+                            {
+                                agent.isActive==false ?
+                              <div>
+
+                            <DropdownItem
+                              href="#!"
+                              onClick={ () => this.toggleStatus(agent._id)}
+                            >
+                              Activate
+                            </DropdownItem>
+                          
+                              </div>
+                            
+                            
+                            :
+
+                            <DropdownItem
+                              href="#!"
+                              onClick={ () => this.toggleStatus(agent._id)}
+                            >
+                              Deactivate
+                            </DropdownItem>
+                            }
                             
                            
                           </DropdownMenu>
