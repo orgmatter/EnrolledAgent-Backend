@@ -9,13 +9,13 @@ class Modal extends React.Component {
     }  
      
     const backdropStyle = {  
-      position: 'fixed',  
-      top: 50,  
+      position: 'absolute',  
+      top: 0,  
       bottom: 0,  
       left: 0,  
       right: 0,  
       backgroundColor: 'rgba(0,0,0,0.3)',  
-      padding: 50,  
+      padding: 0,  
       
     };  
   
@@ -32,7 +32,7 @@ class Modal extends React.Component {
   margin: '0 auto',  
   padding: 10,  
   maxWidth: 500,  
-  minHeight: 300,  
+  minHeight: 200,  
  };  
   
     return (  

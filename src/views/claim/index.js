@@ -1,6 +1,4 @@
 import React,{Component} from 'react'
-import {Link} from 'react-router-dom';
-import moment from "moment"
 import Modal from './Modal';
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -17,12 +15,9 @@ import {
     DropdownItem,
     UncontrolledDropdown,   
     DropdownToggle,
-    Media,
-    Progress,
     Table,
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -68,8 +63,8 @@ import ClaimService from './ClaimService';
         this.setState({
           listingData: response.data.data,
         });
+        console.log(response.data)
       });
-
       this.setState({
         isOpen: !this.state.isOpen
       });
@@ -121,9 +116,10 @@ import ClaimService from './ClaimService';
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">ID</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Last Name</th>
-                      <th scope="col">Agent</th>
+                      <th scope="col">Users First Name</th>
+                      <th scope="col">Users Last Name</th>
+                      <th scope="col">Agents First Name</th>
+                      <th scope="col">Agents Last Namee</th>
                       <th scope="col">Role</th>
                       <th scope="col">Status</th>
                       <th scope="col" />
@@ -140,6 +136,8 @@ import ClaimService from './ClaimService';
                         
                           <td>{listing._id}</td>
                        
+                          <td>{listing.user.firstName}</td>
+                          <td>{listing.user.lastName}</td>
                           <td>{listing.agent.firstName}</td>
                           <td>{listing.agent.lastName}</td>
                           <td>{listing.jobRole}</td>
@@ -216,15 +214,15 @@ import ClaimService from './ClaimService';
                     <thead>  
                       <tr className="btn-primary"><th colSpan="2">Listing Details</th></tr>  
                     </thead>  
+          { this.state.listingData.agent && this.state.listingData.user && (
                     <tbody>  
-          
                       <tr>  
-                        <th>First Name </th><td>{this.state.listingData.firstName}</td>  
+                        <th>Agents Name </th><td>{this.state.listingData.agent.firstName} {this.state.listingData.agent.lastName}</td>  
                       </tr> <tr>  
-                        <th>Last Name </th><td>{this.state.listingData.lastName}</td>  
+                        <th>Users Name </th><td>{this.state.listingData.user.firstName} {this.state.listingData.user.lastName}</td>  
                       </tr> 
                       <tr>  
-                        <th>Email  </th><td>{this.state.listingData.email}</td>  
+                        <th>Users Email  </th><td>{this.state.listingData.user.email}</td>  
                       </tr>
                       <tr>  
                         <th>Status  </th><td>{this.state.listingData.status}</td>  
@@ -248,6 +246,7 @@ import ClaimService from './ClaimService';
                         <th>Annual Tax  </th><td>{this.state.listingData.annualTax}</td>  
                       </tr>
                     </tbody>  
+          )}
                   </Table>        
                 </Modal>  
 
