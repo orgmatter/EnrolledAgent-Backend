@@ -21,7 +21,7 @@ class Login extends React.Component {
                     href={BASE_URL}
                     target="_blank"
                   >
-                    Enrolled Agents
+                    EnrolledAgent.com
                   </a>
                 </div>
               </Col>
