@@ -1,9 +1,5 @@
 import React, {useRef, useEffect} from 'react'
 
-
-// React Notification
-import { NotificationManager } from 'react-notifications';
-import { Editor } from '@tinymce/tinymce-react';
 // reactstrap components
 import {
     FormGroup,
@@ -15,8 +11,7 @@ import {
     Button,
     Container,
     Row,
-    Col,
-    FormText
+    Col
   } from "reactstrap";
   // core components
   import Header from "../../../components/Headers/Header.js";
@@ -55,9 +50,9 @@ import { updateQuestionCategory } from '../../../redux/_actions/questions/catego
       }
     }
     // Description field update
-    const handleEditorChange = content => {
-      message.current = content;
-    }
+    // const handleEditorChange = content => {
+    //   message.current = content;
+    // }
     return (
         <>
         <Header />

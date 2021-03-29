@@ -12,8 +12,7 @@ import {
     Button,
     Container,
     Row,
-    Col,
-    FormText
+    Col
   } from "reactstrap";
   // core components
   import Header from "../../../components/Headers/Header.js";

@@ -45,7 +45,7 @@ export const updateQuestionCategory = cat => async dispatch => {
   export const deleteQuestionCategory = (id) => async dispatch => {
   
     try{
-      const res = await axiosInstance.delete(`/category/question/${id}`);
+      await axiosInstance.delete(`/category/question/${id}`);
       dispatch({
           type: DELETE_QUESTION_CATEGORY
       })

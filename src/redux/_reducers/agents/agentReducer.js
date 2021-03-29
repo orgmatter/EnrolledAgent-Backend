@@ -5,7 +5,6 @@ import {
   APPROVE_CLAIM_LISTING,
   CANCEL_CLAIM_LISTING,
   GET_ALL_LISTING_REQUEST,
-  GET_LISTING_REQUEST,
   APPROVE_LISTING_REQUEST,
   REJECT_LISTING_REQUEST,
   ADD_AGENT
@@ -25,7 +24,7 @@ const initState = {
   
 }; 
 
-export default function (state = initState, action) {
+export default function agent(state = initState, action) {
   switch (action.type) {
       case GET_ALL_AGENTS :
           return{

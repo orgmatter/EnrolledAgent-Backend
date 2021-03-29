@@ -3,7 +3,7 @@ import axiosInstance from '../../../redux/axiosInstance';
 class ResourceCategoryService {
 
     deleteResourceCat(catResourceId){
-        return axiosInstance.delete("/category/resource" + '/' + catResourceId);
+        return axiosInstance.delete(`/category/resource/${catResourceId}`);
     }
 }
 

@@ -1,10 +1,7 @@
-import React,{useState, useEffect, useRef} from 'react'
+import React,{useState} from 'react'
 import axiosInstance from 'redux/axiosInstance/'
 import {
-  BrowserRouter as Router,
-  Switch,
   useLocation, 
-  Redirect,
   Link,
   useHistory
 } from "react-router-dom";

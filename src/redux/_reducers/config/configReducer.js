@@ -13,7 +13,7 @@ const initState = {
     
   }; 
   
-  export default function (state = initState, action) {
+  export default function config (state = initState, action) {
     switch (action.type) {
         case GET_PAYMENT_DATA :
             return{

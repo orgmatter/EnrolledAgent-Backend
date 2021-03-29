@@ -19,7 +19,7 @@ const initState = {
   
 }; 
 
-export default function (state = initState, action) {
+export default function resource(state = initState, action) {
   switch (action.type) {
       case GET_RESOURCES :
           return{

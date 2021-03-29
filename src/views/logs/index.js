@@ -6,18 +6,12 @@ import Pagination from "react-js-pagination";
 import moment from 'moment';
 // reactstrap components
 import {
-    Badge,
     Card,
     CardHeader,
     CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    DropdownToggle,
     Table,
     Container,
-    Row,
-    Button
+    Row
   } from "reactstrap";
 
   // core components

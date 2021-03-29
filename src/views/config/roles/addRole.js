@@ -1,10 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import { addRole } from '../../../redux/_actions/config/role/index';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-
-
-// React Notification
-import { NotificationManager } from 'react-notifications';
+import { useDispatch } from 'react-redux';
 
 // reactstrap components
 import {
@@ -30,11 +26,11 @@ const AddRole = props => {
 
   const handleChange = (e) => {
     // to find out if it's checked or not; returns true or false
-    const checked = e.target.checked;
+    // const checked = e.target.checked;
     
     const value = e.target.value;
     // to get the checked name
-    const checkedName = e.target.name;
+    // const checkedName = e.target.name;
 
     console.log(value);
     //then you can do with the value all you want to do with it.

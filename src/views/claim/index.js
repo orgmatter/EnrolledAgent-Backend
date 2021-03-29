@@ -59,7 +59,7 @@ import ClaimService from './ClaimService';
     }
 
     toggleModal(_id) { 
-      axiosInstance.get("/claim" + '/' + _id).then(response => {
+      axiosInstance.get(`/claim/${_id}`).then(response => {
         this.setState({
           listingData: response.data.data,
         });
@@ -141,7 +141,7 @@ import ClaimService from './ClaimService';
                           <td>{listing.agent.firstName}</td>
                           <td>{listing.agent.lastName}</td>
                           <td>{listing.jobRole}</td>
-                          { listing.status=="pending" || listing.status=="rejected" ? 
+                          { listing.status === "pending" || listing.status === "rejected" ? 
                            <td>
                            <Badge color="danger">{listing.status}</Badge>
                            </td>
@@ -172,7 +172,7 @@ import ClaimService from './ClaimService';
                               View
                             </DropdownItem>
                             {
-                              listing.status=="pending" || listing.status=="rejected" ?
+                              listing.status === "pending" || listing.status === "rejected" ?
                               <div>
 
                             <DropdownItem

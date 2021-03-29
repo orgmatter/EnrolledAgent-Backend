@@ -64,7 +64,7 @@ export const updateArticle = article => async dispatch => {
 export const deleteArticle = (id) => async dispatch => {
   
   try{
-    const res = await axiosInstance.delete(`/article/${id}`);
+   await axiosInstance.delete(`/article/${id}`);
     dispatch({
         type: DELETE_ARTICLE,
         payload: id

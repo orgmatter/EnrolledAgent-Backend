@@ -46,7 +46,7 @@ export const getClaims = () => async dispatch =>{
 export const rejectClaim = (id) => async dispatch => {
    
     try{
-      const res = await axiosInstance.post(`/reject-claim/${id}`);
+      await axiosInstance.post(`/reject-claim/${id}`);
       dispatch({
           type: CANCEL_CLAIM_LISTING,
           payload: id
@@ -66,7 +66,7 @@ export const rejectClaim = (id) => async dispatch => {
   export const approveClaim = (id) => async dispatch => {
     
     try{
-      const res = await axiosInstance.post(`/approve-claim/${id}`);
+     await axiosInstance.post(`/approve-claim/${id}`);
       dispatch({
           type: APPROVE_CLAIM_LISTING,
           payload: id,
@@ -121,7 +121,7 @@ export const getListing = () => async dispatch =>{
 export const rejectListing = (id) => async dispatch => {
     
     try{
-      const res = await axiosInstance.post(`/listing-request/reject/${id}`);
+      await axiosInstance.post(`/listing-request/reject/${id}`);
       dispatch({
           type: REJECT_LISTING_REQUEST,
           payload: id
@@ -141,7 +141,7 @@ export const rejectListing = (id) => async dispatch => {
   export const approveListing = (id) => async dispatch => {
     
     try{
-      const res = await axiosInstance.post(`/listing-request/approve/${id}`);
+      await axiosInstance.post(`/listing-request/approve/${id}`);
       dispatch({
           type: APPROVE_LISTING_REQUEST,
           payload: id,

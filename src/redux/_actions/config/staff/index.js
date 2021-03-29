@@ -56,7 +56,7 @@ export const updateStaff = staff => async dispatch => {
 export const deleteStaff = (id) => async dispatch => {
     
     try{
-      const res = await axiosInstance.delete(`/staff/${id}`);
+      await axiosInstance.delete(`/staff/${id}`);
       dispatch({
           type: DELETE_STAFF,
           payload: id

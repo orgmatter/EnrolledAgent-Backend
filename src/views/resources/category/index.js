@@ -7,7 +7,6 @@ import axiosInstance from '../../../redux/axiosInstance';
 import Pagination from "react-js-pagination";
 // reactstrap components
 import {
-    Badge,
     Card,
     CardHeader,
     CardFooter,
@@ -15,9 +14,6 @@ import {
     DropdownItem,
     UncontrolledDropdown,
     DropdownToggle,
-    // Pagination,
-    // PaginationItem,
-    // PaginationLink,
     Table,
     Container,
     Row,

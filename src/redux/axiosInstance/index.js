@@ -1,35 +1,26 @@
 import axios from "axios";
 import { API_KEY, API_URL } from "../../config";
 
+function tokenRefresh(){
+  return localStorage.getItem("token");
+}
+const fetchClient = () => {
 const axiosInstance = axios.create({
   baseURL: `${API_URL}`,
   headers: {
     'Content-Type': 'application/json',
-    'apikey': `${API_KEY}`,
-    "Authorization": `Bearer ${localStorage.getItem("token")}`
+    'apikey': `${API_KEY}`
 }
 });
 
-// axiosInstance.interceptors.response.use(
-//   (response) => 
-//   new Promise((resolve, reject) => {
-//     resolve(response)
-//   }),
-//   (error) => {
-//     if(!error.response){
-//       return new Promise((resolve, reject) => {
-//         reject(error);
-//       })
-//     }
-//     if(error.response.status === 401){
-//       localStorage.removeItem("token");
-//       window.location = "auth/login";
-//     }else{
-//       return new Promise((resolve, reject) => {
-//         reject(error);
-//       })
-//     }
-//   }
-// )
+ // Set the AUTH token for any request
+ axiosInstance.interceptors.request.use(function (config) {
+  const token = tokenRefresh();
+  config.headers.Authorization =  token ? `Bearer ${token}` : '';
+  return config;
+});
 
-export default axiosInstance;
+return axiosInstance;
+}
+
+export default fetchClient()

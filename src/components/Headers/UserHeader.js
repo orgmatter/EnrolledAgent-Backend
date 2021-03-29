@@ -1,10 +1,9 @@
 
 import React,{useState, useEffect} from "react";
-import { Link, useHistory, Redirect } from "react-router-dom";
 import axios from "../../redux/axiosInstance";
 
 // reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 
 const UserHeader = () => {
 
@@ -18,7 +17,6 @@ const UserHeader = () => {
         console.log(res.data.data)
       })
   }, []);
-  let history = useHistory();
 
     return (
       <>

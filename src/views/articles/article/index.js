@@ -9,7 +9,6 @@ import Pagination from "react-js-pagination";
 
 // reactstrap components
 import {
-  Badge,
   Card,
   CardHeader,
   CardFooter,

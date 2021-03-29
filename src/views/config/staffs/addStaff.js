@@ -1,6 +1,5 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect,} from 'react'
 
-import { Editor } from '@tinymce/tinymce-react';
 // reactstrap components
 import {
     FormGroup,
@@ -12,8 +11,7 @@ import {
     Button,
     Container,
     Row,
-    Col,
-    FormText
+    Col
   } from "reactstrap"; 
   // core components
   import Header from "components/Headers/Header.js";

@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom';
 import moment from "moment"
 import Modal from './Modal';
 // React Notification
@@ -16,12 +15,9 @@ import {
     DropdownItem,
     UncontrolledDropdown,   
     DropdownToggle,
-    Media,
-    Progress,
     Table,
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -64,7 +60,7 @@ export default class ListUsers extends Component {
     }
 
     toggleModal(_id) { 
-      axiosInstance.get("/user" + '/' + _id).then(response => {
+      axiosInstance.get(`/user/${_id}`).then(response => {
         this.setState({
           userData: response.data.data,
         });
@@ -147,7 +143,7 @@ export default class ListUsers extends Component {
                           <td>{user.email}</td>
                           <td>{moment(user.lastLogin).fromNow()}</td>
                           {
-                            user.isActive==true
+                            user.isActive === true
                             ?
                             <td><Badge color="success">Active</Badge></td>
                             :
@@ -179,7 +175,7 @@ export default class ListUsers extends Component {
                             >
                               Update
                             </DropdownItem>
-                            {user.isActive==true ? 
+                            {user.isActive === true ? 
                             <DropdownItem
                               href="#!"
                               onClick={ () => this.deactivateUser(user._id)}

@@ -3,7 +3,7 @@ import axiosInstance from '../../redux/axiosInstance';
 class LogService {
 
     deleteLog(logId){
-        return axiosInstance.delete("log" + '/' + logId);
+        return axiosInstance.delete(`log/${logId}`);
     }
 }
 

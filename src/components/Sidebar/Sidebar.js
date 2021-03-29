@@ -29,7 +29,6 @@ import {
   Col
 } from "reactstrap";
 import smallLogo from '../../assets/img/SmallLogo.png'
-
 import Avatar from "../../assets/img/avatar.png"
 var ps;
 

@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import axios from "redux/axiosInstance";
+import axios from "../redux/axiosInstance";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts

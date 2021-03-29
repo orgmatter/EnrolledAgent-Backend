@@ -12,13 +12,13 @@ const initState = {
   loading: true
 }; 
 
-export default function (state = initState, action){
+export default function question (state = initState, action){
   const {type, payload} = action;
   switch (type) {
       case GET_ALL_QUESTIONS :
           return{
           ...state, 
-          questions: action.payload,
+          questions: payload,
           isAuthenticated: true,
           loading: false,
               
@@ -26,25 +26,25 @@ export default function (state = initState, action){
       // case GET_question:
       //   return {
       //     ...state,
-      //     question : action.payload
+      //     question : payload
       //   }
       // case ADD_question :
       //     return {
       //         ...state,
-      //         data: [action.payload, ...state.data]
+      //         data: [payload, ...state.data]
 
       //     } 
 
       case DELETE_QUESTION :
           return{
               ...state,
-              questions: state.questions.filter(question => question.id !== action.payload)
+              questions: state.questions.filter(question => question.id !== payload)
           }
           
       // case UPDATE_question:
       //   return {
       //     ...state,
-      //     questions : state.questions.map(question => question.id === action.payload.id ? (question = action.payload) : question )
+      //     questions : state.questions.map(question => question.id === payload.id ? (question = payload) : question )
       //   }
       default : {
           return state

@@ -24,13 +24,13 @@ import {
   } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { API_URL } from '../../config';
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 const Login = ({login, isAuthenticated}) => {
 
       const [passwordShown, setPasswordShown] = useState(false);
       const [formData, setFormData] = useState({});
+      const [loading,setLoading ] = useState(false)
       const loggedIn = !!localStorage.getItem("token");
     
       let history = useHistory();
@@ -50,14 +50,17 @@ const Login = ({login, isAuthenticated}) => {
     
       const handleSubmit = e => {
         e.preventDefault();
+        setLoading(true)
         axiosInstance.post("/login", formData)
           .then(res => res.data)
           .then(res => {
+              setLoading(false)
               NotificationManager.success(`Welcome ${formData.email}`,'Success!', 2000);
               localStorage.setItem("token", res.token);
               history.replace(from);
            })
           .catch(error => {
+            setLoading(false)
             NotificationManager.error(`${error?.response?.data?.error?.message ??  'An error occured, please try again later.'}`,'Error!', 2000);
           });
        
@@ -139,7 +142,7 @@ const Login = ({login, isAuthenticated}) => {
                   </label>
                 </div>
                 <div className="text-center">
-                  <Button className="my-4" color="primary" type="submit">Submit</Button>
+                  <Button className="my-4" color="primary" type="submit" disabled={loading}>{ loading ? "Loading..." : "Submit"}</Button>
                    
                 </div>
               </Form>

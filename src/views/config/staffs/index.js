@@ -3,29 +3,20 @@ import React,{Component} from 'react'
 import { NotificationManager } from 'react-notifications';
 import axiosInstance from '../../../redux/axiosInstance/';
 import Pagination from "react-js-pagination";
-import moment from 'moment';
 import {Link} from 'react-router-dom'
 // reactstrap components
 import {
-    Badge,
     Button,
     Card,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
     CardHeader,
     CardFooter,
     DropdownMenu,
     DropdownItem,
     UncontrolledDropdown,   
     DropdownToggle,
-    Media,
-    Progress,
     Table,
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
 import StaffService from './StaffService';
 

@@ -12,7 +12,6 @@ import {
     InputGroupAddon,
     InputGroupText,
     InputGroup,
-    Row,
     Col,
     Button
   } from "reactstrap";
@@ -60,7 +59,7 @@ class PasswordReset extends Component {
     };
 
     render(){
-      const { email, message, error } = this.state
+      const { email } = this.state
     
     return (
         <>

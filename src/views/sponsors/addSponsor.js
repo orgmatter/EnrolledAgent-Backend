@@ -75,7 +75,7 @@ import {
     }
 
     render() {
-      const { link, name, avatar, errors } = this.state;
+      const { link, name,  errors } = this.state;
 
     return (
         <>

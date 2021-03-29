@@ -46,7 +46,7 @@ export const updateSponsor = sponsor => async dispatch => {
 export const deleteSponsor = (id) => async dispatch => {
  
   try{
-    const res = await axiosInstance.delete(`/sponsor/${id}`);
+    await axiosInstance.delete(`/sponsor/${id}`);
     dispatch({
         type: DELETE_SPONSOR,
         payload: id

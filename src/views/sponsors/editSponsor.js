@@ -1,8 +1,5 @@
-import React, {useRef, useEffect} from 'react'
+import React, { useEffect} from 'react'
 
-// React Notification
-import { NotificationManager } from 'react-notifications';
-import { Editor } from '@tinymce/tinymce-react';
 // reactstrap components
 import {
     FormGroup,
@@ -14,8 +11,7 @@ import {
     Button,
     Container,
     Row,
-    Col,
-    FormText
+    Col
   } from "reactstrap";
   // core components
   import Header from "../../components/Headers/Header";

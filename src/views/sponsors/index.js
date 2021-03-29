@@ -8,7 +8,6 @@ import Pagination from "react-js-pagination";
 
 // reactstrap components
 import {
-    Badge,
     Card,
     CardHeader,
     CardFooter,
@@ -19,8 +18,7 @@ import {
     Button,
     Table, 
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -114,7 +112,7 @@ import SponsorService from './SponsorService';
                           <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
-                          <td><img src={sponsor.avatar}></img>{sponsor.avatar}</td>
+                          <td><img src={sponsor.avatar} alt="avatar"></img>{sponsor.avatar}</td>
                           <td> {moment(sponsor.createdAt).format('MMM-DD-YYYY')} </td>
                           <td className="text-right">
                             <UncontrolledDropdown>

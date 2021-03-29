@@ -10,14 +10,13 @@ const initState = {
   error: null,
   quecategories : [ ],
   category : {},
-  token: localStorage.getItem('token'),
   isAuthenticated: false,
   loading: true
   
 };
 
 
-export default function (state = initState, action) {
+export default function categoryQuestion(state = initState, action) {
   switch (action.type) {
       case GET_ALL_QUESTION_CATEGORIES :
           return{

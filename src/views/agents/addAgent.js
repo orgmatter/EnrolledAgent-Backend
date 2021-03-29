@@ -1,4 +1,4 @@
-import React,{useEffect, useRef} from 'react'
+import React,{useRef} from 'react'
 import {Redirect} from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 // reactstrap components
@@ -10,14 +10,11 @@ import {
     Label,
     Input,
     Button,
-    Container,
-    Row,
-    Col,
-    FormText
+    Col
   } from "reactstrap"; 
   // core components 
 
-  import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+  import { useDispatch } from 'react-redux';
 import { addAgent } from 'redux/_actions/agents/index.js';
 
   const AddAgent = props => {

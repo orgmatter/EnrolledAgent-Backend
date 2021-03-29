@@ -14,7 +14,7 @@ const initState = {
   
 }; 
 
-export default function (state = initState, action) {
+export default function categoryResource(state = initState, action) {
   switch (action.type) {
       case GET_RESOURCE_CATEGORIES :
           return{

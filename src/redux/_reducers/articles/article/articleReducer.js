@@ -18,37 +18,37 @@ const initState = {
     status: "success"
 }; 
 
-export default function (state = initState, action){
+export default function article(state = initState, action){
     const {type, payload} = action;
     switch (type) {
         case GET_ARTICLES :
             return{
             ...state, 
-            articles: action.payload,
+            articles: payload,
                 
         }
         case CREATE_ARTICLE :
             return {
                 ...state,
-                articles: [action.payload.data, ...state.articles]
+                articles: [payload.data, ...state.articles]
 
             } 
 
         case DELETE_ARTICLE :
             return{ 
                 ...state,
-                articles: state.articles.filter(article => article.id !== action.payload)
+                articles: state.articles.filter(article => article.id !== payload)
             }
             
         case UPDATE_ARTICLE:
           return {
             ...state,
-            articles : state.articles.map(article => article.id === action.payload.data.id ? {...article, ...action.payload.data} : article )
+            articles : state.articles.map(article => article.id === payload.data.id ? {...article, ...payload.data} : article )
           }
           case APPROVE_ARTICLE:
             return {
               ...state,
-              articles : state.articles.map(article => article.id === action.payload.data.id ? {...article, ...action.payload.data} : article )
+              articles : state.articles.map(article => article.id === payload.data.id ? {...article, ...payload.data} : article )
             }
         default : {
             return state
