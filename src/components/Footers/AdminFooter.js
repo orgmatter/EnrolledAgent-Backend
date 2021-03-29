@@ -20,7 +20,7 @@ class Footer extends React.Component {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Enrolled Agents
+                EnrolledAgent.com
               </a>
             </div>
           </Col>
