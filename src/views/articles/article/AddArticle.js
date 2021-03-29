@@ -94,7 +94,7 @@ import { addArticle } from 'redux/_actions/articles/article/index.js';
                     <Col sm={12}>
                       <Label for="category">Status</Label>
 
-                        <Input type="select"  id="exampleSelect"
+                        <Input type="select"
                             required
                             className="mr-sm-2"
                             name="status"

@@ -3,7 +3,7 @@ import axiosInstance from '../../../redux/axiosInstance/';
 class StaffService {
 
     deleteStaff(staffId){
-        return axiosInstance.delete("/staff" + '/' + staffId);
+        return axiosInstance.delete(`/staff/${staffId}`);
     }
 }
 

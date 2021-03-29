@@ -1,6 +1,4 @@
 import React, {Component } from 'react';
-import {Link} from 'react-router-dom';
-import moment from "moment"
 import Modal from './Modal';
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -9,7 +7,6 @@ import Pagination from "react-js-pagination";
 // reactstrap components
 import {
     Badge,
-    Button,
     Card,
     CardHeader,
     CardFooter,
@@ -17,12 +14,9 @@ import {
     DropdownItem,
     UncontrolledDropdown,   
     DropdownToggle,
-    Media,
-    
     Table,
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -66,7 +60,7 @@ import AgentService from './AgentService';
     }
 
     toggleModal(_id) { 
-      axiosInstance.get("/agent" + '/' + _id).then(response => {
+      axiosInstance.get(`/agent/${_id}`).then(response => {
         this.setState({
           agentData: response.data.data,
         });
@@ -146,13 +140,13 @@ import AgentService from './AgentService';
                           <td>{agent.country}</td>
                           <td>{agent.zipcode}</td>
                           {
-                            agent.isClaimed==true ?
+                            agent.isClaimed === true ?
                           <td><Badge color="success">Claimed</Badge></td>  
                             : 
                            <td> <Badge color="danger">Not yet Claimed</Badge></td>
                           }
                           {
-                            agent.isActive==false ?
+                            agent.isActive === false ?
                           <td><Badge color="danger">Inactive</Badge></td>  
                             : 
                            <td> <Badge color="success">Active</Badge></td>
@@ -179,7 +173,7 @@ import AgentService from './AgentService';
                               View
                             </DropdownItem>
                             {
-                                agent.isActive==false ?
+                                agent.isActive === false ?
                               <div>
 
                             <DropdownItem

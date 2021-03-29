@@ -1,13 +1,6 @@
 import React, {useEffect, useRef} from 'react';
-import { connect } from 'react-redux';
-import { ResourceAdd } from '../../../redux/_actions/resources/index';
 import { Editor } from '@tinymce/tinymce-react';
-import axiosInstance from '../../../redux/axiosInstance';
-import Select from 'react-select';
 
-
-// React Notification
-import { NotificationManager } from 'react-notifications';
 
 // reactstrap components
 import {

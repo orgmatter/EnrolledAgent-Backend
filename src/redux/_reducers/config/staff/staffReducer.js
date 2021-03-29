@@ -15,35 +15,35 @@ const initState = {
   loading: true
 }; 
 
-export default function (state = initState, action){
+export default function staff(state = initState, action){
   const {type, payload} = action;
   switch (type) {
       case GET_ALL_STAFFS :
           return{
           ...state, 
-          staffs: action.payload
+          staffs: payload
               
       }
       case GET_STAFF_DETAILS:
         return {
           ...state,
-          staff : action.payload
+          staff : payload
         }
       case CREATE_STAFF :
           return {
               ...state,
-              staffs: [action.payload, ...state.staffs]
+              staffs: [payload, ...state.staffs]
 
           } 
       case DELETE_STAFF :
         return {
           ...state,
-          staffs: state.staffs.filter(staff => staff.id !== action.payload)
+          staffs: state.staffs.filter(staff => staff.id !== payload)
         }
       case UPDATE_STAFF :
         return {
           ...state,
-          staffs: state.staffs.map(staff => staff.id === action.payload.data.id ? {...staff, ...action.payload.data} : staff )
+          staffs: state.staffs.map(staff => staff.id === payload.data.id ? {...staff, ...payload.data} : staff )
         }
       default : {
           return state

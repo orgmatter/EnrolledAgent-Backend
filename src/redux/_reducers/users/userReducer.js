@@ -15,7 +15,7 @@ const initState = {
     
   }; 
   
-  export default function (state = initState, action) {
+  export default function user(state = initState, action) {
     switch (action.type) {
         case GET_ALL_USERS :
             return{

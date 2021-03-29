@@ -17,32 +17,32 @@ const initState = {
   status: "success"
 }; 
 
-export default function (state = initState, action){
+export default function role(state = initState, action){
   const {type, payload} = action;
   switch (type) {
       case GET_ALL_ROLE :
           return{
           ...state, 
-          roles: action.payload,
+          roles: payload,
               
       }
       case CREATE_ROLE :
           return {
               ...state,
-              roles: [action.payload.data, ...state.roles]
+              roles: [payload.data, ...state.roles]
 
           } 
 
       case DELETE_ROLE :
           return{ 
               ...state,
-              roles: state.roles.filter(role => role.id !== action.payload) 
+              roles: state.roles.filter(role => role.id !== payload) 
           }
           
       case UPDATE_ROLE:
         return {
           ...state,
-          roles : state.roles.map(role => role.id === action.payload.data.id ? {...role, ...action.payload.data} : role )
+          roles : state.roles.map(role => role.id === payload.data.id ? {...role, ...payload.data} : role )
         }
       default : {
           return state

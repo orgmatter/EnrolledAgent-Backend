@@ -3,31 +3,13 @@ import {  } from 'reactstrap';
 import classnames from 'classnames';
 // reactstrap components
 import {
-    Badge,
-    Card,
-    CardHeader,
-    CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,   
-    DropdownToggle,
-    Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Progress,
-    Table,
     Container,
     Row,
-    UncontrolledTooltip,
     TabContent, 
     TabPane, 
     Nav, 
     NavItem, 
     NavLink, 
-    Button, 
-    CardTitle, 
-    CardText, 
     Col
   } from "reactstrap";
   // core components

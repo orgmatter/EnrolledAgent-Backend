@@ -51,7 +51,7 @@ export const updateResource = resource => async dispatch => {
 export const deleteResource = (id) => async dispatch => {
   
   try{
-    const res = await axiosInstance.delete(`/resource/${id}`, );
+    await axiosInstance.delete(`/resource/${id}`, );
     dispatch({
         type: DELETE_RESOURCE,
         payload: id

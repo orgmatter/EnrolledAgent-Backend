@@ -16,36 +16,36 @@ const initState = {
     loading: true
 }; 
 
-export default function (state = initState, action){
+export default function category (state = initState, action){
     const {type, payload} = action;
     switch (type) {
         case GET_ARTICLE_CATEGORIES :
             return{
             ...state, 
-            categories: action.payload
+            categories: payload
                 
         }
         case GET_ARTICLE_CATEGORY:
           return {
             ...state,
-            category : action.payload
+            category : payload
           }
         case CREATE_ARTICLE_CATEGORY :
             return {
                 ...state,
-                categories: [action.payload, ...state.categories]
+                categories: [payload, ...state.categories]
 
             } 
 
         case DELETE_ARTICLE_CATEGORY :
             return{
                 ...state,
-                categories: state.categories.filter(category => category.id !==action.payload)
+                categories: state.categories.filter(category => category.id !==payload)
             }
         case UPDATE_ARTICLE_CATEGORY:
           return {
             ...state,
-            categories : state.categories.map(category => category.id === action.payload.id ? (category = action.payload) : category )
+            categories : state.categories.map(category => category.id === payload.id ? (category = payload) : category )
           }
         default : {
             return state

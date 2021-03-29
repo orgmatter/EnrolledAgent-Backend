@@ -17,12 +17,9 @@ import {
     DropdownItem,
     UncontrolledDropdown,   
     DropdownToggle,
-    Media,
-    Progress,
     Table,
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -74,7 +71,7 @@ import ListingService from './ListingService';
     }
 
     toggleModal(_id) { 
-      axiosInstance.get("/listing-request" + '/' + _id).then(response => {
+      axiosInstance.get(`/listing-request/${_id}`).then(response => {
         this.setState({
           requestData: response.data.data,
         });
@@ -178,7 +175,7 @@ import ListingService from './ListingService';
                             <td>{request.country}</td>
                             <td>{request.licence}</td>
                             <td>{request.position}</td>
-                          { request.status=="pending" || request.status=="rejected" ? 
+                          { request.status === "pending" || request.status === "rejected" ? 
                            <td>
                            <Badge color="danger">{request.status}</Badge>
                            </td>
@@ -209,7 +206,7 @@ import ListingService from './ListingService';
                               View
                             </DropdownItem>
                             {
-                              request.status=="pending" || request.status=="rejected" ?
+                              request.status === "pending" || request.status === "rejected" ?
                               <div>
 
                             <DropdownItem

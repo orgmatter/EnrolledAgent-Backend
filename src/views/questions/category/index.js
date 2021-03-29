@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import {getQuestionsCategories, deleteQuestionCategory} from '../../../redux/_actions/questions/category/index'
 // reactstrap components
 import {
-    Badge,
     Card,
     CardHeader,
     CardFooter,

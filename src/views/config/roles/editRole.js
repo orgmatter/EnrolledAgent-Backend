@@ -1,9 +1,6 @@
-import React, {useRef, useEffect} from 'react'
+import React, { useEffect} from 'react'
 //import {addArticleCategory} from '../../../redux/_actions/articles/category/index'
 
-// React Notification
-import { NotificationManager } from 'react-notifications';
-import { Editor } from '@tinymce/tinymce-react';
 // reactstrap components
 import {
     FormGroup,
@@ -12,11 +9,9 @@ import {
     Form,
     Label,
     Input,
-    Button,
     Container,
     Row,
-    Col,
-    FormText
+    Col
   } from "reactstrap";
   // core components
   import Header from "../../../components/Headers/Header.js";
@@ -56,11 +51,11 @@ import { updateRole } from '../../../redux/_actions/config/role/index';
 
     const handleChange = (e) => {
       // to find out if it's checked or not; returns true or false
-      const checked = e.target.checked;
+      // const checked = e.target.checked;
       
       const value = e.target.value;
       // to get the checked name
-      const checkedName = e.target.name;
+      // const checkedName = e.target.name;
   
       console.log(value);
       //then you can do with the value all you want to do with it.

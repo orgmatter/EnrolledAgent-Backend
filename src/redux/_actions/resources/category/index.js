@@ -43,7 +43,7 @@ export const updateResourceCat = category => async dispatch => {
 export const deleteResourceCat = (id) => async dispatch => {
   
   try{
-    const res = await axiosInstance.delete(`/category/resource/${id}`);
+    await axiosInstance.delete(`/category/resource/${id}`);
     dispatch({
         type: DELETE_RESOURCE_CATEGORY,
         payload: id

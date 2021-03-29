@@ -64,7 +64,7 @@ export const updateFaq = faq => async dispatch => {
 export const deleteFaq = (id) => async dispatch => {
   
   try{
-    const res = await axiosInstance.delete(`/faq/${id}`);
+    await axiosInstance.delete(`/faq/${id}`);
     dispatch({
         type: DELETE_FAQ
     })

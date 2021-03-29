@@ -3,7 +3,7 @@ import axiosInstance from '../../redux/axiosInstance';
 class FaqService {
 
     deleteFaq(faqId){
-        return axiosInstance.delete("/faq" + '/' + faqId);
+        return axiosInstance.delete(`/faq/${faqId}`);
     }
 }
 

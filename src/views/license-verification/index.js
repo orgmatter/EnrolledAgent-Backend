@@ -1,15 +1,12 @@
 import React,{useState, useEffect} from 'react'
 import moment from 'moment';
 import axiosInstance from '../../redux/axiosInstance'
-import {useHistory} from 'react-router-dom';
 import { CSVLink } from "react-csv";
 import Pagination from "./Pagination";
 // reactstrap components
 import { 
-    Badge,
     Card,
     CardHeader,
-    CardFooter,
     DropdownMenu,
     DropdownItem,
     UncontrolledDropdown,   
@@ -17,8 +14,7 @@ import {
     Table,
     Container,
     Row,
-    Button,
-    UncontrolledTooltip
+    Button
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -68,7 +64,7 @@ const License = () => {
     headers: headers,
     filename: 'License_Verification_Report.csv'
   };
-  let history = useHistory();
+
     return (
         <>
           <Header />

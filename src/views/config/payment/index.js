@@ -1,9 +1,6 @@
 import React,{useEffect, useState} from 'react'
-import moment from 'moment';
-import {Link} from 'react-router-dom'
 import {updatePaymentData} from '../../../redux/_actions/config/payment/';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import axiosInstance from '../../../redux/axiosInstance';
 // reactstrap components
 // reactstrap components

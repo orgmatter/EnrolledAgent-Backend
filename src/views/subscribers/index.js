@@ -1,7 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import moment from 'moment';
 import axiosInstance from '../../redux/axiosInstance'
-import {useHistory} from 'react-router-dom';
 import { CSVLink } from "react-csv";
 // reactstrap components
 import { 
@@ -10,19 +9,12 @@ import {
     Card,
     CardHeader,
     CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,   
-    DropdownToggle,
-    Media,
     Pagination,
     PaginationItem,
     PaginationLink,
-    Progress,
     Table,
     Container,
-    Row,
-    UncontrolledTooltip
+    Row
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -50,7 +42,6 @@ const Subscribers = () => {
     headers: headers,
     filename: 'Subscribers_List_Report.csv'
   };
-  let history = useHistory();
     return (
         <>
           <Header />
@@ -92,7 +83,7 @@ const Subscribers = () => {
                         <tr key={index}>                      
                           <td>{subscriber._id}</td>
                           {
-                            subscriber.unsubscribed==false
+                            subscriber.unsubscribed === false
                             ?
                             <td><Badge color="success">Active Subscription</Badge></td>
                             :

@@ -1,8 +1,6 @@
 import React, {useRef, useEffect} from 'react'
 //import {addArticleCategory} from '../../../redux/_actions/articles/category/index'
 
-// React Notification
-import { NotificationManager } from 'react-notifications';
 import { Editor } from '@tinymce/tinymce-react';
 // reactstrap components
 import {
@@ -111,8 +109,7 @@ import { updateArticle } from 'redux/_actions/articles/article/index.js';
                     <Col sm={12}>
                       <Label for="category">Status</Label>
 
-                        <Input type="select"  id="exampleSelect"
-                            
+                        <Input type="select" 
                             className="mr-sm-2"
                             name="status"
                             id="status"

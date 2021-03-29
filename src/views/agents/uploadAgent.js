@@ -1,12 +1,5 @@
 import React,{useState} from 'react'
 
-import {Link} from 'react-router-dom';
-import {agentUpload} from '../../redux/_actions/agents/index';
-import Dropzone from 'react-dropzone';
-
-// React Notification
-import { NotificationManager } from 'react-notifications';
-
 // reactstrap components
 import {
     FormGroup,
@@ -14,7 +7,6 @@ import {
     CardHeader,
     Form,
     Label,
-    Input,
     Button,
     Container,
     Row,
@@ -30,22 +22,21 @@ import {
   const UploadAgent = (props) => {
 
     const {
-      buttonLabel,
       className
     } = props;
     const [modal, setModal] = useState(false);
-    const [nestedModal, setNestedModal] = useState(false);
-    const [closeAll, setCloseAll] = useState(false);
+    // const [nestedModal, setNestedModal] = useState(false);
+    // // const [closeAll, setCloseAll] = useState(false);
 
     const toggle = () => setModal(!modal);
-    const toggleNested = () => {
-      setNestedModal(!nestedModal);
-      setCloseAll(false);
-    }
-    const toggleAll = () => {
-      setNestedModal(!nestedModal);
-      setCloseAll(true);
-    }
+    // const toggleNested = () => {
+    //   setNestedModal(!nestedModal);
+    //   setCloseAll(false);
+    // }
+    // const toggleAll = () => {
+    //   setNestedModal(!nestedModal);
+    //   setCloseAll(true);
+    // }
 
     return (
         <>

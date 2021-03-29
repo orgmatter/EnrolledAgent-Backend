@@ -7,25 +7,17 @@ import moment from 'moment';
 import {Link} from 'react-router-dom'
 // reactstrap components
 import {
-  Badge,
   Button,
   Card,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   CardHeader,
   CardFooter,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,   
   DropdownToggle,
-  Media,
-  Progress,
   Table,
   Container,
-  Row,
-  UncontrolledTooltip
+  Row
   } from "reactstrap";
 import RoleService from './RoleService';
 

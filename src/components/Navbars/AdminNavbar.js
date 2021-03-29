@@ -1,6 +1,6 @@
 
 import React,{useEffect, useState} from "react";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {userLogout} from '../../redux/_actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -96,7 +96,7 @@ const AdminNavbar = (props,{logout}) => {
               </DropdownItem>
            
               <DropdownItem divider />
-              <DropdownItem onClick={logoutUser} href="JavaScript:void(0);">
+              <DropdownItem onClick={logoutUser} href="#">
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
               </DropdownItem>

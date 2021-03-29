@@ -50,7 +50,7 @@ export const updateArticleCategory = article => async dispatch => {
 // Delete Article Category
 export const deleteArticleCategory = (id) => async dispatch => {
   try{
-    const res = await axiosInstance.delete(`/category/article/${id}`);
+    await axiosInstance.delete(`/category/article/${id}`);
     dispatch({
         type: DELETE_ARTICLE_CATEGORY,
         payload: id
