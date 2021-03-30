@@ -66,7 +66,7 @@ export default class ListArticles extends Component {
      this.setState({activePage: pageNumber});
      var query  = this.state.search === '' ? `/news/?page=${pageNumber}` : `/news/?search=${this.state.search}&page=${pageNumber}`
      
-     axiosInstance.get('news?page=' + pageNumber)
+     axiosInstance.get(query)
         .then(response => {
             this.setState({
                 articles: response.data.data,
