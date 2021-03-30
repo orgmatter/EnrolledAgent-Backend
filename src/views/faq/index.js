@@ -18,6 +18,7 @@ import {
     Table,
     Container,
     Row,
+    FormGroup,
     Button
   } from "reactstrap";
  
@@ -33,7 +34,8 @@ export default class ListFaq extends Component {
         activePage: 1,
         itemsCountPerPage: 1,
         totalItemsCount: 1,
-        pageRangeDisplayed: 3
+        pageRangeDisplayed: 3,
+        search: ''
     } 
     this.deleteFaq = this.deleteFaq.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -71,6 +73,25 @@ export default class ListFaq extends Component {
             });
       });
     }
+
+    handleSearchChange(e) {
+      var search = e.target.value;
+      this.setState({
+        search: search
+      })
+      var query  = search === '' ? `/faq/` : `/faq/?search=${search}`
+      
+       axiosInstance.get(query)
+         .then(response => {
+             this.setState({
+                 faqs: response.data.data,
+                 itemsCountPerPage: response.data.perPage,
+                 totalItemsCount: response.data.total,
+                 activePage: response.data.page
+             });
+       });
+     }
+
   render() {
     return (
         <>
@@ -90,7 +111,11 @@ export default class ListFaq extends Component {
               
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">News &amp; Articles</h3>
+                  <h3 className="mb-0">News &amp; Articles
+                  <FormGroup style={{float: 'right'}}>
+                  <input type="text"  className="form-control" onChange={ (e) => this.handleSearchChange(e) } placeholder="Search here"/>
+                    </FormGroup>
+                  </h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
