@@ -17,6 +17,7 @@ import {
     DropdownToggle,
     Table,
     Container,
+    FormGroup,
     Row
   } from "reactstrap";
   // core components
@@ -36,7 +37,8 @@ export default class ListUsers extends Component {
           activePage: 1,
           itemsCountPerPage: 1,
           totalItemsCount: 1,
-          pageRangeDisplayed: 3
+          pageRangeDisplayed: 3,
+          search: ''
       }
       this.deactivateUser = this.deactivateUser.bind(this);
       this.activateUser = this.activateUser.bind(this);
@@ -98,6 +100,25 @@ export default class ListUsers extends Component {
               });
         });
       }
+
+      handleSearchChange(e) {
+        var search = e.target.value;
+        this.setState({
+          search: search
+        })
+        var query  = search === '' ? `/user/` : `/user/?search=${search}`
+        
+         axiosInstance.get(query)
+           .then(response => {
+               this.setState({
+                   users: response.data.data,
+                   itemsCountPerPage: response.data.perPage,
+                   totalItemsCount: response.data.total,
+                   activePage: response.data.page
+               });
+         });
+       }
+
     render() {
     return (
         <>
@@ -112,7 +133,12 @@ export default class ListUsers extends Component {
                   <a className="mb-0" href="/admin/user/upload">Upload New user</a>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">List of users</h3>
+                  <h3 className="mb-0">
+                    List of users
+                    <FormGroup style={{float: 'right'}}>
+                  <input type="text"  className="form-control" onChange={ (e) => this.handleSearchChange(e) } placeholder="Search here"/>
+                    </FormGroup>
+                    </h3>
                   
                 </CardHeader>
                
