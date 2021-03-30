@@ -17,6 +17,7 @@ import {
     Button,
     Table,
     Container,
+    FormGroup,
     Row
   } from "reactstrap";
   // core components
@@ -31,7 +32,8 @@ export default class ListResource extends Component {
         activePage: 1,
         itemsCountPerPage: 1,
         totalItemsCount: 1,
-        pageRangeDisplayed: 3
+        pageRangeDisplayed: 3,
+        search:''
     }
     this.deleteResource = this.deleteResource.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -59,6 +61,8 @@ export default class ListResource extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
+     var query  = this.state.search === '' ? `/resource/?page=${pageNumber}` : `/resource/?search=${this.state.search}&page=${pageNumber}`
+     
     axiosInstance.get('resource?page=' + pageNumber)
         .then(response => {
             this.setState({
@@ -69,6 +73,25 @@ export default class ListResource extends Component {
             });
       });
     }
+    
+    handleSearchChange(e) {
+      var search = e.target.value;
+      this.setState({
+        search: search
+      })
+      var query  = search === '' ? `/resource` : `/resource/?search=${search}`
+      
+       axiosInstance.get(query)
+         .then(response => {
+             this.setState({
+                resources: response.data.data,
+                 itemsCountPerPage: response.data.perPage,
+                 totalItemsCount: response.data.total,
+                 activePage: response.data.page
+             });
+       });
+     }
+
   render() {
     return (
         <>
@@ -93,7 +116,11 @@ export default class ListResource extends Component {
                   
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">News &amp; Resources</h3>
+                  <h3 className="mb-0">News &amp; Resources
+                  <FormGroup style={{float: 'right'}}>
+                      <input type="text"  className="form-control" onChange={ (e) => this.handleSearchChange(e) } placeholder="Search here"/>
+                  </FormGroup>
+                  </h3>
                   
                 </CardHeader>
                

@@ -5,7 +5,7 @@ import PasswordReset from "./views/auth/PasswordReset";
 import Reset from "./views/auth/Reset";
 import Icons from "./views/examples/Icons.js";
 
-import ListCategories from "./views/articles//article";
+import ListCategories from "./views/articles/category/";
 import editCategory from "./views/articles/category/editCategory";
 import addCategory from "./views/articles/category/addCategory";
 

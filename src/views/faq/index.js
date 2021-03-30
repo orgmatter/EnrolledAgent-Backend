@@ -63,7 +63,9 @@ export default class ListFaq extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
-    axiosInstance.get('/faq/?page=' + pageNumber)
+     var query  = this.state.search === '' ? `/faq/?page=${pageNumber}` : `/faq/?search=${this.state.search}&page=${pageNumber}`
+     
+     axiosInstance.get(query)
         .then(response => {
             this.setState({
                 faqs: response.data.data,

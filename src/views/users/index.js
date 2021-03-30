@@ -90,7 +90,9 @@ export default class ListUsers extends Component {
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axiosInstance.get('/user/?page=' + pageNumber)
+       var query  = this.state.search === '' ? `/user/?page=${pageNumber}` : `/user/?search=${this.state.search}&page=${pageNumber}`
+       
+      axiosInstance.get(query)
           .then(response => {
               this.setState({
                   users: response.data.data,

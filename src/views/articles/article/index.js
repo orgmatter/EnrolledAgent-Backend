@@ -16,9 +16,7 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  // Pagination,
-  // PaginationItem,
-  // PaginationLink,
+  FormGroup,
   Table,
   Container,
   Row,
@@ -37,7 +35,8 @@ export default class ListArticles extends Component {
         activePage: 1,
         itemsCountPerPage: 1,
         totalItemsCount: 1,
-        pageRangeDisplayed: 3
+        pageRangeDisplayed: 3,
+        search: ''
     }
     this.deleteArticle = this.deleteArticle.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -65,7 +64,9 @@ export default class ListArticles extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
-    axiosInstance.get('news?page=' + pageNumber)
+     var query  = this.state.search === '' ? `/news/?page=${pageNumber}` : `/news/?search=${this.state.search}&page=${pageNumber}`
+     
+     axiosInstance.get('news?page=' + pageNumber)
         .then(response => {
             this.setState({
                 articles: response.data.data,
@@ -75,6 +76,25 @@ export default class ListArticles extends Component {
             });
       });
     }
+
+    handleSearchChange(e) {
+      var search = e.target.value;
+      this.setState({
+        search: search
+      })
+      var query  = search === '' ? `/article/` : `/article/?search=${search}`
+      
+       axiosInstance.get(query)
+         .then(response => {
+             this.setState({
+                 articles: response.data.data,
+                 itemsCountPerPage: response.data.perPage,
+                 totalItemsCount: response.data.total,
+                 activePage: response.data.page
+             });
+       });
+     }
+
   render() {
     return (
       <>
@@ -98,7 +118,11 @@ export default class ListArticles extends Component {
                   </Link>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">News &amp; Articles</h3>
+                  <h3 className="mb-0">News &amp; Articles
+                    <FormGroup style={{float: 'right'}}>
+                      <input type="text"  className="form-control" onChange={ (e) => this.handleSearchChange(e) } placeholder="Search here"/>
+                    </FormGroup>
+                  </h3>
                 </CardHeader>
                 <Table className="align-items-center table-flush" responsive>
                   <thead className="thead-light">
