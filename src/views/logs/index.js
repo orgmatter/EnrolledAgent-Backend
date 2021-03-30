@@ -45,9 +45,9 @@ export default class Log extends Component {
       .then(response => {
         this.setState({
           logs: response.data.data,
-          itemsCountPerPage: response.data.per_page,
+          itemsCountPerPage: response.data.perPage,
           totalItemsCount: response.data.total,
-          activePage: response.data.current_page
+          activePage: response.data.page
         });
     });
   }
@@ -58,9 +58,9 @@ export default class Log extends Component {
         .then(response => {
             this.setState({
                 logs: response.data.data,
-                itemsCountPerPage: response.data.per_page,
+                itemsCountPerPage: response.data.perPage,
                 totalItemsCount: response.data.total,
-                activePage: response.data.current_page
+                activePage: response.data.page
             });
       });
     }
@@ -85,7 +85,7 @@ export default class Log extends Component {
                       <th scope="col">IP</th>
                       <th scope="col">Category</th>
                       <th scope="col">Message</th>
-                      <th scope="col">Account</th>
+                      <th scope="col">Action</th>
                       <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
@@ -99,31 +99,11 @@ export default class Log extends Component {
                         <td>{log.ip}</td>
                         <td>{log.category}</td>
                         <td>{log.message}</td>
-                        <td>{log.account}</td>
+                        <td>{log.action}</td>
                         <td>{moment(log.createdAt).format('MMM-DD-YYYY')}</td>
                           
                       <td className="text-right">
-                        {/* <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#pablo"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={e => e.preventDefault()}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                           
-                            <DropdownItem
-                              href="#!"
-                              onClick={ () => this.deleteLog(log._id)}
-                            >
-                              Delete Log
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown> */}
+                        
                       </td>
                       </tr>
                        )

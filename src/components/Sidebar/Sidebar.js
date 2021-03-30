@@ -211,55 +211,55 @@ class Sidebar extends React.Component {
             </Form>
             {/* Navigation */}
             <Nav navbar>
-              <li className="nav-item">
+              <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/index')}`} to="/admin/index">
               <i className="ni ni-chart-bar-32 text-primary"></i>Dashboard</Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/articles/')}`} to="/admin/articles/">
                 <i className="ni ni-book-bookmark text-primary"></i>Articles</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/resources')}`} to="/admin/resources">
                 <i className="ni ni-books text-primary"></i>Resources</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/questions')}`} to="/admin/questions">
                 <i className="ni ni-send text-primary"></i>Questions</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/faqs')}`} to="/admin/faqs">
                 <i className="ni ni-briefcase-24 text-primary"></i>FAQs</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/sponsors')}`} to="/admin/sponsors">
                 <i className="ni ni-building text-primary"></i>Sponsors</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/agents')}`} to="/admin/agents">
                 <i className="ni ni-single-02 text-primary"></i>Agents</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/partners')}`} to="/admin/partners">
                 <i className="ni ni-single-02 text-primary"></i>Partners</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/users')}`} to="/admin/users">
                 <i className="ni ni-circle-08 text-primary"></i>Users</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/account-listing-claims')}`} to="/admin/account-listing-claims">
                 <i className="ni ni-check-bold text-primary"></i>Account Claims</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/listing-requests')}`} to="/admin/listing-requests">
                 <i className="ni ni-circle-08 text-primary"></i>Account Listing</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/licence-verification')}`} to="/admin/licence-verification">
                 <i className="ni ni-circle-08 text-primary"></i>License Verification</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/payments')}`} to="/admin/payments">
                 <i className="ni ni-circle-08 text-primary"></i>Payments</Link>
                 </li>
@@ -272,23 +272,23 @@ class Sidebar extends React.Component {
                <hr className="my-3" />
             {/* Navigation */}
             <Nav navbar>
-            <li className="nav-item">
+            <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/offshore-team-list')}`} to="/admin/offshore-team-list">
                 <i className="ni ni-check-bold text-primary"></i>Offshore Team</Link>
                 </li>
-            <li className="nav-item">
+            <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/subscribers')}`} to="/admin/subscribers">
                 <i className="ni ni-check-bold text-primary"></i>Subscribers</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/contacts')}`} to="/admin/contacts">
                 <i className="ni ni-check-bold text-primary"></i>Contact</Link>
                 </li>
-            <li className="nav-item">
+            <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/configuration')}`} to="/admin/configuration">
                 <i className="ni ni-settings text-primary"></i>Config</Link>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item side-nav">
               <Link className={`nav-link ${this.isActive('/admin/logs')}`} to="/admin/logs">
                 <i className="ni ni-spaceship text-primary"></i>Logs</Link>
                 </li>

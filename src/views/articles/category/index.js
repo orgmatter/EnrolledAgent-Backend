@@ -53,9 +53,9 @@ export default class ListCategories extends Component {
       .then(response => {
         this.setState({
           categories: response.data.data,
-          itemsCountPerPage: response.data.per_page,
+          itemsCountPerPage: response.data.perPage,
           totalItemsCount: response.data.total,
-          activePage: response.data.current_page
+          activePage: response.data.page
         });
     });
   }
@@ -66,9 +66,9 @@ export default class ListCategories extends Component {
         .then(response => {
             this.setState({
                 categories: response.data.data,
-                itemsCountPerPage: response.data.per_page,
+                itemsCountPerPage: response.data.perPage,
                 totalItemsCount: response.data.total,
-                activePage: response.data.current_page
+                activePage: response.data.page
             });
       });
     }

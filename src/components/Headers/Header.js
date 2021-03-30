@@ -28,7 +28,7 @@ const Header = () => {
                       <Row>
                         <div className="col">
                           <CardTitle
-                            tag="h5"
+                            tag="h6"
                             className="text-uppercase text-muted mb-0"
                           >
                             Total Agents
@@ -43,12 +43,12 @@ const Header = () => {
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
+                      {/* <p className="mt-3 mb-0 text-muted text-sm">
                         <span className="text-success mr-2">
                           <i className="fa fa-arrow-up" /> 3.48%
                         </span>{" "}
                         <span className="text-nowrap">Since last month</span>
-                      </p>
+                      </p> */}
                     </CardBody>
                   </Card>
                 </Col>
@@ -58,7 +58,7 @@ const Header = () => {
                       <Row>
                         <div className="col">
                           <CardTitle
-                            tag="h5"
+                            tag="h6"
                             className="text-uppercase text-muted mb-0"
                           >
                             New users
@@ -73,12 +73,12 @@ const Header = () => {
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
+                      {/* <p className="mt-3 mb-0 text-muted text-sm">
                         <span className="text-danger mr-2">
                           <i className="fas fa-arrow-down" /> 3.48%
                         </span>{" "}
                         <span className="text-nowrap">Since last week</span>
-                      </p>
+                      </p> */}
                     </CardBody>
                   </Card>
                 </Col>
@@ -88,7 +88,7 @@ const Header = () => {
                       <Row>
                         <div className="col">
                           <CardTitle
-                            tag="h5"
+                            tag="h6"
                             className="text-uppercase text-muted mb-0"
                           >
                             Sales
@@ -101,12 +101,12 @@ const Header = () => {
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
+                      {/* <p className="mt-3 mb-0 text-muted text-sm">
                         <span className="text-warning mr-2">
                           <i className="fas fa-arrow-down" /> 1.10%
                         </span>{" "}
                         <span className="text-nowrap">Since yesterday</span>
-                      </p>
+                      </p> */}
                     </CardBody>
                   </Card>
                 </Col>
@@ -116,7 +116,7 @@ const Header = () => {
                       <Row>
                         <div className="col">
                           <CardTitle
-                            tag="h5"
+                            tag="h6"
                             className="text-uppercase text-muted mb-0"
                           >
                             Subscribers
@@ -131,12 +131,12 @@ const Header = () => {
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
+                      {/* <p className="mt-3 mb-0 text-muted text-sm">
                         <span className="text-success mr-2">
                           <i className="fas fa-arrow-up" /> 12%
                         </span>{" "}
                         <span className="text-nowrap">Since last month</span>
-                      </p>
+                      </p> */}
                     </CardBody>
                   </Card>
                 </Col>

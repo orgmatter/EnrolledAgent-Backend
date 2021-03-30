@@ -64,7 +64,9 @@
 
 // React Differences
 @import "react/react-differences";
-.nav-link:hover{
+.side-nav{
+    .nav-link:hover{
     background: dimgrey !important;
   }
+}
   
