@@ -5,7 +5,7 @@ import {userLogout} from '../../redux/_actions/auth';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from "../../redux/axiosInstance";
-import Avatar from "../../assets/img/avatar.png"
+import Avatar from "../../assets/img/avatar.jpg"
 // reactstrap components 
 import {
   DropdownMenu,
