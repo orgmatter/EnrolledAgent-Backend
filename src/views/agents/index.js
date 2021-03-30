@@ -16,7 +16,8 @@ import {
     DropdownToggle,
     Table,
     Container,
-    Row
+    Row,
+    FormGroup
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -33,9 +34,10 @@ import AgentService from './AgentService';
           agentData: {},  
           response: {} ,
           activePage: 1,
+          search: '',
           itemsCountPerPage: 1,
           totalItemsCount: 1,
-          pageRangeDisplayed: 3
+          pageRangeDisplayed: 5
       }
       this.deleteAgent = this.deleteAgent.bind(this);
       this.toggleStatus = this.toggleStatus.bind(this)
@@ -86,16 +88,34 @@ import AgentService from './AgentService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axiosInstance.get('/agent/?page=' + pageNumber)
+       var query  = this.state.search === '' ? `/agent/?page=${pageNumber}` : `/agent/?search=${this.state.search}&page=${pageNumber}`
+      axiosInstance.get(query)
           .then(response => {
               this.setState({
                   agents: response.data.data,
-                  itemsCountPerPage: response.data.per_page,
+                  itemsCountPerPage: response.data.perPage,
                   totalItemsCount: response.data.total,
-                  activePage: response.data.current_page
+                  activePage: response.data.page
               });
         });
       }
+      handleSearchChange(e) {
+        var search = e.target.value;
+        this.setState({
+          search: search
+        })
+        var query  = search === '' ? `/agent/` : `/agent/?search=${search}`
+     
+         axiosInstance.get(query)
+           .then(response => {
+               this.setState({
+                   agents: response.data.data,
+                   itemsCountPerPage: response.data.perPage,
+                   totalItemsCount: response.data.total,
+                   activePage: response.data.page
+               });
+         });
+       }
 
       
     render() {
@@ -112,8 +132,11 @@ import AgentService from './AgentService';
                   <a className="mb-0" href="/admin/agent/upload">Upload New Agent</a>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">List of agents</h3>
-                  
+                  <h3 className="mb-0">List of agents  
+                  <FormGroup style={{float: 'right'}}>
+                  <input type="text"  className="form-control" onChange={ (e) => this.handleSearchChange(e) } placeholder="Search here"/>
+                    </FormGroup>
+                    </h3>
                 </CardHeader>
                
                 <Table className="align-items-center table-flush" responsive>
