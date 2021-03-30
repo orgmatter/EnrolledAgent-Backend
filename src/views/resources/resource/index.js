@@ -50,9 +50,9 @@ export default class ListResource extends Component {
       .then(response => {
         this.setState({
           resources: response.data.data,
-          itemsCountPerPage: response.data.per_page,
+          itemsCountPerPage: response.data.perPage,
           totalItemsCount: response.data.total,
-          activePage: response.data.current_page
+          activePage: response.data.page
         });
     });
   }
@@ -63,9 +63,9 @@ export default class ListResource extends Component {
         .then(response => {
             this.setState({
                 resources: response.data.data,
-                itemsCountPerPage: response.data.per_page,
+                itemsCountPerPage: response.data.perPage,
                 totalItemsCount: response.data.total,
-                activePage: response.data.current_page
+                activePage: response.data.page
             });
       });
     }

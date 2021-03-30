@@ -79,9 +79,9 @@ import AgentService from './AgentService';
         .then(response => {
           this.setState({
             agents: response.data.data,
-            itemsCountPerPage: response.data.per_page,
+            itemsCountPerPage: response.data.perPage,
             totalItemsCount: response.data.total,
-            activePage: response.data.current_page
+            activePage: response.data.page
           });
       });
     }
@@ -89,7 +89,8 @@ import AgentService from './AgentService';
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
        var query  = this.state.search === '' ? `/agent/?page=${pageNumber}` : `/agent/?search=${this.state.search}&page=${pageNumber}`
-      axiosInstance.get(query)
+        
+       axiosInstance.get(query)
           .then(response => {
               this.setState({
                   agents: response.data.data,

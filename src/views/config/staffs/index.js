@@ -48,9 +48,9 @@ import StaffService from './StaffService';
         .then(response => {
           this.setState({
             staffs: response.data.data,
-            itemsCountPerPage: response.data.per_page,
+            itemsCountPerPage: response.data.perPage,
             totalItemsCount: response.data.total,
-            activePage: response.data.current_page
+            activePage: response.data.page
           });
       });
     }
@@ -61,9 +61,9 @@ import StaffService from './StaffService';
           .then(response => {
               this.setState({
                   staffs: response.data.data,
-                  itemsCountPerPage: response.data.per_page,
+                  itemsCountPerPage: response.data.perPage,
                   totalItemsCount: response.data.total,
-                  activePage: response.data.current_page
+                  activePage: response.data.page
               });
         });
       }

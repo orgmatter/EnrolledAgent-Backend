@@ -90,9 +90,9 @@ import ListingService from './ListingService';
         .then(response => {
           this.setState({
             requests: response.data.data,
-            itemsCountPerPage: response.data.per_page,
+            itemsCountPerPage: response.data.perPage,
             totalItemsCount: response.data.total,
-            activePage: response.data.current_page
+            activePage: response.data.page
           });
       });
     }
@@ -113,9 +113,9 @@ import ListingService from './ListingService';
           .then(response => {
               this.setState({
                   requests: response.data.data,
-                  itemsCountPerPage: response.data.per_page,
+                  itemsCountPerPage: response.data.perPage,
                   totalItemsCount: response.data.total,
-                  activePage: response.data.current_page
+                  activePage: response.data.page
               });
         });
       }
