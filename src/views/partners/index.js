@@ -86,10 +86,10 @@ export default class Partner extends Component {
                   <thead className="thead-light">
                     <tr>
                 
-                      <th scope="col">IP</th>
-                      <th scope="col">Category</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Firm</th>
                       <th scope="col">Message</th>
-                      <th scope="col">Account</th>
+                      <th scope="col">Phone number</th>
                       <th scope="col">Date Created</th>
                       <th scope="col" />
                     </tr>
@@ -100,10 +100,10 @@ export default class Partner extends Component {
                       this.state.partners.map(part => {
                         return(
                         <tr key={part._id}>
-                        <td>{part.ip}</td>
-                        <td>{part.category}</td>
+                        <td>{part.email}</td>
+                        <td>{part.firm}</td>
                         <td>{part.message}</td>
-                        <td>{part.account}</td>
+                        <td>{part.phone}</td>
                         <td>{moment(part.createdAt).format('MMM-DD-YYYY')}</td>
                           
                       <td className="text-right">

@@ -17,6 +17,7 @@ import {
     DropdownToggle,
     Table,
     Container,
+    FormGroup,
     Row
   } from "reactstrap";
   // core components
@@ -35,7 +36,8 @@ import ClaimService from './ClaimService';
           activePage: 1,
           itemsCountPerPage: 1,
           totalItemsCount: 1,
-          pageRangeDisplayed: 3
+          pageRangeDisplayed: 3,
+          search:''
       }
       this.rejectClaim = this.rejectClaim.bind(this);
       this.approveClaim = this.approveClaim.bind(this);
@@ -87,7 +89,9 @@ import ClaimService from './ClaimService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-       axiosInstance.get('/claim/?page=' + pageNumber)
+       var query  = this.state.search === '' ? `/claim/?page=${pageNumber}` : `/claim/?search=${this.state.search}&page=${pageNumber}`
+   
+       axiosInstance.get(query)
           .then(response => {
               this.setState({
                   listings: response.data.data,
@@ -97,6 +101,25 @@ import ClaimService from './ClaimService';
               });
         });
       }
+
+      handleSearchChange(e) {
+        var search = e.target.value;
+        this.setState({
+          search: search
+        })
+        var query  = search === '' ? `/claim` : `/claim/?search=${search}`
+        
+         axiosInstance.get(query)
+           .then(response => {
+               this.setState({
+                   listings: response.data.data,
+                   itemsCountPerPage: response.data.perPage,
+                   totalItemsCount: response.data.total,
+                   activePage: response.data.page
+               });
+         });
+       }
+
     render() {
     return (
         <>
@@ -108,7 +131,11 @@ import ClaimService from './ClaimService';
             <div className="col">
               <Card className="shadow">
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">List of Account Claims</h3>
+                  <h3 className="mb-0">List of Account Claims
+                  <FormGroup style={{float: 'right'}}>
+                      <input type="text"  className="form-control" onChange={ (e) => this.handleSearchChange(e) } placeholder="Search here"/>
+                  </FormGroup>
+                  </h3>
                   
                 </CardHeader>
                
