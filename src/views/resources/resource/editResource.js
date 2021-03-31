@@ -100,6 +100,12 @@ import { updateResource } from '../../../redux/_actions/resources';
                   </FormGroup>
                   <FormGroup>
                     <Col sm={12}>
+                      <Label for="Image">Image Url</Label>
+                      <Input type="text" name="imageUrl" required  id="imageUrl" defaultValue={resource?.imageUrl} />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup>
+                    <Col sm={12}>
                       <Label for="Title">Action Link</Label>
                       <Input type="link" name="actionLink" required  id="actionLink" defaultValue={resource?.actionLink} />
                     </Col>
