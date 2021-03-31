@@ -1,7 +1,7 @@
 
 /*eslint-disable*/
 import React from "react";
-import { NavLink as NavLinkRRD, Link, useLocation} from "react-router-dom";
+import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
 
@@ -29,7 +29,7 @@ import {
   Col
 } from "reactstrap";
 import smallLogo from '../../assets/img/SmallLogo.png'
-import Avatar from "../../assets/img/avatar.png"
+import Avatar from "../../assets/img/avatar.jpg"
 
 class Sidebar extends React.Component {
   state = {
@@ -83,7 +83,8 @@ class Sidebar extends React.Component {
   }
   render() {
     const { bgColor, routes, logo } = this.props;
-    this.isActive("/admin/faqs")
+    
+    console.log(logo)
     let navbarBrandProps;
     if (logo && logo.innerLink) {
       navbarBrandProps = {
@@ -172,11 +173,11 @@ class Sidebar extends React.Component {
                   <Col className="collapse-brand" xs="6">
                     {logo.innerLink ? (
                       <Link to={logo.innerLink}>
-                        <img alt={logo.imgAlt} src={logo.imgSrc} />
+                        <img alt={logo.imgAlt} src={smallLogo} />
                       </Link>
                     ) : (
                       <a href={logo.outterLink}>
-                        <img alt={logo.imgAlt} src={logo.imgSrc} />
+                        <img alt={logo.imgAlt} src={smallLogo} />
                       </a>
                     )}
                   </Col>
@@ -194,21 +195,7 @@ class Sidebar extends React.Component {
               </Row>
             </div>
             {/* Form */}
-            <Form className="mt-4 mb-3 d-md-none">
-              <InputGroup className="input-group-rounded input-group-merge">
-                <Input
-                  aria-label="Search"
-                  className="form-control-rounded form-control-prepended"
-                  placeholder="Search"
-                  type="search"
-                />
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>
-                    <span className="fa fa-search" />
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-            </Form>
+            
             {/* Navigation */}
             <Nav navbar>
               <li className="nav-item side-nav">
