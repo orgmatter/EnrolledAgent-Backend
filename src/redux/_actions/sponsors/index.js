@@ -17,7 +17,7 @@ export const getAllSponsors = () => async dispatch =>{
 }
 
 export const sponsorAdd = (sponsor) => async dispatch => {
-    const res = await axiosInstance.post('/sponsor');
+    const res = await axiosInstance.post('/sponsor', sponsor);
     dispatch ({
         type: 'ADD_sponsor',
         payload: res.data
