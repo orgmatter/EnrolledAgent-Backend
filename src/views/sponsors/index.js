@@ -128,7 +128,7 @@ import SponsorService from './SponsorService';
                       <th scope="col">ID</th>
                       <th scope="col">Name</th>
                       <th scope="col">Link</th>
-                      <th scope="col">Avatr</th>
+                      <th scope="col">Avatar</th>
                       <th scope="col"> Date Updated </th>
                       <th scope="col" />
                     </tr>
@@ -141,7 +141,7 @@ import SponsorService from './SponsorService';
                           <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
-                          <td><img style={{ width: "100%",borderRadius: "50%" }} src={sponsor.avatar || Avatar } alt="avatar"></img>{sponsor.avatar}</td>
+                          <td><img style={{ width: "100%",borderRadius: "50%" }} src={sponsor.avatar || Avatar } alt="avatar"></img></td>
                           <td> {moment(sponsor.createdAt).format('MMM-DD-YYYY')} </td>
                           <td className="text-right">
                             <UncontrolledDropdown>

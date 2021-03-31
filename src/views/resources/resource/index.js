@@ -23,6 +23,8 @@ import {
   // core components
 import Header from "components/Headers/Header.js";
 
+import Avatar from "../../../assets/img/avatar.jpg"
+
 export default class ListResource extends Component {
 
   constructor(props) {
@@ -131,6 +133,7 @@ export default class ListResource extends Component {
                       <th scope="col">Sponsor</th>
                       <th scope="col">Category</th>
                       <th scope="col">Title</th>
+                      <th scope="col">Image</th>
                       <th scope="col">Action Link</th>
                       <th scope="col">Action Text</th>
                       <th scope="col" />
@@ -145,6 +148,7 @@ export default class ListResource extends Component {
                           <td>{resource.sponsor.name}</td>
                           <td>{resource.category.name}</td>
                           <td>{resource.title}</td>
+                          <td><img style={{ width: "100%" }} src={resource.imageUrl || Avatar } alt="avatar"></img></td>
                           <td>{resource.actionLink}</td>
                           <td>{resource.actionText}</td>
                           <td className="text-right">
