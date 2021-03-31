@@ -6,6 +6,8 @@ import { NotificationManager } from 'react-notifications';
 import axiosInstance from '../../redux/axiosInstance';
 import Pagination from "react-js-pagination";
 
+import Avatar from "../../assets/img/avatar.jpg"
+
 // reactstrap components
 import {
     Card,
@@ -18,6 +20,7 @@ import {
     Button,
     Table, 
     Container,
+    FormGroup,
     Row
   } from "reactstrap";
   // core components
@@ -33,7 +36,8 @@ import SponsorService from './SponsorService';
           activePage: 1,
           itemsCountPerPage: 1,
           totalItemsCount: 1,
-          pageRangeDisplayed: 3
+          pageRangeDisplayed: 3,
+          search: ''
       }
       this.deleteSponsor = this.deleteSponsor.bind(this);
       this.handlePageChange = this.handlePageChange.bind(this);
@@ -61,7 +65,9 @@ import SponsorService from './SponsorService';
   
     handlePageChange(pageNumber) {
        this.setState({activePage: pageNumber});
-      axiosInstance.get('/sponsor/?page=' + pageNumber)
+       var query  = this.state.search === '' ? `/sponsor/?page=${pageNumber}` : `/sponsor/?search=${this.state.search}&page=${pageNumber}`
+     
+       axiosInstance.get(query)
           .then(response => {
               this.setState({
                   sponsors: response.data.data,
@@ -71,6 +77,25 @@ import SponsorService from './SponsorService';
               });
         });
       }
+
+      handleSearchChange(e) {
+        var search = e.target.value;
+        this.setState({
+          search: search
+        })
+        var query  = search === '' ? `/sponsor` : `/sponsor/?search=${search}`
+        
+         axiosInstance.get(query)
+           .then(response => {
+               this.setState({
+                   sponsors: response.data.data,
+                   itemsCountPerPage: response.data.perPage,
+                   totalItemsCount: response.data.total,
+                   activePage: response.data.page
+               });
+         });
+       }
+
     render() {
     return (
         <>
@@ -89,7 +114,11 @@ import SponsorService from './SponsorService';
                   </Link>
                 </CardHeader>
                 <CardHeader className="border-0">
-                  <h3 className="mb-0">News &amp; Sponsors</h3>
+                  <h3 className="mb-0">News &amp; Sponsors
+                  <FormGroup style={{float: 'right'}}>
+                      <input type="text"  className="form-control" onChange={ (e) => this.handleSearchChange(e) } placeholder="Search here"/>
+                  </FormGroup>
+                  </h3>
                 
                 </CardHeader>
                
@@ -112,7 +141,7 @@ import SponsorService from './SponsorService';
                           <td>{sponsor._id}</td>
                           <td>{sponsor.name}</td>
                           <td>{sponsor.link}</td>
-                          <td><img src={sponsor.avatar} alt="avatar"></img>{sponsor.avatar}</td>
+                          <td><img style={{ width: "100%",borderRadius: "50%" }} src={sponsor.avatar || Avatar } alt="avatar"></img>{sponsor.avatar}</td>
                           <td> {moment(sponsor.createdAt).format('MMM-DD-YYYY')} </td>
                           <td className="text-right">
                             <UncontrolledDropdown>
