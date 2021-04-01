@@ -49,7 +49,9 @@ import ClaimService from './ClaimService';
         this.setState({listings: this.state.listings.filter(list => list._id !== id)});
         NotificationManager.success('Claim rejected successfully !','Success!', 2000);
         window.setTimeout(function(){window.location.reload()}, 700);
-      });
+      }).catch(error => {
+        NotificationManager.error(error?.response?.data?.error.message ?? "An Error occured.",'Error!', 2000);
+      })
     }
 
     approveClaim(id){
@@ -57,6 +59,8 @@ import ClaimService from './ClaimService';
         this.setState({listings: this.state.listings.filter(list => list._id !== id)});
         NotificationManager.success('Claim approved successfully !','Success!', 2000);
         window.setTimeout(function(){window.location.reload()}, 700);
+      }).catch(error => {
+        NotificationManager.error(error?.response?.data?.error.message ?? "An Error occured.",'Error!', 2000);
       })
     }
 
