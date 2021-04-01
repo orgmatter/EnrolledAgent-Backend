@@ -5,6 +5,7 @@ import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
 
+import axios from "../../redux/axiosInstance";
 // reactstrap components
 
 import {
@@ -13,11 +14,6 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Media,
   NavbarBrand,
   Navbar,
@@ -33,7 +29,8 @@ import Avatar from "../../assets/img/avatar.jpg"
 
 class Sidebar extends React.Component {
   state = {
-    collapseOpen: false
+    collapseOpen: false,
+    profile: {}
   };
   constructor(props) {
     super(props);
@@ -77,6 +74,15 @@ class Sidebar extends React.Component {
       );
     });
   };
+  componentDidMount(){
+    axios.get("/user/profile")
+      .then(res => {
+        const profile = res.data.data;
+        this.setState({profile:profile});
+        console.log(2,this.state.profile)
+      })
+  }
+
   isActive = (pathname) => {
     const location = window.location.pathname === pathname 
     return location ? 'active' :''
@@ -138,7 +144,7 @@ class Sidebar extends React.Component {
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
-                  <h6 className="text-overflow m-0">Welcome!</h6>
+                  <h6 className="text-overflow m-0">Welcome!  {this.state.profile.firstName} {this.state.profile.lastName}</h6>
                 </DropdownItem>
                 <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-single-02" />

@@ -6,14 +6,18 @@ import { API_URL } from "../../config";
 
 const Header = () => {
   const [analytic, setAnalytic] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => { 
+    setLoading(true)
     axios.get(`${API_URL}/analytic`)
     .then(res => res.data)
       .then(res => {
+        setLoading(false)
         const analytic = res.data;
         setAnalytic(analytic);
         console.log(res.data)
-      })
+      }).
+      catch(e => setLoading(false))
   }, []);
     return (
       <>
@@ -33,9 +37,15 @@ const Header = () => {
                           >
                             Total Agents
                           </CardTitle>
+                          {!loading ? (
                           <span className="h2 font-weight-bold mb-0">
                            {analytic.totalAgents}
                           </span>
+                          ) : (
+                          <span className="blinking">
+                          
+                          </span>
+                          )}
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -43,12 +53,7 @@ const Header = () => {
                           </div>
                         </Col>
                       </Row>
-                      {/* <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
-                          <i className="fa fa-arrow-up" /> 3.48%
-                        </span>{" "}
-                        <span className="text-nowrap">Since last month</span>
-                      </p> */}
+                      
                     </CardBody>
                   </Card>
                 </Col>
@@ -63,9 +68,15 @@ const Header = () => {
                           >
                             New users
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">
-                          {analytic.newUsers5Days}
+                          {!loading ? (
+                           <span className="h2 font-weight-bold mb-0">
+                           {analytic.newUsers5Days}
+                           </span>
+                          ) : (
+                          <span className="blinking">
+                          
                           </span>
+                          )}
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -73,12 +84,7 @@ const Header = () => {
                           </div>
                         </Col>
                       </Row>
-                      {/* <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-danger mr-2">
-                          <i className="fas fa-arrow-down" /> 3.48%
-                        </span>{" "}
-                        <span className="text-nowrap">Since last week</span>
-                      </p> */}
+                      
                     </CardBody>
                   </Card>
                 </Col>
@@ -93,7 +99,15 @@ const Header = () => {
                           >
                             Sales
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0"> {analytic.totalPayments}</span>
+                          {!loading ? (
+                          <span className="h2 font-weight-bold mb-0">
+                             {analytic.totalPayments}
+                          </span>
+                          ) : (
+                          <span className="blinking">
+                          
+                          </span>
+                          )}
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -101,12 +115,7 @@ const Header = () => {
                           </div>
                         </Col>
                       </Row>
-                      {/* <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-warning mr-2">
-                          <i className="fas fa-arrow-down" /> 1.10%
-                        </span>{" "}
-                        <span className="text-nowrap">Since yesterday</span>
-                      </p> */}
+                      
                     </CardBody>
                   </Card>
                 </Col>
@@ -121,9 +130,16 @@ const Header = () => {
                           >
                             Subscribers
                           </CardTitle>
+                          
+                          {!loading ? (
                           <span className="h2 font-weight-bold mb-0">
                           {analytic.mailingList}
                           </span>
+                          ) : (
+                          <span className="blinking">
+                          
+                          </span>
+                          )}
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -131,12 +147,7 @@ const Header = () => {
                           </div>
                         </Col>
                       </Row>
-                      {/* <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
-                          <i className="fas fa-arrow-up" /> 12%
-                        </span>{" "}
-                        <span className="text-nowrap">Since last month</span>
-                      </p> */}
+                     
                     </CardBody>
                   </Card>
                 </Col>

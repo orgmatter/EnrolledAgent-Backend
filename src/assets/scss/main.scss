@@ -68,5 +68,24 @@
     .nav-link:hover{
     background: dimgrey !important;
   }
+  .nav-link.active {
+    background: dimgrey !important;
+  }
+}
+.blinking{
+  width: 70px;
+  height: 30px;
+  display: block;
+  background: gray;
+  margin-top: 2px;
+  animation:loading 4s infinite;
+}
+
+@keyframes loading{
+	0%{		background: lightgray;	}
+	49%{	background: transparent;	}
+	50%{	background: gray;	}
+	99%{	background:transparent;	}
+	100%{	background:  lightgray;	}
 }
   
