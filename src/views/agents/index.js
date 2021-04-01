@@ -22,6 +22,7 @@ import {
   // core components
   import Header from "components/Headers/Header.js";
 import AgentService from './AgentService';
+import LoadingShow from '../../components/LoadingShow'
 
   export default class ListAgent extends Component {
 
@@ -35,6 +36,7 @@ import AgentService from './AgentService';
           response: {} ,
           activePage: 1,
           search: '',
+          loading:false,
           itemsCountPerPage: 1,
           totalItemsCount: 1,
           pageRangeDisplayed: 5
@@ -75,19 +77,22 @@ import AgentService from './AgentService';
     }
      
     componentDidMount() {
+      this.setState({loading: true })
       axiosInstance.get('/agent')
         .then(response => {
           this.setState({
             agents: response.data.data,
             itemsCountPerPage: response.data.perPage,
             totalItemsCount: response.data.total,
-            activePage: response.data.page
-          });
-      });
+            activePage: response.data.page,
+            loading: false
+          })
+      }).
+      catch(e => this.setState({loading: false }));
     }
   
     handlePageChange(pageNumber) {
-       this.setState({activePage: pageNumber});
+       this.setState({activePage: pageNumber, loading: true});
        var query  = this.state.search === '' ? `/agent/?page=${pageNumber}` : `/agent/?search=${this.state.search}&page=${pageNumber}`
         
        axiosInstance.get(query)
@@ -96,14 +101,17 @@ import AgentService from './AgentService';
                   agents: response.data.data,
                   itemsCountPerPage: response.data.perPage,
                   totalItemsCount: response.data.total,
-                  activePage: response.data.page
+                  activePage: response.data.page,
+                  loading: false
               });
-        });
+        }).
+        catch(e => this.setState({loading: false }));
       }
       handleSearchChange(e) {
         var search = e.target.value;
         this.setState({
-          search: search
+          search: search,
+          loading: true
         })
         var query  = search === '' ? `/agent/` : `/agent/?search=${search}`
      
@@ -113,9 +121,11 @@ import AgentService from './AgentService';
                    agents: response.data.data,
                    itemsCountPerPage: response.data.perPage,
                    totalItemsCount: response.data.total,
-                   activePage: response.data.page
+                   activePage: response.data.page,
+                   loading: false
                });
-         });
+         }).
+         catch(e => this.setState({loading: false }));
        }
 
       
@@ -155,7 +165,7 @@ import AgentService from './AgentService';
                   </thead>
                   <tbody>
                   {
-                      this.state.agents.map(agent => {
+                     !this.state.loading ? (this.state.agents.length === 0 ? <tr dangerouslySetInnerHTML={{__html: LoadingShow('No result found ','7')}} /> : this.state.agents.map(agent => {
                         return(
                         <tr key={agent._id}>
                           <td>{agent._id}</td>
@@ -227,7 +237,10 @@ import AgentService from './AgentService';
                       </td>
                       </tr>
                         )
-                      })
+                      })) : (
+                        
+                        <tr dangerouslySetInnerHTML={{__html: LoadingShow('Loading...','7')}} />
+                      )
                     }
                     
                   </tbody>

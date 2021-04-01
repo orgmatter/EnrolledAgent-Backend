@@ -61,7 +61,7 @@ const Index = (props) => {
       .then(res => {
         const pages = res.data.data;
         setPages(pages);
-        console.log(res.data.data)
+        console.log(3,res.data.data)
       })
   }, []);
 
@@ -195,7 +195,7 @@ const Index = (props) => {
                 </Table>
               </Card>
             </Col>
-            <Col xl="4">
+            {/* <Col xl="4">
               <Card className="shadow">
                 <CardHeader className="border-0">
                   <Row className="align-items-center">
@@ -243,7 +243,7 @@ const Index = (props) => {
                   </tbody>
                 </Table>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </>

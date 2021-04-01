@@ -21,8 +21,11 @@ import {
     Row
   } from "reactstrap";
   // core components
-  import Header from "components/Headers/Header.js";
+
+import Header from "components/Headers/Header.js";
 import UserService from './UserService';
+
+import LoadingShow from '../../components/LoadingShow'
 
 export default class ListUsers extends Component {
 
@@ -38,7 +41,8 @@ export default class ListUsers extends Component {
           itemsCountPerPage: 1,
           totalItemsCount: 1,
           pageRangeDisplayed: 3,
-          search: ''
+          search: '',
+          loading:false
       }
       this.deactivateUser = this.deactivateUser.bind(this);
       this.activateUser = this.activateUser.bind(this);
@@ -77,19 +81,25 @@ export default class ListUsers extends Component {
     
      
     componentDidMount() {
+      this.setState({loading: true })
       axiosInstance.get('/user')
         .then(response => {
           this.setState({
             users: response.data.data,
             itemsCountPerPage: response.data.perPage,
             totalItemsCount: response.data.total,
-            activePage: response.data.page
+            activePage: response.data.page,
+            loading: false
           });
-      });
+      }).
+      catch(e => this.setState({loading: false }));
     }
   
     handlePageChange(pageNumber) {
-       this.setState({activePage: pageNumber});
+       this.setState({
+          activePage: pageNumber,
+          loading: true
+        });
        var query  = this.state.search === '' ? `/user/?page=${pageNumber}` : `/user/?search=${this.state.search}&page=${pageNumber}`
        
       axiosInstance.get(query)
@@ -98,15 +108,18 @@ export default class ListUsers extends Component {
                   users: response.data.data,
                   itemsCountPerPage: response.data.perPage,
                   totalItemsCount: response.data.total,
-                  activePage: response.data.page
+                  activePage: response.data.page,
+                  loading: false
               });
-        });
+        }).
+        catch(e => this.setState({loading: false }));
       }
 
       handleSearchChange(e) {
         var search = e.target.value;
         this.setState({
-          search: search
+          search: search,
+          loading: true
         })
         var query  = search === '' ? `/user/` : `/user/?search=${search}`
         
@@ -116,9 +129,11 @@ export default class ListUsers extends Component {
                    users: response.data.data,
                    itemsCountPerPage: response.data.perPage,
                    totalItemsCount: response.data.total,
-                   activePage: response.data.page
+                   activePage: response.data.page,
+                   loading: false
                });
-         });
+         }).
+         catch(e => this.setState({loading: false }));
        }
 
     render() {
@@ -158,7 +173,7 @@ export default class ListUsers extends Component {
                   </thead>
                   <tbody>
                   {
-                      this.state.users.map(user => {
+                    !this.state.loading ? (this.state.users.length === 0 ? <tr dangerouslySetInnerHTML={{__html: LoadingShow('No result found ','7')}} /> : this.state.users.map(user => {
                         return(
                         <tr key={user._id}>
                           <td> {user._id.length < 5
@@ -223,8 +238,11 @@ export default class ListUsers extends Component {
                         </UncontrolledDropdown>
                       </td>
                       </tr>
+                         )
+                        })) : (
+                          
+                          <tr dangerouslySetInnerHTML={{__html: LoadingShow('Loading...','7')}} />
                         )
-                      })
                     }
                     
                   </tbody>
