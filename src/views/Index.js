@@ -83,7 +83,7 @@ const Index = (props) => {
                     
                   </Row>
                 </CardHeader>
-                <CardBody>
+                <CardBody style={{overflow:"scroll"}} >
                 <iframe width="633" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSgSdTbqQr517xna5eKJw547c_DPpL31O396UAvsRrQjbkhcduSlzIpPIor8O7UBgOc4bMd0byG3xtn/pubchart?oid=1226508999&amp;format=interactive"></iframe>
                 </CardBody>
               </Card>
