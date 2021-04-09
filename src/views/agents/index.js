@@ -87,8 +87,8 @@ import LoadingShow from '../../components/LoadingShow'
             activePage: response.data.page,
             loading: false
           })
-      }).
-      catch(e => this.setState({loading: false }));
+      })
+      .catch(e => this.setState({loading: false }));
     }
   
     handlePageChange(pageNumber) {
@@ -104,8 +104,8 @@ import LoadingShow from '../../components/LoadingShow'
                   activePage: response.data.page,
                   loading: false
               });
-        }).
-        catch(e => this.setState({loading: false }));
+        })
+        .catch(e => this.setState({loading: false }));
       }
       handleSearchChange(e) {
         var search = e.target.value;
@@ -124,8 +124,8 @@ import LoadingShow from '../../components/LoadingShow'
                    activePage: response.data.page,
                    loading: false
                });
-         }).
-         catch(e => this.setState({loading: false }));
+         })
+         .catch(e => this.setState({loading: false }));
        }
 
       

@@ -61,7 +61,9 @@ export default class ListResourceCategories extends Component {
 
   handlePageChange(pageNumber) {
      this.setState({activePage: pageNumber});
-    axiosInstance.get('/category/resource?page=' + pageNumber)
+     var query  = this.state.search === '' ? `/category/resource?page=${pageNumber}` : `/category/resource?search=${this.state.search}&page=${pageNumber}`
+      
+    axiosInstance.get(query)
         .then(response => {
             this.setState({
                 rescategories: response.data.data,

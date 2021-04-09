@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use((response) => {
 function (error) {
   const originalRequest = error.config;
   
-  if (error.response.status === 401 && !originalRequest._retry) {
+  if (error.status === undefined || (error.response.status === 401 && !originalRequest._retry)) {
   
     if(error_message_defined) return axios(originalRequest);
     NotificationManager.error(`${error?.response?.data?.error?.message ??  'An error occured, please try again later.'}`,'Error!', 2000);

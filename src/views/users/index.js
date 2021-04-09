@@ -91,8 +91,8 @@ export default class ListUsers extends Component {
             activePage: response.data.page,
             loading: false
           });
-      }).
-      catch(e => this.setState({loading: false }));
+      })
+      .catch(e => this.setState({loading: false }));
     }
   
     handlePageChange(pageNumber) {
@@ -111,8 +111,8 @@ export default class ListUsers extends Component {
                   activePage: response.data.page,
                   loading: false
               });
-        }).
-        catch(e => this.setState({loading: false }));
+        })
+        .catch(e => this.setState({loading: false }));
       }
 
       handleSearchChange(e) {
@@ -132,8 +132,8 @@ export default class ListUsers extends Component {
                    activePage: response.data.page,
                    loading: false
                });
-         }).
-         catch(e => this.setState({loading: false }));
+         })
+         .catch(e => this.setState({loading: false }));
        }
 
     render() {

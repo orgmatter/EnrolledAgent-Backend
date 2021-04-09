@@ -15,7 +15,6 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Progress,
   Table,
   Container,
   Row,
@@ -71,60 +70,25 @@ const Index = (props) => {
         {/* Page content */}
         <Container className="mt--7" fluid>
           <Row>
-            <Col className="mb-5 mb-xl-0" xl="8">
+            <Col className="mb-5 mb-xl-0" xl="9">
               <Card className="bg-gradient-default shadow">
                 <CardHeader className="bg-transparent">
                   <Row className="align-items-center">
                     <div className="col">
                       <h6 className="text-uppercase text-light ls-1 mb-1">
-                        Overview
+                      Stats(Last 7 days)
                       </h6>
-                      <h2 className="text-white mb-0">Sales value</h2>
+                      <h2 className="text-white mb-0">Users vs New Users</h2>
                     </div>
-                    <div className="col">
-                      <Nav className="justify-content-end" pills>
-                        <NavItem>
-                          <NavLink
-                            className={classnames("py-2 px-3", {
-                              active: activeNav === 1
-                            })}
-                            href="#pablo"
-                            onClick={e => toggleNavs(e, 1)}
-                          >
-                            <span className="d-none d-md-block">Month</span>
-                            <span className="d-md-none">M</span>
-                          </NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink
-                            className={classnames("py-2 px-3", {
-                              active: activeNav === 2
-                            })}
-                            data-toggle="tab"
-                            href="#pablo"
-                            onClick={e => toggleNavs(e, 2)}
-                          >
-                            <span className="d-none d-md-block">Week</span>
-                            <span className="d-md-none">W</span>
-                          </NavLink>
-                        </NavItem>
-                      </Nav>
-                    </div>
+                    
                   </Row>
                 </CardHeader>
                 <CardBody>
-                  {/* Chart */}
-                  <div className="chart">
-                    <Line
-                      data={chartExample1[chartExample1Data]}
-                      options={chartExample1.options}
-                      getDatasetAtEvent={e => console.log(e)}
-                    />
-                  </div>
+                <iframe width="633" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSgSdTbqQr517xna5eKJw547c_DPpL31O396UAvsRrQjbkhcduSlzIpPIor8O7UBgOc4bMd0byG3xtn/pubchart?oid=1226508999&amp;format=interactive"></iframe>
                 </CardBody>
               </Card>
             </Col>
-            <Col xl="4">
+            {/* <Col xl="4">
               <Card className="shadow">
                 <CardHeader className="bg-transparent">
                   <Row className="align-items-center">
@@ -137,16 +101,16 @@ const Index = (props) => {
                   </Row>
                 </CardHeader>
                 <CardBody>
-                  {/* Chart */}
-                  <div className="chart">
+                  
+                   <div className="chart">
                     <Bar
                       data={chartExample2.data}
                       options={chartExample2.options}
                     />
-                  </div>
+                  </div> 
                 </CardBody>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
           <Row className="mt-5">
             <Col className="mb-5 mb-xl-0" xl="8">
