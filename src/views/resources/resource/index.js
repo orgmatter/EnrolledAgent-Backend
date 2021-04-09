@@ -65,7 +65,7 @@ export default class ListResource extends Component {
      this.setState({activePage: pageNumber});
      var query  = this.state.search === '' ? `/resource/?page=${pageNumber}` : `/resource/?search=${this.state.search}&page=${pageNumber}`
      
-    axiosInstance.get('resource?page=' + pageNumber)
+    axiosInstance.get(query)
         .then(response => {
             this.setState({
                 resources: response.data.data,

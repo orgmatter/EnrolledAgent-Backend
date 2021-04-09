@@ -16,8 +16,8 @@ const Header = () => {
         const analytic = res.data;
         setAnalytic(analytic);
         console.log(res.data)
-      }).
-      catch(e => setLoading(false))
+      })
+      .catch(e => setLoading(false))
   }, []);
     return (
       <>
